@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Libro from "../assets/icons/libro.svg";
 import Oishi from "../assets/icons/oishiblack.svg";
 import Insta from "../assets/icons/insta.svg";
@@ -7,7 +8,7 @@ import Whatsapp from "../assets/icons/whatsapp.svg";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-blueGray-200 p-3 font-monse rounded-t-lg">
+    <div className="w-full bg-blueGray-200 p-3 font-monse rounded-t-lg sm:px-10">
       <div className="flex justify-between">
         <Oishi className="h-20 self-center sm:block hidden" />
         <div>
@@ -15,15 +16,38 @@ const Footer = () => {
             Mas sobre oishi
           </h1>
           <ul className="text-sm">
-            <li>Cobertura</li>
-            <li>Nuestros locales</li>
-            <li>Politicas de privacidad</li>
-            <li>Terminos y condiciones de servicio</li>
+            <li>
+              <Link href="/cobertura">
+                <a>Cobertura</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/nuestros-locales">
+                <a>Nuestros locales</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/politicas-privacidad">
+                <a>Politicas de privacidad</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/terminos-condiciones">
+                <a>Terminos y condiciones de servicio</a>
+              </Link>
+            </li>
           </ul>
         </div>
-        <div className="flex-col sm:flex mt-3">
-          <Libro className="h-16 self-center" />
-          <h3 className="text-sm">Libro de reclamaciones</h3>
+        <div className="flex-col sm:flex mt-6">
+          <Link href="/libro-reclamaciones">
+            <a>
+              <Libro className="h-16 self-center" />
+              <h3 className="text-sm">
+                Libro de <br />
+                reclamaciones
+              </h3>
+            </a>
+          </Link>
         </div>
       </div>
       <div className="flex justify-evenly sm:justify-start mt-2">
