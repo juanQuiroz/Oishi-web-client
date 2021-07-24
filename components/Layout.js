@@ -18,6 +18,11 @@ const Layout = ({ children }) => {
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;700;900&display=swap"
           rel="stylesheet"
         />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=McLaren&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
       <div className="bg-trueGray-50">

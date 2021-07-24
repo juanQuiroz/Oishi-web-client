@@ -55,7 +55,7 @@ const Header = () => {
         </ul>
       </div>
 
-      <div className="sm:flex flex-col-reverse sm:flex-row justify-between mt-5 sm:mx-12 font-monse hidden">
+      <div className="sm:flex flex-col-reverse sm:flex-row justify-between mt-5 sm:mx-12 font-McLaren hidden">
         <ul className="flex justify-around sm:justify-center flex-wrap py-1 px-2 rounded-full text-lg sm:text-xl ">
           <li className="mx-2 sm:mx-6">
             <Link href="/">
@@ -101,7 +101,7 @@ const Header = () => {
       </div>
 
       <div className={`flex ${isOpen ? "block" : "hidden"} `}>
-        <ul className="font-monse text-lg">
+        <ul className="font-McLaren text-lg">
           <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/">
               <a>Inicio</a>

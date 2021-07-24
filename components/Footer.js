@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="flex justify-between">
         <Oishi className="h-20 self-center sm:block hidden" />
         <div>
-          <h1 className="text-lg font-bold text-warmGray-800 mb-3">
+          <h1 className="text-lg font-McLaren font-bold text-warmGray-800 mb-3">
             Mas sobre oishi
           </h1>
           <ul className="text-sm">
@@ -42,7 +42,7 @@ const Footer = () => {
           <Link href="/libro-reclamaciones">
             <a>
               <Libro className="h-16 self-center" />
-              <h3 className="text-sm">
+              <h3 className="text-xs font">
                 Libro de <br />
                 reclamaciones
               </h3>

@@ -42,6 +42,7 @@ module.exports = {
       display: ["Oswald"],
       body: ['"Open Sans"'],
       monse: ['"Montserrat"'],
+      McLaren: ['"McLaren"'],
     },
   },
   variants: {
