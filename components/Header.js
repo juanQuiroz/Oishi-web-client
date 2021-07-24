@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Logo from "../assets/oishi/oishisushibar.svg";
 import User from "../assets/icons/user.svg";
 import Carrito from "../assets/icons/carrito.svg";
 
 const Header = () => {
-  const [isOpen, setisOpen] = useState(false);
-  const [isMobile, setIsmobile] = useState(true);
+  const [isOpen, setisOpen] = React.useState(false);
 
   function handleClick() {
     setisOpen(!isOpen);
@@ -15,7 +14,7 @@ const Header = () => {
   return (
     <div className="w-full p-3">
       <div className="w-full flex justify-center">
-        <Logo className="w-48 text-center mt-4" />
+        <Logo className="w-48 text-center" />
       </div>
 
       <div className="flex justify-between sm:hidden">
@@ -101,7 +100,7 @@ const Header = () => {
         </ul>
       </div>
 
-      <div className={`lg:flex ${isOpen ? "block" : "hidden"} `}>
+      <div className={`flex ${isOpen ? "block" : "hidden"} `}>
         <ul className="font-monse text-lg">
           <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/">
