@@ -102,29 +102,29 @@ const Header = () => {
       </div>
 
       <div className={`lg:flex ${isOpen ? "block" : "hidden"} `}>
-        <ul className="font-monse">
-          <li className="mx-2 sm:mx-6 px-2">
+        <ul className="font-monse text-lg">
+          <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/">
               <a>Inicio</a>
             </Link>
           </li>
-          <li className="mx-2 sm:mx-6 px-2">
+          <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/ofertas">
               <a>Ofertas</a>
             </Link>
           </li>
 
-          <li className="mx-2 sm:mx-6 px-2">
+          <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/carta">
               <a>Carta</a>
             </Link>
           </li>
-          <li className="mx-2 sm:mx-6 px-2">
+          <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/nosotros">
               <a>Nosotros</a>
             </Link>
           </li>
-          <li className="mx-2 sm:mx-6 px-2">
+          <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/catering">
               <a>Catering</a>
             </Link>
