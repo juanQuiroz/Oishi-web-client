@@ -1,7 +1,8 @@
 import React from "react";
+import Layout from "../../components/Layout";
 
 const cesta = () => {
-  return <div>Cesta de compras</div>;
+  return <Layout>cesta</Layout>;
 };
 
 export default cesta;
