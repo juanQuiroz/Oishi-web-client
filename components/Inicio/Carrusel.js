@@ -30,9 +30,9 @@ const Carrusel = ({ children, time }) => {
     ));
   };
   return (
-    <div className="p-5 m-auto flex justify-center">
+    <div className="flex justify-center w-full ">
       <div className="grid grid-flow-row auto-rows-max">
-        <div className="min-h-100">{_slides()}</div>
+        <div className="min-h-100 rounded-md">{_slides()}</div>
         <div className="flex justify-center mt-2">{_sliderDots()}</div>
       </div>
     </div>
