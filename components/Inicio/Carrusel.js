@@ -6,22 +6,21 @@ import styled from "styled-components";
 const Carrusel = () => {
   return (
     <Principal>
-      <Titulo>Productos Destacados</Titulo>
       <Slideshow
         controles={true}
         autoplay={true}
         velocidad="2000"
-        intervalo="2000"
+        intervalo="4000"
       >
         {SliderData.map(slide => {
           return (
             <Slide key={slide.id}>
-              <a href="https://www.falconmaters.com">
+              <a href="!#">
                 <img src={slide.image} alt="" />
               </a>
-              <TextoSlide>
+              {/* <TextoSlide>
                 <p>15% descuento en productos Apple</p>
-              </TextoSlide>
+              </TextoSlide> */}
             </Slide>
           );
         })}
@@ -38,7 +37,7 @@ const Titulo = styled.p`
 `;
 
 const Principal = styled.main`
-  max-width: 1000px;
+  max-width: 100%;
   margin: 50px auto;
   overflow: hidden;
 `;

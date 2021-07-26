@@ -16,8 +16,6 @@ const Slideshow = ({
   const siguiente = useCallback(() => {
     // Comprobamos que el slideshow tenga elementos
     if (slideshow.current.children.length > 0) {
-      console.log("Siguiente");
-
       // Obtenemos el primer elemento del slideshow.
       const primerElemento = slideshow.current.children[0];
 
@@ -92,10 +90,10 @@ const Slideshow = ({
       <ContenedorSlideshow ref={slideshow}>{children}</ContenedorSlideshow>
       {controles && (
         <Controles>
-          <Boton onClick={anterior}>
+          <Boton onClick={anterior} className="mx-3">
             <FlechaIzquierda />
           </Boton>
-          <Boton derecho onClick={siguiente}>
+          <Boton derecho onClick={siguiente} className="mx-3">
             <FlechaDerecha />
           </Boton>
         </Controles>
@@ -169,13 +167,6 @@ const Boton = styled.button`
 			fill: #fff;
 		}
 	} */
-
-  path {
-    filter: ${props =>
-      props.derecho
-        ? "drop-shadow(-2px 0px 0px #fff)"
-        : "drop-shadow(2px 0px 0px #fff)"};
-  }
 
   ${props => (props.derecho ? "right: 0" : "left: 0")}
 `;

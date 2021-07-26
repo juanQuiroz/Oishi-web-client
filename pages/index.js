@@ -6,7 +6,6 @@ export default function Home() {
   return (
     <Layout>
       <Carrusel />
-
       <Titulos>Lo más pedido de Oishi!</Titulos>
     </Layout>
   );
