@@ -44,7 +44,6 @@ const Slideshow = ({
   }, [velocidad]);
 
   const anterior = () => {
-    console.log("Anterior");
     if (slideshow.current.children.length > 0) {
       // Obtenemos el ultimo elemento del slideshow.
       const index = slideshow.current.children.length - 1;
@@ -171,6 +170,13 @@ const Boton = styled.button`
   @media (max-width: 640px) {
     width: 25px;
   }
+
+  /* path {
+    filter: ${props =>
+    props.derecho
+      ? "drop-shadow(-2px 0px 0px #fff)"
+      : "drop-shadow(2px 0px 0px #fff)"};
+  } */
 
   ${props => (props.derecho ? "right: 0" : "left: 0")}
 `;

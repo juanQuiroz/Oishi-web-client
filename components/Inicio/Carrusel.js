@@ -9,15 +9,15 @@ const Carrusel = () => {
       <Slideshow
         controles={true}
         autoplay={true}
-        velocidad="2000"
-        intervalo="4000"
+        velocidad="1500"
+        intervalo="6500"
       >
         {SliderData.map(slide => {
           return (
             <Slide key={slide.id}>
-              <a href="!#">
-                <img src={slide.image} alt="" />
-              </a>
+              {/* <a href="!#"></a> */}
+              <img src={slide.image} alt="" />
+
               {/* <TextoSlide>
                 <p>15% descuento en productos Apple</p>
               </TextoSlide> */}
