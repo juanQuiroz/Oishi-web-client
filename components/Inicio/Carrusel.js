@@ -1,42 +1,46 @@
-import React, { useEffect } from "react";
-import Thumbnail from "./Thumbnail";
-import DotIcon from "./DotIcon";
+import React from "react";
+import { Slideshow, Slide, TextoSlide } from "../Inicio/Slideshow";
+import { SliderData } from "../Inicio/SliderData";
+import styled from "styled-components";
 
-const Carrusel = ({ children, time }) => {
-  const [index, setIndex] = React.useState(0);
-  const keys = children.map((child, index) => index);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const newIndex = (index + 1) % keys.length;
-      setIndex(newIndex);
-    }, time);
-    return () => clearInterval(interval);
-  });
-
-  const _slides = () => {
-    return children.map((child, idx) => (
-      <Thumbnail key={idx} id={idx} selectedKey={index}>
-        {child}
-      </Thumbnail>
-    ));
-  };
-
-  const _sliderDots = () => {
-    return keys.map(key => (
-      <span key={key} onClick={() => setIndex(key)}>
-        {<DotIcon selected={key === index} />}
-      </span>
-    ));
-  };
+const Carrusel = () => {
   return (
-    <div className="flex justify-center w-full lg:w-full">
-      <div className="grid grid-flow-row auto-rows-max">
-        <div className="min-h-100 rounded-md">{_slides()}</div>
-        <div className="flex justify-center mt-2">{_sliderDots()}</div>
-      </div>
-    </div>
+    <Principal>
+      <Titulo>Productos Destacados</Titulo>
+      <Slideshow
+        controles={true}
+        autoplay={true}
+        velocidad="2000"
+        intervalo="2000"
+      >
+        {SliderData.map(slide => {
+          return (
+            <Slide key={slide.id}>
+              <a href="https://www.falconmaters.com">
+                <img src={slide.image} alt="" />
+              </a>
+              <TextoSlide>
+                <p>15% descuento en productos Apple</p>
+              </TextoSlide>
+            </Slide>
+          );
+        })}
+      </Slideshow>
+    </Principal>
   );
 };
+
+const Titulo = styled.p`
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+`;
+
+const Principal = styled.main`
+  max-width: 1000px;
+  margin: 50px auto;
+  overflow: hidden;
+`;
 
 export default Carrusel;
