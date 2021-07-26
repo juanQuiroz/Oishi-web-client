@@ -168,6 +168,10 @@ const Boton = styled.button`
 		}
 	} */
 
+  @media (max-width: 640px) {
+    width: 25px;
+  }
+
   ${props => (props.derecho ? "right: 0" : "left: 0")}
 `;
 
