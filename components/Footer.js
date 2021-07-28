@@ -50,7 +50,7 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <div className="flex justify-evenly sm:justify-start mt-2">
+      <div className="flex justify-evenly sm:justify-start mt-4">
         <Insta className="h-7 sm:mx-6" />
         <Facebook className="h-7 sm:mx-6" />
         <Whatsapp className="h-7 sm:mx-6" />
