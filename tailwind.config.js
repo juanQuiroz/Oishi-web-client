@@ -34,6 +34,7 @@ module.exports = {
       inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
       none: "none",
       green: "0 4px 6px -1px rgba(26, 213, 74, 0.4)",
+      blueGray: "0 10px 15px -3px rgba(70, 103, 143, 0.25)",
     },
     fontFamily: {
       sans: ["ui-sans-serif", "system-ui"],
