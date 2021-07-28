@@ -12,7 +12,7 @@ const Header = () => {
   }
 
   return (
-    <div className="w-full p-3">
+    <div className="w-full">
       <div className="w-full flex justify-center">
         <Logo className="w-48 text-center" />
       </div>

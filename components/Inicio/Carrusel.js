@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const Carrusel = () => {
   return (
-    <Principal>
+    <Principal className="-my-7">
       <Slideshow
         controles={true}
         autoplay={true}
@@ -38,7 +38,7 @@ const Titulo = styled.p`
 
 const Principal = styled.main`
   max-width: 100%;
-  margin: 50px auto;
+  margin: 17px auto;
   overflow: hidden;
 `;
 
