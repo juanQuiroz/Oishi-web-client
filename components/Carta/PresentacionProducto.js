@@ -13,12 +13,12 @@ const PresentacionProducto = () => {
       </div>
 
       <div className="p-1 sm:p-2">
-        <h4 className="text-gray-800">Makis</h4>
-        <h5 className="text-gray-800 font-thin">Box 12 unid</h5>
+        <h4 className="text-gray-800 -my-1">Makis</h4>
+        <h5 className="text-gray-800 font-thin -my-1">Box 12 unid</h5>
       </div>
-      <div className="flex justify-between p-1">
-        <h2 className="text-gray-800 font-bold">S/ 00.00</h2>{" "}
-        <Add className="h-6 w-6 sm:h-8 sm:w-8" />
+      <div className="flex justify-between p-1 -mt-1 sm:-mt-1">
+        <h2 className="text-gray-800 font-bold">S/ 00.00</h2>
+        <Add className="h-6 w-6 sm:h-7 sm:w-7 sm:mr-2" />
       </div>
     </div>
   );
