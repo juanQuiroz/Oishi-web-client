@@ -14,54 +14,57 @@ const Slideshow = ({
   const intervaloSlideshow = useRef(null);
 
   const siguiente = useCallback(() => {
-    // Comprobamos que el slideshow tenga elementos
+    if (slideshow.current) {
+      // Comprobamos que el slideshow tenga elementos
+      if (slideshow.current.children.length > 0) {
+        // Obtenemos el primer elemento del slideshow.
+        const primerElemento = slideshow.current.children[0];
 
-    if (slideshow.current.children.length > 0) {
-      // Obtenemos el primer elemento del slideshow.
-      const primerElemento = slideshow.current.children[0];
+        // Establecemos la transicion para el slideshow.
+        slideshow.current.style.transition = `${velocidad}ms ease-out all`;
 
-      // Establecemos la transicion para el slideshow.
-      slideshow.current.style.transition = `${velocidad}ms ease-out all`;
+        const tamañoSlide = slideshow.current.children[0].offsetWidth;
 
-      const tamañoSlide = slideshow.current.children[0].offsetWidth;
+        // Movemos el slideshow
+        slideshow.current.style.transform = `translateX(-${tamañoSlide}px)`;
 
-      // Movemos el slideshow
-      slideshow.current.style.transform = `translateX(-${tamañoSlide}px)`;
+        const transicion = () => {
+          // Reiniciamos la posicion del Slideshow.
+          slideshow.current.style.transition = "none";
+          slideshow.current.style.transform = `translateX(0)`;
 
-      const transicion = () => {
-        // Reiniciamos la posicion del Slideshow.
-        slideshow.current.style.transition = "none";
-        slideshow.current.style.transform = `translateX(0)`;
+          // Tomamos el primer elemento y lo mandamos al final.
+          slideshow.current.appendChild(primerElemento);
 
-        // Tomamos el primer elemento y lo mandamos al final.
-        slideshow.current.appendChild(primerElemento);
+          slideshow.current.removeEventListener("transitionend", transicion);
+        };
 
-        slideshow.current.removeEventListener("transitionend", transicion);
-      };
-
-      // Eventlistener para cuando termina la animacion.
-      slideshow.current.addEventListener("transitionend", transicion);
+        // Eventlistener para cuando termina la animacion.
+        slideshow.current.addEventListener("transitionend", transicion);
+      }
     }
   }, [velocidad]);
 
   const anterior = () => {
-    if (slideshow.current.children.length > 0) {
-      // Obtenemos el ultimo elemento del slideshow.
-      const index = slideshow.current.children.length - 1;
-      const ultimoElemento = slideshow.current.children[index];
-      slideshow.current.insertBefore(
-        ultimoElemento,
-        slideshow.current.firstChild,
-      );
+    if (slideshow.current) {
+      if (slideshow.current.children.length > 0) {
+        // Obtenemos el ultimo elemento del slideshow.
+        const index = slideshow.current.children.length - 1;
+        const ultimoElemento = slideshow.current.children[index];
+        slideshow.current.insertBefore(
+          ultimoElemento,
+          slideshow.current.firstChild,
+        );
 
-      slideshow.current.style.transition = "none";
-      const tamañoSlide = slideshow.current.children[0].offsetWidth;
-      slideshow.current.style.transform = `translateX(-${tamañoSlide}px)`;
+        slideshow.current.style.transition = "none";
+        const tamañoSlide = slideshow.current.children[0].offsetWidth;
+        slideshow.current.style.transform = `translateX(-${tamañoSlide}px)`;
 
-      setTimeout(() => {
-        slideshow.current.style.transition = `${velocidad}ms ease-out all`;
-        slideshow.current.style.transform = `translateX(0)`;
-      }, 30);
+        setTimeout(() => {
+          slideshow.current.style.transition = `${velocidad}ms ease-out all`;
+          slideshow.current.style.transform = `translateX(0)`;
+        }, 30);
+      }
     }
   };
 

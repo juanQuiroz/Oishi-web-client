@@ -23,6 +23,7 @@ module.exports = {
       rose: colors.rose,
       red: colors.red,
       blue: colors.blue,
+      white: colors.white,
     },
     boxShadow: {
       sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
@@ -35,7 +36,7 @@ module.exports = {
       "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
       inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
       none: "none",
-      green: "0 4px 6px -1px rgba(26, 213, 74, 0.4)",
+      red: "0 4px 6px -1px rgba(279,13,20, 0.2)",
       blueGray: "0 10px 15px -3px rgba(70, 103, 143, 0.25)",
     },
     fontFamily: {
