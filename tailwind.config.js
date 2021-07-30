@@ -50,7 +50,12 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      spacing: {
+        128: "32rem",
+        144: "36rem",
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

@@ -6,7 +6,7 @@ const PresentacionProducto = () => {
     <div className="flex-col flex-wrap bg-white shadow rounded-md">
       <div>
         <img
-          src="https://res.cloudinary.com/alldevsoftware/image/upload/v1627195121/oishwebtestcarousel/oishi1_caxd2f.png"
+          src="https://res.cloudinary.com/alldevsoftware/image/upload/v1627195121/oishwebtestcarousel/oishi2_wg95qt.png"
           alt="..."
           className="rounded-t-md"
         />
@@ -18,7 +18,7 @@ const PresentacionProducto = () => {
       </div>
       <div className="flex justify-between p-1 -mt-1 sm:-mt-1">
         <h2 className="text-gray-800 font-bold">S/ 00.00</h2>
-        <Add className="h-6 w-6 sm:h-7 sm:w-7 sm:mr-2" />
+        <Add className="h-6 w-6 sm:h-7 sm:w-7 sm:mr-1" />
       </div>
     </div>
   );
