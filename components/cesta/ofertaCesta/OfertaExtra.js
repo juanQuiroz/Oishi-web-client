@@ -4,7 +4,7 @@ import Subtitulo from "../../ui/Subtitulo";
 
 const OfertaExtra = () => {
   return (
-    <div className="w-full">
+    <div className="w-full mb-3">
       <Subtitulo>¿Algo para acompañar?</Subtitulo>
       <div className="flex overflow-x-auto whitespace-nowrap sm:overscroll-x-auto">
         <Oferta />

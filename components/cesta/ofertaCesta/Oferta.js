@@ -14,8 +14,8 @@ const Oferta = () => {
         <h4 className="text-gray-800 -my-1 text-sm">Coca Cola</h4>
         <h5 className="text-gray-800 font-thin -my-1 text-xs">Lata 300ml</h5>
         <h2 className="text-gray-800 font-bold text-sm">S/ 5.00</h2>
+        <Add className="h-6 w-6 ml-6" />
       </div>
-      <Add className="h-6 w-6 " />
     </div>
   );
 };
