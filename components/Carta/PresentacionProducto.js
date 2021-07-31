@@ -6,7 +6,7 @@ const PresentacionProducto = () => {
     <div className="flex-col flex-wrap bg-white shadow rounded-md">
       <div>
         <img
-          src="https://res.cloudinary.com/alldevsoftware/image/upload/v1627195121/oishwebtestcarousel/oishi2_wg95qt.png"
+          src="https://res.cloudinary.com/alldevsoftware/image/upload/v1627693282/oishwebtestcarousel/makis_olth2u.jpg"
           alt="..."
           className="rounded-t-md"
         />

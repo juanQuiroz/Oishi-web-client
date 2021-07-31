@@ -5,7 +5,7 @@ const ProductoPrincipal = ({ img }) => {
   return (
     <div className="bg-gray-50 rounded-md shadow-blueGray p-2">
       <img
-        src="https://res.cloudinary.com/alldevsoftware/image/upload/v1627195121/oishwebtestcarousel/oishi3_xqctjs.png"
+        src="https://res.cloudinary.com/alldevsoftware/image/upload/v1627693887/oishwebtestcarousel/devi-puspita_mu2krp.jpg"
         alt="..."
         className="rounded-md"
       />
