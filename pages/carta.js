@@ -10,6 +10,7 @@ const carta = () => {
           *Precios y promociones solo para compras en la Web
         </h2>
       </div>
+
       <Carta />
     </Layout>
   );

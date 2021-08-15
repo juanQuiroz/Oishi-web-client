@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductoPedido = () => {
   return (
-    <div className=" bg-blueGray-200 rounded-md p-1">
+    <div className=" bg-blueGray-200 rounded-md p-1 sm:p-2">
       <div className="flex justify-between">
         <h2 className="font-semibold">Makis Furai x12</h2>
         <h3 className="font-semibold">3 - unds</h3>
