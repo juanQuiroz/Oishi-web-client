@@ -1,9 +1,30 @@
 import React from "react";
+import axios from "axios";
 import { Slideshow, Slide, TextoSlide } from "../Inicio/Slideshow";
 import { SliderData } from "../Inicio/SliderData";
 import styled from "styled-components";
 
 const Carrusel = () => {
+  const [imgURL, setImgURL] = React.useState();
+
+  const getImgUrls = async () => {
+    const imgCarrusel = await axios.get(
+      "https://oishirestaurant.herokuapp.com/api/v1/carrusel",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      },
+    );
+    setImgURL(imgCarrusel.data.data);
+  };
+
+  React.useEffect(() => {
+    getImgUrls();
+    console.log(imgURL);
+  }, []);
+
   return (
     <Principal className="-my-7">
       <Slideshow
@@ -12,18 +33,19 @@ const Carrusel = () => {
         velocidad="1500"
         intervalo="6500"
       >
-        {SliderData.map(slide => {
-          return (
-            <Slide key={slide.id}>
-              {/* <a href="!#"></a> */}
-              <img src={slide.image} alt="" />
+        {imgURL &&
+          imgURL.map(slide => {
+            return (
+              <Slide key={slide.id}>
+                {/* <a href="!#"></a> */}
+                <img src={slide.url} alt="" />
 
-              {/* <TextoSlide>
+                {/* <TextoSlide>
                 <p>15% descuento en productos Apple</p>
               </TextoSlide> */}
-            </Slide>
-          );
-        })}
+              </Slide>
+            );
+          })}
       </Slideshow>
     </Principal>
   );
