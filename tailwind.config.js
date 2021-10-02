@@ -51,6 +51,7 @@ module.exports = {
       body: ['"Open Sans"'],
       monse: ['"Montserrat"'],
       McLaren: ['"McLaren"'],
+      NanumGothic: ['"Nanum Gothic"'],
     },
   },
   variants: {

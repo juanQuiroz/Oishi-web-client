@@ -22,6 +22,15 @@ const Layout = ({ children }) => {
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;700;900&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Anton&family=Mitr:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
+          rel="stylesheet"
+        />
 
         <link
           href="https://fonts.googleapis.com/css2?family=McLaren&display=swap"
