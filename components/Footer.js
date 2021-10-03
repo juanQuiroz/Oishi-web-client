@@ -12,9 +12,9 @@ const Footer = () => {
       <div className="flex justify-between">
         <Oishi className="h-20 self-center sm:block hidden" />
         <div>
-          <h1 className="text-lg font-McLaren font-bold text-warmGray-800 mb-3">
+          <p className="text-lg sm:text-2xl font-Andika  font-bold text-warmGray-800 mb-3">
             Mas sobre oishi
-          </h1>
+          </p>
           <ul className="text-sm">
             <li>
               <Link href="/cobertura">

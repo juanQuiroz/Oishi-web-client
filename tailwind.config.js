@@ -52,6 +52,7 @@ module.exports = {
       monse: ['"Montserrat"'],
       McLaren: ['"McLaren"'],
       NanumGothic: ['"Nanum Gothic"'],
+      Andika: ['"Andika New Basic"'],
     },
   },
   variants: {

@@ -1,21 +1,16 @@
 import React from "react";
 import Subtitulo from "../ui/Subtitulo";
-import PresentacionProducto from "./PresentacionProducto";
+import Producto from "./Producto";
 
-const Categoria = ({ carta }) => {
+const Categoria = ({ categoria }) => {
   return (
     <div className="border border-blueGray-500 mx-2 sm:mx-4 my-4 sm:my-6 rounded-md p-2">
-      {/* {carta.map(prod => (
-        <h1>{prod.productogeneral_escombo}</h1>
-      ))} */}
-      <Subtitulo>Categoria</Subtitulo>
-      <div className="grid grid-cols-3 gap-1 sm:grid-cols-6 sm:gap-2 sm:px-3">
-        <PresentacionProducto />
-        <PresentacionProducto />
-        <PresentacionProducto />
-        <PresentacionProducto />
-        <PresentacionProducto />
-        <PresentacionProducto />
+      <Subtitulo>{categoria.descripcion_categoria}</Subtitulo>
+      <div className="grid grid-cols-2 gap-1 sm:grid-cols-6 sm:gap-2 sm:px-3">
+        {/* <PresentacionProducto /> */}
+        {categoria.productos.map(producto => (
+          <Producto producto={producto} key={producto.id} />
+        ))}
       </div>
     </div>
   );

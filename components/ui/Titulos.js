@@ -2,9 +2,9 @@ import React from "react";
 
 const Titulos = ({ children }) => {
   return (
-    <h2 className="ml-2 sm:ml-4 my-1 font-semibold font-McLaren text-xl text-blueGray-800">
+    <p className="sm:ml-4 font-bold mb-3 font-Andika text-2xl sm:text-3xl text-blueGray-800 ml-2">
       {children}
-    </h2>
+    </p>
   );
 };
 
