@@ -24,6 +24,7 @@ module.exports = {
       red: colors.red,
       blue: colors.blue,
       white: colors.white,
+      black: colors.black,
       green: colors.green,
     },
     boxShadow: {

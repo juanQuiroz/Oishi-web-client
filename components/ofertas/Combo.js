@@ -3,18 +3,40 @@ import { MdAddShoppingCart } from "react-icons/md";
 
 const Combo = () => {
   return (
-    <div className="flex bg-white  rounded mx-2 my-1 shadow-sm w-auto h-4/6 ">
+    <div className=" bg-white  rounded-xl mx-1 shadow-sm h-auto">
       <img
-        src="https://res.cloudinary.com/alldevsoftware/image/upload/v1627692387/oishwebtestcarousel/coke_eju9nj.jpg"
+        src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633153648/OishiWebLandingpage/large1_bse54z.jpg"
         alt="..."
-        className="rounded-l h-full w-16 sm:w-16"
+        className="rounded-t-xl min-w-full sm:w-16"
       />
 
-      <div className="p-1 sm:p-2">
-        <h4 className="text-gray-800 -my-1 text-sm">Coca Cola</h4>
-        <h5 className="text-gray-800 font-thin -my-1 text-xs">Lata 300ml</h5>
-        <h2 className="text-gray-800 font-bold text-sm">S/ 5.00</h2>
-        <MdAddShoppingCart className="h-6 w-6 ml-6" />
+      <div className="p-1 sm:p-2  ">
+        <div className="flex justify-between p-2 ">
+          <div className="mr-28">
+            <p className="text-gray-800 -my-1 text-xl w-full font-semibold ">
+              Combo mañanero
+            </p>
+            <p className="text-gray-800 font-thin -my-1 text-lg">
+              Descripcion del combo
+            </p>
+          </div>
+          <MdAddShoppingCart className="h-9 w-9 ml-12 text-red-500" />
+        </div>
+
+        {/* <ul className="flex justify-around flex-wrap"> */}
+        <ul className="grid grid-cols-2 gap-2 mx-2">
+          <li className="p-1 mb-1 bg-gray-50 rounded">Makis furai 12 unds</li>
+          <li className="p-1 mb-1 bg-gray-50 rounded">Makis furai 12 unds</li>
+          <li className="p-1 mb-1 bg-gray-50 rounded">Makis furai 12 unds</li>
+          <li className="p-1 mb-1 bg-gray-50 rounded">Makis furai 12 unds</li>
+          <li className="p-1 mb-1 bg-gray-50 rounded">Makis furai 12 unds</li>
+        </ul>
+        <div className="flex justify-evenly mt-1">
+          <p className="text-gray-600 font-bold text-xl line-through">
+            S/ 5.00
+          </p>
+          <p className="text-red-500 font-bold text-2xl">S/ 5.00</p>
+        </div>
       </div>
     </div>
   );
