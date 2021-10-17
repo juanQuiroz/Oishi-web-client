@@ -101,7 +101,7 @@ const Header = () => {
       </div>
 
       <div className={`flex ${isOpen ? "block" : "hidden"} `}>
-        <ul className="font-Andika text-lg">
+        <ul className="font-Andika text-2xl">
           <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/">
               <a>Inicio</a>
@@ -109,7 +109,7 @@ const Header = () => {
           </li>
           <li className="mx-2 my-2 sm:mx-6 px-2">
             <Link href="/ofertas">
-              <a>Ofertas</a>
+              <a>Promos Oishi</a>
             </Link>
           </li>
 

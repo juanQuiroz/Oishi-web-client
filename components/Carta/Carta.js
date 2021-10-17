@@ -1,6 +1,8 @@
 import React from "react";
 import Titulos from "../ui/Titulos";
 import Categoria from "./Categoria";
+
+import Sushi2 from "../../assets/sushi2.svg";
 // import { CartaOishi } from "../../api/restaurantApi";
 import api from "../../config/axios";
 
@@ -20,10 +22,19 @@ const Carta = () => {
   React.useEffect(() => {
     getProducts();
   }, []);
-  console.log(products);
+
   return (
     <div>
-      <Titulos className>Nuestra Carta</Titulos>
+      {/* <Titulos className>Nuestra Carta</Titulos> */}
+      <div className="flex justify-between m-2 p-2 bg-gray-800 rounded-3xl shadow-red">
+        <div className="ml-3 mt-3">
+          <p className="text-2xl  text-gray-200">Disfruta de</p>
+          <p className="text-4xl font-medium font-Andika text-white">
+            Nuestra carta
+          </p>
+        </div>
+        <Sushi2 className="w-32" />
+      </div>
 
       {products ? (
         products.map(categoria => (

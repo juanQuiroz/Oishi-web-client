@@ -1,19 +1,16 @@
+import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import Presentacion from "./Presentacion";
+import Link from "next/link";
 
 export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
-  //   let [isOpen, setIsOpen] = useState();
-
   function closeModal() {
     setIsOpen(false);
   }
 
-  //   function openModal() {
-  //     setIsOpen(true);
-  //   }
+  // console.log("MODAL: ", product);
 
-  console.log("modalProduct: ", product);
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -79,8 +76,8 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
                               <p className="-mb-1">{local.descripcion}</p>
                               {local.presentaciones.map(presentacion => (
                                 <Presentacion
-                                  key={presentacion.localId}
-                                  presentacion={presentacion}
+                                  key={presentacion.presentacion_id}
+                                  presentacionData={presentacion}
                                 />
                               ))}
                             </div>
@@ -93,42 +90,48 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
                 <div className="flex justify-between mx-3 mb-3 mt-6">
                   <button
                     type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-700  border border-red-600 rounded-xl  focus:outline-none "
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-700  border border-blue-600 rounded-xl  focus:outline-none "
                     onClick={closeModal}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 mr-1"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
                       <path
-                        fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"
                       />
                     </svg>
-                    Cancelar
+                    seguir comprando
                   </button>
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-emerald-700 shadow-green  border border-green-600 rounded-xl  focus:outline-none "
-                    onClick={closeModal}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
+                  <Link href="/cesta/cesta/">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-emerald-700 shadow-green  border border-green-600 rounded-xl  focus:outline-none "
+                      onClick={closeModal}
                     >
-                      <path
-                        fill-rule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    confirmar
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                        />
+                      </svg>
+                      Ir a la cesta
+                    </button>
+                  </Link>
                 </div>
               </div>
             </Transition.Child>

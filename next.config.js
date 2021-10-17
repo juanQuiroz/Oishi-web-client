@@ -8,6 +8,15 @@ module.exports = {
     return config;
   },
 
+  images: {
+    domains: [
+      "oishirestaurant.herokuapp.com",
+      "localhost",
+      "res.cloudinary.com",
+      "restaurantoishi.s3.sa-east-1.amazonaws.com",
+    ],
+  },
+
   trailingSlash: true,
   exportPathMap: function () {
     return {

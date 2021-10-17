@@ -9,42 +9,42 @@ const PrincipalesProductos = () => {
       <div className="grid grid-rows-20 grid-cols-10 gap-2 sm:gap-5 sm:mx-32 sm:my-10">
         <div className="row-span-4 col-span-10 ">
           <img
-            src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633153648/OishiWebLandingpage/large1_bse54z.jpg"
+            src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633246425/oishilanding/WhatsApp_Image_2021-10-02_at_5.20.17_PM_2_zrcabv.jpg"
             alt="..."
             className="rounded-md shadow-md"
           />
         </div>
         <div className="row-span-5 col-span-5 ">
           <img
-            src="https://images.pexels.com/photos/7243421/pexels-photo-7243421.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633246425/oishilanding/WhatsApp_Image_2021-10-02_at_5.20.17_PM_iijpsb.jpg"
             alt="..."
             className="rounded-md shadow-md"
           />
         </div>
         <div className="row-span-3 col-span-5 ">
           <img
-            src="https://res.cloudinary.com/alldevsoftware/image/upload/c_scale,h_600,w_1000/v1633154045/OishiWebLandingpage/35_lfo9o2.jpg"
+            src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633246425/oishilanding/WhatsApp_Image_2021-10-02_at_5.20.18_PM_yriyfb.jpg"
             alt="..."
             className="rounded-md shadow-md"
           />
         </div>
         <div className="row-span-6 col-span-5 ">
           <img
-            src="https://res.cloudinary.com/alldevsoftware/image/upload/c_crop,h_1200,w_1000/v1633154312/OishiWebLandingpage/pexels-polina-tankilevitch-4725630_zepjht.jpg"
+            src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633246425/oishilanding/WhatsApp_Image_2021-10-02_at_5.20.17_PM_1_xdqwd6.jpg"
             alt="..."
             className="rounded-md shadow-md"
           />
         </div>
         <div className="row-span-4 col-span-5 ">
           <img
-            src="https://res.cloudinary.com/alldevsoftware/image/upload/c_fill,h_400,w_500,x_115,y_243/v1633154197/OishiWebLandingpage/pexels-pixabay-248444_xzxdrt.jpg"
+            src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633246425/oishilanding/WhatsApp_Image_2021-10-02_at_5.20.18_PM_1_lkjb5f.jpg"
             alt="..."
             className="rounded-md shadow-md"
           />
         </div>
         <div className="row-span-5 col-span-10">
           <img
-            src="https://res.cloudinary.com/alldevsoftware/image/upload/c_crop,h_300,w_1000,x_0,y_98/v1633154646/OishiWebLandingpage/pexels-horizon-content-3763816_eef4na.jpg"
+            src="https://res.cloudinary.com/alldevsoftware/image/upload/v1633246425/oishilanding/WhatsApp_Image_2021-10-02_at_5.20.17_PM_3_iqaam7.jpg"
             alt="..."
             className="rounded-md shadow-md"
           />

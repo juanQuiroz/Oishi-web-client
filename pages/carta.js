@@ -5,10 +5,11 @@ import Layout from "../components/Layout";
 const carta = () => {
   return (
     <Layout>
-      <div className="bg-blueGray-300 mx-4 py-2 px-3 my-3 rounded-md shadow">
-        <h2 className="text-center text-sm text-trueGray-700 font-bold">
-          *Precios y promociones solo para compras en la Web
-        </h2>
+      <div className="bg-blueGray-300 mx-4 py-2 px-3 my-3 rounded-md">
+        <div className="flex sm:flex-row flex-col justify-around text-center text-sm text-trueGray-700 font-bold">
+          <p> W = Disponibilidad para compras en la web</p>
+          <p>L = Disponibilidad para compras en local</p>
+        </div>
       </div>
 
       <Carta />

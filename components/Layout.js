@@ -36,11 +36,6 @@ const Layout = ({ children }) => {
           href="https://fonts.googleapis.com/css2?family=Andika+New+Basic:wght@400;700&display=swap"
           rel="stylesheet"
         />
-
-        {/* <link
-          href="https://fonts.googleapis.com/css2?family=McLaren&display=swap"
-          rel="stylesheet"
-        /> */}
       </Head>
 
       <div className="bg-gradient-to-r from-trueGray-50 to-trueGray-100">

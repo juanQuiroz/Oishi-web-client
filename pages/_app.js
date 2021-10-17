@@ -5,7 +5,7 @@ import PedidosState from "../context/pedidos/pedidosState";
 function MyApp({ Component, pageProps }) {
   return (
     <PedidosState>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </PedidosState>
   );
 }

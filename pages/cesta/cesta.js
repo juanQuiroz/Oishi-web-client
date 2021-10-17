@@ -11,11 +11,11 @@ const cesta = () => {
     <Layout>
       <div className="mx-2 my-4 sm:mx-4 sm:my-4">
         {confirmarpedido ? (
-          <FinalizarPedido />
+          <FinalizarPedido setConfirmarpedido={setConfirmarpedido} />
         ) : (
           <div>
             <OfertaExtra />
-            <ConfirmarPedido />
+            <ConfirmarPedido setConfirmarpedido={setConfirmarpedido} />
           </div>
         )}
       </div>
