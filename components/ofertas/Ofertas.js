@@ -14,7 +14,9 @@ const Ofertas = ({ oferta }) => {
             backgroundImage: `url(${oferta.url})`,
           }}
         >
-          <p className="text-3xl font-Andika mx-1 my-1">{oferta.nombre}</p>
+          <p className="text-3xl font-Andika m-1 p-1 rounded-md opacity-95 text-center bg-blueGray-50">
+            {oferta.nombre}
+          </p>
 
           <div className="grid grid-cols-2 gap-1 w-full ">
             {oferta &&

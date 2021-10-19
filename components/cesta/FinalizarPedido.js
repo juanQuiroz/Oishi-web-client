@@ -59,7 +59,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
             comprobante_pago_id: values.tipoComprobante,
             telefono: values.telefono,
             persona_asignada: values.recoge_pedido,
-            presentaciones: pedidoPresentaciones,
+            presentaciones_productos: pedidoPresentaciones,
           },
           {
             headers: {
@@ -320,6 +320,11 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
           </div>
         </div>
       </form>
+      <iframe
+        src="https://www.google.com/maps/d/embed?mid=1MVdJVg2PtkgscmC52huUymgKZH3Z7fPJ"
+        width="100%"
+        height="480"
+      ></iframe>
     </div>
   );
 };
