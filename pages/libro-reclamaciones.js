@@ -65,7 +65,10 @@ const LibroReclamaciones = () => {
                   }}
                 />
               </div>
-              <button className="bg-blue-400 text-gray-800 font-semibold h-8 text-center rounded-full w-1/2 sm:w-1/3 mt-3">
+              <button
+                type="submit"
+                className="bg-blue-400 text-gray-800 font-semibold h-8 text-center rounded-full w-1/2 sm:w-1/3 mt-3"
+              >
                 Enviar reclamo
               </button>
             </form>
