@@ -16,6 +16,4 @@ module.exports = {
       "restaurantoishi.s3.sa-east-1.amazonaws.com",
     ],
   },
-
-  trailingSlash: true,
 };
