@@ -9,10 +9,10 @@ const ProductoPedido = ({ presentacionPedido }) => {
 
   const subtotal = presentacionPedido.precio * presentacionPedido.cantidad;
 
-  // Agrega el subtotal para sumarlo
-  React.useEffect(() => {
-    addTotalPedidos(subtotal);
-  }, []);
+  // // Agrega el subtotal para sumarlo
+  // React.useEffect(() => {
+  //   addTotalPedidos(subtotal);
+  // }, [subtotal]);
 
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">

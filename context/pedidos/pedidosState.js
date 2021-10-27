@@ -9,13 +9,17 @@ import {
   VACIAR_CESTA,
   VACIAR_TOTALPEDIDO,
   ELIMINAR_PRESENTACION,
+  AGREGAR_OFERTAs,
+  ELIMINAR_OFERTA,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
   // State principal
   const initialState = {
     presentacion: [],
+    ofertasSeleccionada: [],
     pedido: {
+      presentacionesPedidas: [], // ids de las presentaciones seleccionadas
       totalPedidos: 0,
     },
   };
@@ -52,10 +56,9 @@ const PedidosState = ({ children }) => {
   };
 
   // agrega el monto total de los pedidos
-  const addTotalPedidos = subtotal => {
+  const addTotalPedidos = () => {
     dispatch({
       type: SUMAR_SUBTOTALES,
-      payload: subtotal,
     });
   };
 
@@ -67,26 +70,34 @@ const PedidosState = ({ children }) => {
     });
   };
 
-  // MEJOR LO PASAMOSMDIRECTAMENTE EN EL ONSUBMIT
-  // // Agrega los datos principales al pedido
-  // const addDataPedido = data => {
-  //   dispatch({
-  //     type: "AGREGAR_DATOSPEDIDO",
-  //     payload: data,
-  //   });
-  // };
+  const addOferta = oferta => {
+    dispatch({
+      type: "AGREGAR_OFERTA",
+      payload: oferta,
+    });
+  };
+
+  const deleteOferta = idOferta => {
+    dispatch({
+      type: "ELIMINAR_OFERTA",
+      payload: idOferta,
+    });
+  };
 
   return (
     <PedidosContext.Provider
       value={{
         presentacion: state.presentacion,
         pedido: state.pedido,
+        ofertasSeleccionada: state.ofertasSeleccionada,
         addDataProducto,
         addPresentacion,
         vaciarCesta,
         addTotalPedidos,
         vaciarTotalPedido,
         deletePresentacion,
+        addOferta,
+        deleteOferta,
       }}
     >
       {children}

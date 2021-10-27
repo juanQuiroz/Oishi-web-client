@@ -5,6 +5,8 @@ import {
   VACIAR_CESTA,
   VACIAR_TOTALPEDIDO,
   ELIMINAR_PRESENTACION,
+  AGREGAR_OFERTA,
+  ELIMINAR_OFERTA,
 } from "../../types";
 
 export default (state, action) => {
@@ -16,11 +18,34 @@ export default (state, action) => {
           presentacion: state.presentacion.map(pre =>
             pre.id === action.payload.id ? (pre = action.payload) : pre,
           ),
+          pedido: {
+            ...state.pedido,
+            totalPedidos: state.presentacion
+              .map(pre => pre.cantidad * pre.precio)
+              .reduce((prev, curr) => prev + curr, 0),
+          },
         };
       }
       return {
         ...state,
         presentacion: [...state.presentacion, action.payload],
+        pedido: {
+          ...state.pedido,
+          totalPedidos: state.presentacion
+            .map(pre => pre.cantidad * pre.precio)
+            .reduce((prev, curr) => prev + curr, 0),
+        },
+      };
+
+    case SUMAR_SUBTOTALES:
+      return {
+        ...state,
+        pedido: {
+          ...state.pedido,
+          totalPedidos: state.presentacion
+            .map(pre => pre.cantidad * pre.precio)
+            .reduce((prev, curr) => prev + curr, 0),
+        },
       };
 
     case VACIAR_CESTA:
@@ -29,19 +54,13 @@ export default (state, action) => {
         presentacion: [],
         pedido: { ...state.pedido, totalPedidos: 0 },
       };
+
     case VACIAR_TOTALPEDIDO:
       return {
         ...state,
         pedido: { ...state.pedido, totalPedidos: 0 },
       };
-    case SUMAR_SUBTOTALES: // fn: addTotalPedido
-      return {
-        ...state,
-        pedido: {
-          ...state.pedido,
-          totalPedidos: state.pedido.totalPedidos + action.payload,
-        },
-      };
+
     case ELIMINAR_PRESENTACION: // fn: deletePresentacion
       console.log(
         "REDUCER: ",
@@ -62,6 +81,26 @@ export default (state, action) => {
               state.presentacion.filter(pre => pre.id === action.payload)[0]
                 .cantidad,
         },
+      };
+
+    case AGREGAR_OFERTA:
+      if (
+        state.ofertasSeleccionada.some(
+          o => o.oferta_id === action.payload.oferta_id,
+        )
+      ) {
+        return {
+          ...state,
+          ofertasSeleccionada: state.ofertasSeleccionada.map(ofer =>
+            ofer.oferta_id === action.payload.oferta_id
+              ? (ofer = action.payload)
+              : ofer,
+          ),
+        };
+      }
+      return {
+        ...state,
+        ofertasSeleccionada: [...state.ofertasSeleccionada, action.payload],
       };
 
     default:

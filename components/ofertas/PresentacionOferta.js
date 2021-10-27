@@ -1,7 +1,14 @@
 import React from "react";
 import { MdAddShoppingCart } from "react-icons/md";
+import ModalComprarOferta from "./ModalComprarOferta";
 
-const PresentacionOferta = ({ presentacionOferta }) => {
+const PresentacionOferta = ({ presentacionOferta, dataProducto }) => {
+  // State para abrir el modal de compra
+  let [isOpen, setIsOpen] = React.useState(false);
+  let [product, setProduct] = React.useState();
+
+  console.log("dataProducto -> ", dataProducto);
+
   return (
     // <div className="flex m-1 backdrop-filter backdrop-blur-3xl  rounded-lg shadow-sm">
     <div className="flex m-1 bg-gray-50 opacity-90  rounded-lg shadow-md">
@@ -19,11 +26,25 @@ const PresentacionOferta = ({ presentacionOferta }) => {
               S/ {presentacionOferta.precio_oferta}
             </p>
           </div>
-          <button className="bg-transparent mr-2">
-            <MdAddShoppingCart className="w-8 h-8 text-gray-800 " />
+          <button
+            className="bg-transparent mr-2"
+            onClick={() => {
+              setIsOpen(true);
+              console.log("ONCLICK OFERTA COMPONENT");
+            }}
+          >
+            <MdAddShoppingCart className="w-8 h-8 text-red-500 " />
           </button>
         </div>
       </div>
+      {presentacionOferta && dataProducto && (
+        <ModalComprarOferta
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          presentacionOferta={presentacionOferta}
+          dataProducto={dataProducto}
+        />
+      )}
     </div>
   );
 };

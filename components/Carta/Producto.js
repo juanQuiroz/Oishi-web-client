@@ -30,9 +30,6 @@ const Producto = ({ producto }) => {
             {producto.descripcion}
           </p>
         </div>
-        {/* <div className="flex justify-between p-1 -mt-1 sm:-mt-1">
-        <h2 className="text-gray-800 font-bold">S/ 00.00</h2>
-        </div> */}
       </div>
 
       {product && (

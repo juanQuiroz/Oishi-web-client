@@ -8,7 +8,7 @@ import Whatsapp from "../assets/icons/whatsapp.svg";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-blueGray-200 p-3 font-monse rounded-t-lg sm:px-10">
+    <div className="w-full bg-oishiCeleste p-3 font-monse rounded-t-lg sm:px-10">
       <div className="flex justify-between">
         <Oishi className="h-20 self-center sm:block hidden" />
         <div>

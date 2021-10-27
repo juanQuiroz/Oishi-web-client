@@ -9,7 +9,7 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
     setIsOpen(false);
   }
 
-  // console.log("MODAL: ", product);
+  console.log("MODALCarta: ", product);
 
   return (
     <>
@@ -19,7 +19,7 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
           className="fixed inset-0 z-10 overflow-y-auto"
           onClose={closeModal}
         >
-          <div className="min-h-screen px-4 text-center">
+          <div className="min-h-screen px-4 text-center backdrop-filter backdrop-blur-md">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

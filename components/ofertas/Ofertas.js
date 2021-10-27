@@ -25,6 +25,7 @@ const Ofertas = ({ oferta }) => {
                   <PresentacionOferta
                     key={ofertaPresentacion.oferta_id}
                     presentacionOferta={ofertaPresentacion}
+                    dataProducto={{ nombre: oferta.nombre, url: oferta.url }}
                   />
                 ))}
             </div>

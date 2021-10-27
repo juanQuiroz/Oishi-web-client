@@ -2,14 +2,16 @@ import React, { useContext } from "react";
 import Subtitulo from "../ui/Subtitulo";
 import ProductoPedido from "./ProductoPedido";
 import pedidosContex from "../../context/pedidos/pedidosContex";
+import OfertaPedido from "./OfertaPedido";
 
 const ConfirmarPedido = ({ setConfirmarpedido }) => {
   const PedidosContext = useContext(pedidosContex);
-  const { presentacion, vaciarCesta, pedido } = PedidosContext;
+  const { presentacion, vaciarCesta, ofertasSeleccionada, pedido } =
+    PedidosContext;
 
-  // Pedidos (presentaciones)
-  // const [pedido, setPedido] = React.useState();
+  console.log("ConfPedido: ", pedido);
 
+  // filtrar pedidos
   if (presentacion.length > 0) {
     var pedidosFiltrados = presentacion.filter(p => p.cantidad > 0);
     console.log("pedidosfiltrado:", pedidosFiltrados);
@@ -24,14 +26,18 @@ const ConfirmarPedido = ({ setConfirmarpedido }) => {
             pedidosFiltrados.map(p => (
               <ProductoPedido key={p.id} presentacionPedido={p} />
             ))}
+          {ofertasSeleccionada &&
+            ofertasSeleccionada.map(o => (
+              <OfertaPedido key={o.oferta_id} ofertaPedido={o} />
+            ))}
           {pedido && (
             <div className=" flex justify-between mt-2 mx-1">
               <p className="text-xl font-medium text-right text-gray-700">
                 Total Pedido:
               </p>
-              <p className="text-xl font-extrabold text-right text-gray-800">
-                S/ {pedido.totalPedidos}
-              </p>
+              {/* <p className="text-xl font-extrabold text-right text-gray-800">
+                S/ {pedido.totalPedidos.toFixed(2)}
+              </p> */}
             </div>
           )}
         </div>
