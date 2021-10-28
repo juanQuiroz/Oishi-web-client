@@ -33,10 +33,7 @@ const LibroReclamaciones = () => {
 
           <div className="flex justify-between min-w-full bg-white p-3 rounded-2xl sm:px-6">
             <Book className="w-64 hidden sm:block" />
-            <form
-              onSubmit={onSubmitSendMessage}
-              className="sm:ml-10 w-full p-1 sm:p-4"
-            >
+            <form className="sm:ml-10 w-full p-1 sm:p-4">
               <div>
                 <label htmlFor="">Nombres y apellidos:</label>
                 <input
