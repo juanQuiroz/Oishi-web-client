@@ -57,10 +57,10 @@ const NuestrosLocales = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-row-reverse mt-3">
-          <div className="flex bg-white shadow-lg w-11/12 h-32 rounded-l-xl p-2">
+        <div className="flex flex-row-reverse mt-8">
+          <div className="flex bg-white shadow-lg w-11/12 h-36 rounded-l-xl p-2">
             <div className="mr-2">
-              <p className="text-oishiAzul font-bold text-2xl">Cañete</p>
+              <p className="text-oishiAzul font-bold text-2xl">Ica</p>
               <p className="text-base flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

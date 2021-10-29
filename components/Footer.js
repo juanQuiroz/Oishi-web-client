@@ -5,8 +5,12 @@ import Oishi from "../assets/icons/oishiblack.svg";
 import Insta from "../assets/icons/insta.svg";
 import Facebook from "../assets/icons/facebook.svg";
 import Whatsapp from "../assets/icons/whatsapp.svg";
+import ModalWhatsapp from "./ModalWhatsapp";
 
 const Footer = () => {
+  // State para modal whatsapp
+  let [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <div className="w-full bg-oishiCeleste p-3 font-monse rounded-t-lg sm:px-10">
       <div className="flex justify-between">
@@ -51,10 +55,18 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex justify-evenly sm:justify-start mt-4">
-        <Insta className="h-7 sm:mx-6" />
-        <Facebook className="h-7 sm:mx-6" />
-        <Whatsapp className="h-7 sm:mx-6" />
+        <a href="https://www.instagram.com/oishipe/?hl=es" target="_blank">
+          <Insta className="h-7 sm:mx-6" />
+        </a>
+        <a href="https://www.facebook.com/Oishisushib" target="_blank">
+          <Facebook className="h-7 sm:mx-6" />
+        </a>
+        <div onClick={() => setIsOpen(true)}>
+          <Whatsapp className="h-7 sm:mx-6" />
+        </div>
       </div>
+
+      <ModalWhatsapp isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
