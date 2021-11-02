@@ -42,9 +42,13 @@ export default (state, action) => {
         ...state,
         pedido: {
           ...state.pedido,
-          totalPedidos: state.presentacion
-            .map(pre => pre.cantidad * pre.precio)
-            .reduce((prev, curr) => prev + curr, 0),
+          totalPedidos:
+            state.presentacion
+              .map(pre => pre.cantidad * pre.precio)
+              .reduce((prev, curr) => prev + curr, 0) +
+            state.ofertasSeleccionada
+              .map(ofe => ofe.precio_oferta * ofe.cantidad)
+              .reduce((prev, curr) => prev + curr, 0),
         },
       };
 

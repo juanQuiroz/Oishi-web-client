@@ -9,7 +9,7 @@ const ConfirmarPedido = ({ setConfirmarpedido }) => {
   const { presentacion, vaciarCesta, ofertasSeleccionada, pedido } =
     PedidosContext;
 
-  console.log("ConfPedido: ", pedido);
+  console.log("ConfPedido: ", pedido.presentacionesPedidas.length);
 
   // filtrar pedidos
   if (presentacion.length > 0) {
@@ -35,27 +35,30 @@ const ConfirmarPedido = ({ setConfirmarpedido }) => {
               <p className="text-xl font-medium text-right text-gray-700">
                 Total Pedido:
               </p>
-              {/* <p className="text-xl font-extrabold text-right text-gray-800">
-                S/ {pedido.totalPedidos.toFixed(2)}
-              </p> */}
+              <p className="text-xl font-extrabold text-right text-gray-800">
+                S/ {parseFloat(pedido.totalPedidos).toFixed(2)}
+              </p>
             </div>
           )}
         </div>
 
-        <div className="flex mt-6 mb-4 justify-evenly">
-          <button
-            className="font-semibold text-white bg-red-500 px-3 py-2 rounded-full shadow-red hover:shadow-redPlus min-h-10 hover:bg-red-600"
-            onClick={vaciarCesta}
-          >
-            Vaciar cesta
-          </button>
-          <button
-            className="font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
-            onClick={() => setConfirmarpedido(true)}
-          >
-            Confirmar productos
-          </button>
-        </div>
+        {presentacion.length > 0 ||
+          (ofertasSeleccionada.length > 0 && (
+            <div className="flex mt-6 mb-4 justify-evenly">
+              <button
+                className="font-semibold text-white bg-red-500 px-3 py-2 rounded-full shadow-red hover:shadow-redPlus min-h-10 hover:bg-red-600"
+                onClick={vaciarCesta}
+              >
+                Vaciar cesta
+              </button>
+              <button
+                className="font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
+                onClick={() => setConfirmarpedido(true)}
+              >
+                Confirmar productos
+              </button>{" "}
+            </div>
+          ))}
       </div>
     </div>
   );

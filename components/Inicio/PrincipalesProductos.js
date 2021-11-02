@@ -6,6 +6,7 @@ const PrincipalesProductos = () => {
   return (
     <div className="mx-4 sm:mx-8 my-4 sm:my-6">
       <Titulos>Lo más pedido de Oishi!</Titulos>
+
       <div className="grid grid-rows-20 grid-cols-10 gap-2 sm:gap-5 sm:mx-32 sm:my-10">
         <div className="row-span-4 col-span-10 ">
           <img

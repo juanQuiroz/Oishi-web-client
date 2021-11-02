@@ -22,7 +22,7 @@ export default function ModalComprarOferta({
   // CONTEXT
   // -> para agregar productos
   const pedidosContext = React.useContext(PedidosContext);
-  const { addOferta } = pedidosContext;
+  const { addOferta, addTotalPedidos } = pedidosContext;
 
   const cuentaRenderizado = React.useRef(0);
 
@@ -38,6 +38,8 @@ export default function ModalComprarOferta({
       descripcion_presentacion: presentacionOferta.descripcion_presentacion,
       precio_oferta: presentacionOferta.precio_oferta,
     });
+
+    addTotalPedidos();
   }, [cantPresentacionOferta]);
 
   return (

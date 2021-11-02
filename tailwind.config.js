@@ -5,6 +5,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
+
     colors: {
       // Build your palette here
       transparent: "transparent",
