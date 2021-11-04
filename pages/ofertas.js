@@ -47,9 +47,9 @@ const ofertas = () => {
   return (
     <Layout>
       <Titulos>Promos Oishi !</Titulos>
-      <div className="w-full h-auto m-0  bg-gray-200">
+      <div className="w-full h-auto m-0 pt-2 bg-oishiCeleste">
         <Subtitulo>
-          <p className="text-center text-2xl my-1">Combos Oishi</p>
+          <p className="text-center text-2xl text-black">Combos Oishi</p>
         </Subtitulo>
         <div className="flex overflow-x-auto whitespace-nowrap sm:overscroll-x-auto w-full p-2 h-auto">
           {combos &&

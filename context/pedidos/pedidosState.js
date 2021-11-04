@@ -9,8 +9,10 @@ import {
   VACIAR_CESTA,
   VACIAR_TOTALPEDIDO,
   ELIMINAR_PRESENTACION,
-  AGREGAR_OFERTAs,
+  AGREGAR_OFERTA,
   ELIMINAR_OFERTA,
+  AGREGAR_COMBO,
+  ELIMINAR_COMBO,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
@@ -18,6 +20,7 @@ const PedidosState = ({ children }) => {
   const initialState = {
     presentacion: [],
     ofertasSeleccionada: [],
+    combosSeleccionados: [],
     pedido: {
       presentacionesPedidas: [], // ids de las presentaciones seleccionadas
       totalPedidos: 0,
@@ -77,10 +80,24 @@ const PedidosState = ({ children }) => {
     });
   };
 
+  const addCombo = combo => {
+    dispatch({
+      type: "AGREGAR_COMBO",
+      payload: combo,
+    });
+  };
+
   const deleteOferta = idOferta => {
     dispatch({
       type: "ELIMINAR_OFERTA",
       payload: idOferta,
+    });
+  };
+
+  const deleteCombo = combo => {
+    dispatch({
+      type: "ELIMINAR_COMBO",
+      payload: combo,
     });
   };
 
@@ -90,6 +107,7 @@ const PedidosState = ({ children }) => {
         presentacion: state.presentacion,
         pedido: state.pedido,
         ofertasSeleccionada: state.ofertasSeleccionada,
+        combosSeleccionados: state.combosSeleccionados,
         addDataProducto,
         addPresentacion,
         vaciarCesta,
@@ -98,6 +116,8 @@ const PedidosState = ({ children }) => {
         deletePresentacion,
         addOferta,
         deleteOferta,
+        addCombo,
+        deleteCombo,
       }}
     >
       {children}

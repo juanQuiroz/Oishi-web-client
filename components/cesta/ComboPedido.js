@@ -1,33 +1,31 @@
 import React from "react";
 import pedidosContext from "../../context/pedidos/pedidosContex";
 
-const ProductoPedido = ({ presentacionPedido }) => {
-  console.log("PresentacionPedido", presentacionPedido);
+const ComboPedido = ({ comboPedido }) => {
+  console.log("comboPedido", comboPedido);
 
   const PedidosContext = React.useContext(pedidosContext);
-  const { addTotalPedidos, deletePresentacion } = PedidosContext;
+  const { addTotalPedidos, deleteCombo } = PedidosContext;
 
-  const subtotal = presentacionPedido.precio * presentacionPedido.cantidad;
+  const subtotal = comboPedido.precio * comboPedido.cantidad;
 
-  // // Agrega el subtotal para sumarlo
+  // Agrega el subtotal para sumarlo
   // React.useEffect(() => {
   //   addTotalPedidos(subtotal);
-  // }, [subtotal]);
+  // }, []);
 
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
       <div className="w-full flex justify-between items-center">
-        <h2 className="w-5/12 font-semibold">
-          {presentacionPedido.producto_nombre}
+        <h2 className="w-6/12 font-semibold">{comboPedido.nombre}</h2>
+        <h3 className="w-2/12 text-center">x {comboPedido.cantidad}</h3>
+        <h2 className="w-3/12 font-semibold text-center">
+          S/ {subtotal.toFixed(2)}
         </h2>
-        <h3 className="w-3/12 ">
-          {presentacionPedido.presentacion} x {presentacionPedido.cantidad}
-        </h3>
-        <h2 className="w-3/12 font-semibold">S/ {subtotal.toFixed(2)}</h2>
         <button
-          className="w-1/12 flex text-red-500 bg-transparent hover:bg-transparent rounded-full"
+          className="w-1/12 flex text-red-500 text-center bg-transparent hover:bg-transparent rounded-full"
           onClick={() => {
-            deletePresentacion(presentacionPedido.id);
+            deleteCombo(comboPedido.id);
             addTotalPedidos();
           }}
         >
@@ -49,4 +47,4 @@ const ProductoPedido = ({ presentacionPedido }) => {
   );
 };
 
-export default ProductoPedido;
+export default ComboPedido;

@@ -31,11 +31,7 @@ const Ofertas = ({ oferta }) => {
             </div>
           </div>
         </div>
-      ) : (
-        <p className="text-center font-Andika font-medium text-3xl my-10 py-4">
-          No hay ofertas disponibles
-        </p>
-      )}
+      ) : null}
     </div>
   );
 };

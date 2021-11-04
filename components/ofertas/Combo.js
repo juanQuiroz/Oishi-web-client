@@ -1,9 +1,12 @@
 import React from "react";
 import { MdAddShoppingCart } from "react-icons/md";
+import ModalComprarCombo from "./ModalComprarCombo";
 
 const Combo = ({ combo }) => {
+  let [isOpen, setIsOpen] = React.useState(false);
+
   return (
-    <div className=" bg-white  rounded-xl mx-1 shadow-sm h-auto w-screen sm:w-4/12">
+    <div className=" bg-white  rounded-xl mr-3 mb-4 shadow-sm h-auto w-screen sm:w-4/12">
       <img
         src={combo.url}
         alt="..."
@@ -20,20 +23,21 @@ const Combo = ({ combo }) => {
               {combo.descripcion}
             </p>
           </div>
-          <div className="w-2/12 ">
+          <div className="w-2/12" onClick={() => setIsOpen(true)}>
             <MdAddShoppingCart className=" h-10 w-10 text-red-500 ml-4" />
           </div>
         </div>
 
         {/* <ul className="flex justify-around flex-wrap"> */}
-        <ul className="grid grid-cols-1 gap-1 mx-2 mt-2">
+        <ul className="grid grid-cols-1 gap-0 mx-2 mt-2">
           {combo?.presentaciones_base &&
             combo.presentaciones_base[0].productos_presentaciones.map(
               presentacionesBase => (
-                <li className="px-1 bg-gray-100 rounded">
-                  {presentacionesBase.producto_nombre} -{" "}
-                  {presentacionesBase.presentacion} x{" "}
+                <li className="px-1 ">
                   {presentacionesBase.cantidad}
+                  {"  "}
+                  {presentacionesBase.producto_nombre} -{" "}
+                  {presentacionesBase.presentacion}
                 </li>
               ),
             )}
@@ -48,6 +52,11 @@ const Combo = ({ combo }) => {
           </p>
         </div>
       </div>
+      <ModalComprarCombo
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        dataCombo={combo}
+      />
     </div>
   );
 };

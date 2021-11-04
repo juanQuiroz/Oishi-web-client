@@ -7,6 +7,8 @@ import {
   ELIMINAR_PRESENTACION,
   AGREGAR_OFERTA,
   ELIMINAR_OFERTA,
+  AGREGAR_COMBO,
+  ELIMINAR_COMBO,
 } from "../../types";
 
 export default (state, action) => {
@@ -48,15 +50,22 @@ export default (state, action) => {
               .reduce((prev, curr) => prev + curr, 0) +
             state.ofertasSeleccionada
               .map(ofe => ofe.precio_oferta * ofe.cantidad)
+              .reduce((prev, curr) => prev + curr, 0) +
+            state.combosSeleccionados
+              .map(comb => comb.precio * comb.cantidad)
               .reduce((prev, curr) => prev + curr, 0),
         },
       };
 
     case VACIAR_CESTA:
       return {
-        ...state,
         presentacion: [],
-        pedido: { ...state.pedido, totalPedidos: 0 },
+        ofertasSeleccionada: [],
+        combosSeleccionados: [],
+        pedido: {
+          presentacionesPedidas: [], // ids de las presentaciones seleccionadas
+          totalPedidos: 0,
+        },
       };
 
     case VACIAR_TOTALPEDIDO:
@@ -66,25 +75,27 @@ export default (state, action) => {
       };
 
     case ELIMINAR_PRESENTACION: // fn: deletePresentacion
-      console.log(
-        "REDUCER: ",
-        state.presentacion.filter(pre => pre.id === action.payload),
-      );
       return {
         ...state,
         presentacion: state.presentacion.filter(
           pre => pre.id !== action.payload,
         ),
-        // actualizar total -> total actual - (precio X cantidad) de la presentacion eliminada
-        pedido: {
-          ...state.pedido,
-          totalPedidos:
-            state.pedido.totalPedidos -
-            state.presentacion.filter(pre => pre.id === action.payload)[0]
-              .precio *
-              state.presentacion.filter(pre => pre.id === action.payload)[0]
-                .cantidad,
-        },
+      };
+
+    case ELIMINAR_OFERTA: // fn: deleteOferta
+      return {
+        ...state,
+        ofertasSeleccionada: state.ofertasSeleccionada.filter(
+          ofe => ofe.oferta_id !== action.payload,
+        ),
+      };
+
+    case ELIMINAR_COMBO: // fn: deleteCombo
+      return {
+        ...state,
+        combosSeleccionados: state.combosSeleccionados.filter(
+          comb => comb.id !== action.payload,
+        ),
       };
 
     case AGREGAR_OFERTA:
@@ -105,6 +116,20 @@ export default (state, action) => {
       return {
         ...state,
         ofertasSeleccionada: [...state.ofertasSeleccionada, action.payload],
+      };
+
+    case AGREGAR_COMBO:
+      if (state.combosSeleccionados.some(c => c.id === action.payload.id)) {
+        return {
+          ...state,
+          combosSeleccionados: state.combosSeleccionados.map(c =>
+            c.id === action.payload.id ? (c = action.payload) : c,
+          ),
+        };
+      }
+      return {
+        ...state,
+        combosSeleccionados: [...state.combosSeleccionados, action.payload],
       };
 
     default:
