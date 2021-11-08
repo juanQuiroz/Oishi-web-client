@@ -50,7 +50,7 @@ export default function ModalComprarOferta({
           className="fixed inset-0 z-10 overflow-y-auto "
           onClose={closeModal}
         >
-          <div className="min-h-screen px-3 text-center backdrop-filter backdrop-blur-md">
+          <div className="min-h-screen px-3 text-center backdrop-blur-md">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

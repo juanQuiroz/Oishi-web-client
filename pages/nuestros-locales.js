@@ -17,11 +17,11 @@ const NuestrosLocales = () => {
         <p className="text-oishiNegro text-lg ">en:</p>
       </div>
       <div className="my-6 font-Andika">
-        <div className="flex bg-white shadow-lg w-11/12 h-36 rounded-r-xl p-2">
+        <div className="flex bg-white shadow-lg w-11/12 h-40 rounded-r-xl p-2">
           <img
             src="/oishicanete.jpg"
             alt="img"
-            className="h-auto w-auto rounded-xl"
+            className="h-auto w-auto rounded-xl p-1"
           />
           <div className="ml-2">
             <p className="text-oishiAzul font-bold text-2xl">Cañete</p>
@@ -53,12 +53,16 @@ const NuestrosLocales = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              12pm - 10pm
+              <div>
+                <p className="leading-5">Salón: 12pm - 9:30pm</p>
+                <p className="leading-5">Recojo: 12pm - 10:00pm</p>
+                <p className="leading-5">Delivery: 12pm - 10:00pm</p>
+              </div>
             </p>
           </div>
         </div>
         <div className="flex flex-row-reverse mt-8">
-          <div className="flex bg-white shadow-lg w-11/12 h-36 rounded-l-xl p-2">
+          <div className="flex bg-white shadow-lg w-11/12 h-40 rounded-l-xl p-2">
             <div className="mr-2">
               <p className="text-oishiAzul font-bold text-2xl">Ica</p>
               <p className="text-base flex">
@@ -74,12 +78,12 @@ const NuestrosLocales = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                Miguel Grau 501, San Vicente de Cañete 15701
+                Av. San Martin Mz H3 Lt 12, Ica 11000
               </p>
               <p className="text-base flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-1 text-oishiNaranja"
+                  className="h-5 w-5 mr-1 text-oishiNaranja"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -89,13 +93,17 @@ const NuestrosLocales = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                12pm - 10pm
+                <div>
+                  <p className="leading-5">Salón: 12pm - 9:30pm</p>
+                  <p className="leading-5">Recojo: 12pm - 10:00pm</p>
+                  <p className="leading-5">Delivery: 12pm - 10:00pm</p>
+                </div>
               </p>
             </div>
             <img
-              src="/oishicanete.jpg"
+              src="/oishiIca.jpeg"
               alt="img"
-              className="h-auto w-auto rounded-xl"
+              className="h-auto w-auto rounded-xl p-1"
             />
           </div>
         </div>

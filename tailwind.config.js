@@ -52,6 +52,7 @@ module.exports = {
       green: "0 4px 6px -1px rgba(25,197,64, 0.2)",
       greenPlus: "0 4px 6px -1px rgba(25,197,64, 0.4)",
       blueGray: "0 10px 15px -3px rgba(70, 103, 143, 0.25)",
+      carruselCatering: "5px 8px 15px -10px rgba(0, 0, 0, 0.5)",
     },
     fontFamily: {
       sans: ["ui-sans-serif", "system-ui"],
