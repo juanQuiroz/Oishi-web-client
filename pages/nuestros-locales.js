@@ -17,13 +17,13 @@ const NuestrosLocales = () => {
         <p className="text-oishiNegro text-lg ">en:</p>
       </div>
       <div className="my-6 font-Andika">
-        <div className="flex bg-white shadow-lg w-11/12 h-40 rounded-r-xl p-2">
+        <div className="flex items-center bg-white shadow-lg w-11/12 h-44 rounded-r-xl p-2">
           <img
             src="/oishicanete.jpg"
             alt="img"
-            className="h-auto w-auto rounded-xl p-1"
+            className="w-36 h-w-36 rounded-xl p-1"
           />
-          <div className="ml-2">
+          <div className="ml-2 w-8/12">
             <p className="text-oishiAzul font-bold text-2xl">Cañete</p>
             <p className="text-base flex">
               <svg
@@ -61,9 +61,9 @@ const NuestrosLocales = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-row-reverse mt-8">
-          <div className="flex bg-white shadow-lg w-11/12 h-40 rounded-l-xl p-2">
-            <div className="mr-2">
+        <div className="flex  flex-row-reverse mt-12">
+          <div className="flex items-center bg-white shadow-lg w-11/12 h-44 rounded-l-xl p-2">
+            <div className="mr-2 ml-1">
               <p className="text-oishiAzul font-bold text-2xl">Ica</p>
               <p className="text-base flex">
                 <svg
@@ -103,7 +103,7 @@ const NuestrosLocales = () => {
             <img
               src="/oishiIca.jpeg"
               alt="img"
-              className="h-auto w-auto rounded-xl p-1"
+              className="h-36 w-36 rounded-xl p-1"
             />
           </div>
         </div>
