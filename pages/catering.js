@@ -21,7 +21,7 @@ const catering = () => {
 
         <div className="sm:w-7/12">
           <p className="text-xl font-bold font-Andika ml-3 sm:text-center">
-            Agunas de nuestras experiencias
+            Algunas de nuestras experiencias
           </p>
           <div className="w-full">
             {" "}
