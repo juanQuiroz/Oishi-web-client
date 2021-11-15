@@ -6,57 +6,62 @@ const Combo = ({ combo }) => {
   let [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className=" bg-white  rounded-xl mr-3 mb-4 shadow-sm h-auto w-screen sm:w-4/12">
-      <img
-        src={combo.url}
-        alt="..."
-        className="rounded-t-xl min-w-full sm:w-16"
-      />
+    <div className="inline-block mr-2">
+      <div
+        className="w-80 h-auto max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+        // className=" bg-white rounded-xl mr-3 mb-4 shadow-sm h-auto sm:w-4/12"
+        onClick={() => setIsOpen(true)}
+      >
+        <img
+          src={combo.url}
+          alt="..."
+          className="rounded-t-lg min-w-full sm:w-16"
+        />
 
-      <div className="px-1 sm:p-2 w-full">
-        <div className="flex px-2 w-screen">
-          <div className="w-10/12">
-            <p className="text-gray-800 -my-1 text-xl font-semibold ">
-              {combo.nombre}
+        <div className="px-1 sm:p-2 w-full h-56 mt-4 flex flex-col justify-between">
+          <div className="flex px-2 ">
+            <div className=" w-full">
+              <p className="text-gray-800 -my-1 text-xl font-semibold">
+                {combo.nombre}
+              </p>
+              <p className=" text-gray-800 -my-1 text-md ">
+                {combo.descripcion}
+              </p>
+            </div>
+          </div>
+
+          {/* <ul className="flex justify-around flex-wrap"> */}
+          <ul className="grid grid-cols-1 gap-0 mx-2 mt-2">
+            {combo?.presentaciones_base &&
+              combo.presentaciones_base[0].productos_presentaciones.map(
+                presentacionesBase => (
+                  <li className="px-1 ">
+                    {presentacionesBase.cantidad}
+                    {"  "}
+                    {presentacionesBase.producto_nombre} -{" "}
+                    {presentacionesBase.presentacion}
+                  </li>
+                ),
+              )}
+          </ul>
+          <div className="flex justify-evenly my-3">
+            <p className="text-gray-600  text-xl line-through">
+              S/{" "}
+              {combo?.locales &&
+                combo.locales[0].presentacion[0].precio_default}
             </p>
-            <p className="text-gray-800 font-thin -my-1 text-md max-w-max">
-              {combo.descripcion}
+            <p className="text-red-500 font-bold text-2xl">
+              S/{" "}
+              {combo?.locales && combo.locales[0].presentacion[0].precio_combo}
             </p>
           </div>
-          <div className="w-2/12" onClick={() => setIsOpen(true)}>
-            <MdAddShoppingCart className=" h-10 w-10 text-red-500 ml-4" />
-          </div>
         </div>
-
-        {/* <ul className="flex justify-around flex-wrap"> */}
-        <ul className="grid grid-cols-1 gap-0 mx-2 mt-2">
-          {combo?.presentaciones_base &&
-            combo.presentaciones_base[0].productos_presentaciones.map(
-              presentacionesBase => (
-                <li className="px-1 ">
-                  {presentacionesBase.cantidad}
-                  {"  "}
-                  {presentacionesBase.producto_nombre} -{" "}
-                  {presentacionesBase.presentacion}
-                </li>
-              ),
-            )}
-        </ul>
-        <div className="flex justify-evenly my-3">
-          <p className="text-gray-600  text-xl line-through">
-            S/{" "}
-            {combo?.locales && combo.locales[0].presentacion[0].precio_default}
-          </p>
-          <p className="text-red-500 font-bold text-2xl">
-            S/ {combo?.locales && combo.locales[0].presentacion[0].precio_combo}
-          </p>
-        </div>
+        <ModalComprarCombo
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          dataCombo={combo}
+        />
       </div>
-      <ModalComprarCombo
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        dataCombo={combo}
-      />
     </div>
   );
 };

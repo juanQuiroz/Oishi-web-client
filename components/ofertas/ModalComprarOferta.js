@@ -95,6 +95,14 @@ export default function ModalComprarOferta({
                         {presentacionOferta.descripcion_presentacion}
                       </p>
                     </div>
+                    <div className="flex m-3">
+                      <p className="line-through text-sm text-blueGray-400 mr-5">
+                        S/ {presentacionOferta.precio_default}
+                      </p>
+                      <p className="text-lg text-red-600 font-semibold">
+                        S/ {presentacionOferta.precio_oferta}
+                      </p>
+                    </div>
                     <div className=" mx-3 flex justify-between">
                       <p>¿ Cuantos quieres ?</p>
                       <div className="w-4/12" className="flex justify-center ">

@@ -47,13 +47,39 @@ const ofertas = () => {
   return (
     <Layout>
       <Titulos>Promos Oishi !</Titulos>
-      <div className="w-full h-auto m-0 pt-2 bg-oishiCeleste">
+      <div className="w-full h-auto m-0 pt-2 bg-oishiCeleste pb-3">
         <Subtitulo>
-          <p className="text-center text-2xl text-black">Combos Oishi</p>
+          <p className="text-center text-3xl text-black mb-3">Combos Oishi</p>
         </Subtitulo>
-        <div className="flex overflow-x-auto whitespace-nowrap sm:overscroll-x-auto w-full p-2 h-auto">
-          {combos &&
-            combos.map(combo => <Combo key={combo.id} combo={combo} />)}
+        <div className="flex overflow-x-scroll ">
+          <div className="flex flex-row-reverse flex-nowrap ml-2">
+            {combos &&
+              combos.map(combo =>
+                combo.activo == true ? (
+                  <Combo key={combo.id} combo={combo} />
+                ) : (
+                  <div className="flex justify-evenly">
+                    <p className="text-xl font-bold text-oishiRosa mr-4">
+                      No tenemos combos disponibles
+                    </p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-oishiRosa"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                ),
+              )}
+          </div>
         </div>
       </div>
       <div className="m-3 mt-4">

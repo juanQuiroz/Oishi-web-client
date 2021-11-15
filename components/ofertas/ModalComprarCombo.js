@@ -73,7 +73,7 @@ export default function ModalComprarCombo({ isOpen, setIsOpen, dataCombo }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className=" inline-block w-full max-w-md  my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl">
+              <div className="inline-block w-full max-w-md  my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl">
                 {dataCombo && (
                   <div className="">
                     <img
@@ -84,6 +84,18 @@ export default function ModalComprarCombo({ isOpen, setIsOpen, dataCombo }) {
                     <div className="m-3">
                       <p className="text-2xl text-gray-800 font-bold font-Andika">
                         {dataCombo.nombre}
+                      </p>
+                    </div>
+                    <div className="flex m-3">
+                      <p className="text-gray-600  text-xl line-through mr-5">
+                        S/{" "}
+                        {dataCombo?.locales &&
+                          dataCombo.locales[0].presentacion[0].precio_default}
+                      </p>
+                      <p className="text-red-500 font-bold text-2xl">
+                        S/{" "}
+                        {dataCombo?.locales &&
+                          dataCombo.locales[0].presentacion[0].precio_combo}
                       </p>
                     </div>
                     <div className=" mx-3 flex justify-between">
