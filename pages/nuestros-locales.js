@@ -19,13 +19,13 @@ const NuestrosLocales = () => {
       <div className="my-6 font-Andika">
         <div className="flex items-center bg-white shadow-lg w-11/12 h-44 rounded-r-xl p-2">
           <img
-            src="/oishicanete.jpg"
+            src="/oishicanete.jpeg"
             alt="img"
             className="w-36 h-w-36 rounded-xl p-1"
           />
           <div className="ml-2 w-8/12">
-            <p className="text-oishiAzul font-bold text-2xl">Cañete</p>
-            <p className="text-base flex">
+            <p className="text-oishiAzul font-bold text-xl">Cañete</p>
+            <p className="text-sm flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="mr-1 h-8 w-h-8 text-oishiNaranja"
@@ -53,7 +53,7 @@ const NuestrosLocales = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <div>
+              <div className="text-sm">
                 <p className="leading-5">Salón: 12pm - 9:30pm</p>
                 <p className="leading-5">Recojo: 12pm - 10:00pm</p>
                 <p className="leading-5">Delivery: 12pm - 10:00pm</p>
@@ -64,8 +64,8 @@ const NuestrosLocales = () => {
         <div className="flex  flex-row-reverse mt-12">
           <div className="flex items-center bg-white shadow-lg w-11/12 h-44 rounded-l-xl p-2">
             <div className="mr-2 ml-1">
-              <p className="text-oishiAzul font-bold text-2xl">Ica</p>
-              <p className="text-base flex">
+              <p className="text-oishiAzul font-bold text-xl">Ica</p>
+              <p className="text-sm flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="mr-1 h-8 w-h-8 text-oishiNaranja"
@@ -93,7 +93,7 @@ const NuestrosLocales = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <div>
+                <div className="text-sm">
                   <p className="leading-5">Salón: 12pm - 9:30pm</p>
                   <p className="leading-5">Recojo: 12pm - 10:00pm</p>
                   <p className="leading-5">Delivery: 12pm - 10:00pm</p>

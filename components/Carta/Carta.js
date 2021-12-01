@@ -25,9 +25,9 @@ const Carta = () => {
 
   return (
     <div>
-      <div className="w-full p-2">
+      <div className="w-full p-2 px-3 sm:px-6">
         <div
-          class="bg-cover bg-center w-full h-28 rounded-xl sm:h-80"
+          class="bg-cover bg-center w-full h-28 rounded-xl sm:h-80 "
           style={{
             backgroundSize: "cover",
             backgroundAttachment: "scroll",
@@ -38,7 +38,9 @@ const Carta = () => {
 
       {products ? (
         products.map(categoria => (
-          <Categoria key={categoria.id} categoria={categoria} />
+          <div className="px-1 sm:px-2">
+            <Categoria key={categoria.id} categoria={categoria} />
+          </div>
         ))
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-6 rounded-md w-full justify-items-center mb-4">
