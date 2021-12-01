@@ -95,6 +95,19 @@ export default function ModalComprarOferta({
                         {presentacionOferta.descripcion_presentacion}
                       </p>
                     </div>
+                    <div className="flex mx-3">
+                      {presentacionOferta.disponibilidad_web == true && (
+                        <div className="w-6 h-6 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
+                          W
+                        </div>
+                      )}
+
+                      {presentacionOferta.disponibilidad_local == true && (
+                        <div className="w-6 h-6 bg-red-500 text-center text-md text-white font-bold rounded">
+                          L
+                        </div>
+                      )}
+                    </div>
                     <div className="flex m-3">
                       <p className="line-through text-sm text-blueGray-400 mr-5">
                         S/ {presentacionOferta.precio_default}
@@ -103,61 +116,71 @@ export default function ModalComprarOferta({
                         S/ {presentacionOferta.precio_oferta}
                       </p>
                     </div>
-                    <div className=" mx-3 flex justify-between">
-                      <p>¿ Cuantos quieres ?</p>
-                      <div className="w-4/12" className="flex justify-center ">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            cantPresentacionOferta > 0
-                              ? setCantPresentacionOferta(
-                                  cantPresentacionOferta - 1,
-                                )
-                              : setCantPresentacionOferta(0);
-                          }}
+
+                    {presentacionOferta.disponibilidad_web == false ? (
+                      <p className="text-red-400 mx-3 text-lg">
+                        no disponible para compras en la web
+                      </p>
+                    ) : (
+                      <div className=" mx-3 flex justify-between">
+                        <p>¿ Cuantos quieres ?</p>
+                        <div
+                          className="w-4/12"
+                          className="flex justify-center "
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-7 w-7 text-red-600"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                          <button
+                            type="button"
+                            onClick={() => {
+                              cantPresentacionOferta > 0
+                                ? setCantPresentacionOferta(
+                                    cantPresentacionOferta - 1,
+                                  )
+                                : setCantPresentacionOferta(0);
+                            }}
                           >
-                            <path
-                              fillRule="evenodd"
-                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </button>
-                        <input
-                          readOnly
-                          type="text"
-                          className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
-                          value={cantPresentacionOferta}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setCantPresentacionOferta(
-                              cantPresentacionOferta + 1,
-                            );
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-7 w-7 text-red-600"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-7 w-7 text-red-600"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </button>
+                          <input
+                            readOnly
+                            type="text"
+                            className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
+                            value={cantPresentacionOferta}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setCantPresentacionOferta(
+                                cantPresentacionOferta + 1,
+                              );
+                            }}
                           >
-                            <path
-                              fillRule="evenodd"
-                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-7 w-7 text-red-600"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 )}
 

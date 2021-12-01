@@ -4,7 +4,12 @@ import { Fragment, useState } from "react";
 import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
-export default function ModalComprarCombo({ isOpen, setIsOpen, dataCombo }) {
+export default function ModalComprarCombo({
+  isOpen,
+  setIsOpen,
+  dataCombo,
+  localActual,
+}) {
   function closeModal() {
     setIsOpen(false);
   }
@@ -16,7 +21,7 @@ export default function ModalComprarCombo({ isOpen, setIsOpen, dataCombo }) {
   // CONTEXT
   // -> para agregar productos
   const pedidosContext = React.useContext(PedidosContext);
-  const { addCombo, addTotalPedidos } = pedidosContext;
+  const { addCombo, addTotalPedidos, localSeleccionado } = pedidosContext;
 
   const cuentaRenderizado = React.useRef(0);
 
@@ -28,7 +33,7 @@ export default function ModalComprarCombo({ isOpen, setIsOpen, dataCombo }) {
     addCombo({
       id: dataCombo.id,
       nombre: dataCombo.nombre,
-      precio: dataCombo.locales[0].presentacion[0].precio_combo,
+      precio: localActual[0].presentacion[0].precio_combo,
       // precioIca: dataCombo.locales[1].presentacion[1].precio_combo,
       cantidad: cantCombo,
     });
@@ -81,21 +86,32 @@ export default function ModalComprarCombo({ isOpen, setIsOpen, dataCombo }) {
                       alt="imagen de producto"
                       className="w-full"
                     />
-                    <div className="m-3">
+                    <div className="flex mb-2 mx-3 mt-2">
+                      {localActual[0].presentacion[0].disponibilidadWeb ==
+                        true && (
+                        <div className="w-7 h-7 bg-red-500 text-center text-lg text-white font-bold rounded mr-2">
+                          W
+                        </div>
+                      )}
+
+                      {localActual[0].presentacion[0].disponibilidadWeb ==
+                        true && (
+                        <div className="w-7 h-7 bg-red-500 text-center text-lg text-white font-bold rounded">
+                          L
+                        </div>
+                      )}
+                    </div>
+                    <div className="mx-3">
                       <p className="text-2xl text-gray-800 font-bold font-Andika">
                         {dataCombo.nombre}
                       </p>
                     </div>
                     <div className="flex m-3">
                       <p className="text-gray-600  text-xl line-through mr-5">
-                        S/{" "}
-                        {dataCombo?.locales &&
-                          dataCombo.locales[0].presentacion[0].precio_default}
+                        S/ {localActual[0].presentacion[0].precio_default}
                       </p>
                       <p className="text-red-500 font-bold text-2xl">
-                        S/{" "}
-                        {dataCombo?.locales &&
-                          dataCombo.locales[0].presentacion[0].precio_combo}
+                        S/ {localActual[0].presentacion[0].precio_combo}
                       </p>
                     </div>
                     <div className=" mx-3 flex justify-between">

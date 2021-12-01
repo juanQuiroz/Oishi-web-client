@@ -13,6 +13,7 @@ import {
   ELIMINAR_OFERTA,
   AGREGAR_COMBO,
   ELIMINAR_COMBO,
+  SELECCIONAR_LOCAL,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
@@ -25,11 +26,19 @@ const PedidosState = ({ children }) => {
       presentacionesPedidas: [], // ids de las presentaciones seleccionadas
       totalPedidos: 0,
     },
+    localSeleccionado: "",
   };
 
   const [state, dispatch] = useReducer(pedidosReducer, initialState);
 
   // Funciones
+  const selectLocal = local => {
+    dispatch({
+      type: SELECCIONAR_LOCAL,
+      payload: local,
+    });
+  };
+
   const addDataProducto = producto => {
     dispatch({
       type: AGREGAR_PRODUCTOS,
@@ -108,6 +117,7 @@ const PedidosState = ({ children }) => {
         pedido: state.pedido,
         ofertasSeleccionada: state.ofertasSeleccionada,
         combosSeleccionados: state.combosSeleccionados,
+        localSeleccionado: state.localSeleccionado,
         addDataProducto,
         addPresentacion,
         vaciarCesta,
@@ -118,6 +128,7 @@ const PedidosState = ({ children }) => {
         deleteOferta,
         addCombo,
         deleteCombo,
+        selectLocal,
       }}
     >
       {children}

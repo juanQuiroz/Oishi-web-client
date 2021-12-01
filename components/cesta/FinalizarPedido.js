@@ -3,7 +3,7 @@ import Subtitulo from "../ui/Subtitulo";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import PedidosContext from "../../context/pedidos/pedidosContex";
-import api from "../../config/axios";
+import axios from "axios";
 
 const FinalizarPedido = ({ setConfirmarpedido }) => {
   // por defecto el metodo de entrega es mediante delivery
@@ -45,8 +45,8 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       console.log("FinalizarPedido: ", pedidoPresentaciones);
 
       try {
-        const res = await api.post(
-          "/pedidos",
+        const res = await axios.post(
+          "http://localhost:4000/crearpedido",
           {
             dni_ruc: values.dni_ruc,
             nombre_razon_social: values.nombre_razon_social,

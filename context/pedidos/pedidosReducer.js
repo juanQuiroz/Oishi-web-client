@@ -9,10 +9,16 @@ import {
   ELIMINAR_OFERTA,
   AGREGAR_COMBO,
   ELIMINAR_COMBO,
+  SELECCIONAR_LOCAL,
 } from "../../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case SELECCIONAR_LOCAL:
+      return {
+        ...state,
+        localSeleccionado: action.payload,
+      };
     case ACTUALIAZAR_CANTPRESENTACION:
       if (state.presentacion.some(p => p.id === action.payload.id)) {
         return {

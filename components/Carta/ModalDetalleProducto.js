@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import Presentacion from "./Presentacion";
 import Link from "next/link";
+import PedidosContext from "../../context/pedidos/pedidosContex";
 
 export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
   function closeModal() {
@@ -10,6 +11,9 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
   }
 
   console.log("MODALCarta: ", product);
+
+  const pedidosContext = React.useContext(PedidosContext);
+  const { localSeleccionado } = pedidosContext;
 
   return (
     <>
@@ -71,17 +75,26 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
                       </p>
                       <div className="my-4">
                         {product.locales &&
-                          product.locales.map(local => (
-                            <div key={local.localId} className="my-2">
-                              <p className="-mb-1">{local.descripcion}</p>
-                              {local.presentaciones.map(presentacion => (
-                                <Presentacion
-                                  key={presentacion.presentacion_id}
-                                  presentacionData={presentacion}
-                                />
-                              ))}
-                            </div>
-                          ))}
+                          product.locales.map(
+                            local =>
+                              local.localId == localSeleccionado && (
+                                <div key={local.localId} className="my-2">
+                                  <p className="-mb-1">{local.descripcion}</p>
+                                  {local.presentaciones.map(presentacion =>
+                                    presentacion.disponibilidadLocal ===
+                                      false &&
+                                    presentacion.disponibilidadWeb === false ? (
+                                      ""
+                                    ) : (
+                                      <Presentacion
+                                        key={presentacion.presentacion_id}
+                                        presentacionData={presentacion}
+                                      />
+                                    ),
+                                  )}
+                                </div>
+                              ),
+                          )}
                       </div>
                     </div>
                   </div>

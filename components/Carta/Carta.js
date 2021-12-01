@@ -25,15 +25,15 @@ const Carta = () => {
 
   return (
     <div>
-      {/* <Titulos className>Nuestra Carta</Titulos> */}
-      <div className="flex justify-between m-2 p-2 bg-gray-800 rounded-3xl shadow-red">
-        <div className="ml-3 mt-3">
-          <p className="text-2xl  text-gray-200">Disfruta de</p>
-          <p className="text-4xl font-medium font-Andika text-white">
-            Nuestra carta
-          </p>
-        </div>
-        <Sushi2 className="w-32" />
+      <div className="w-full p-2">
+        <div
+          class="bg-cover bg-center w-full h-28 rounded-xl sm:h-80"
+          style={{
+            backgroundSize: "cover",
+            backgroundAttachment: "scroll",
+            backgroundImage: `url(/imgcarta.jpeg)`,
+          }}
+        ></div>
       </div>
 
       {products ? (

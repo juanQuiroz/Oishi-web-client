@@ -88,17 +88,30 @@ const Presentacion = ({ presentacionData }) => {
           presentacionData.disponibilidadWeb === true ? (
             <div className="flex px-2 py-1">
               {presentacionData.disponibilidadWeb === true && (
-                <p className="bg-gray-700 font-semibold text-white w-7 text-center text-xs p-1 rounded-lg mr-1">
+                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
                   W
                 </p>
               )}
               {presentacionData.disponibilidadLocal === true && (
-                <p className="bg-gray-700 font-semibold text-white w-7 text-center text-xs p-1 rounded-lg mr-2">
+                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded">
                   L
                 </p>
               )}
             </div>
-          ) : null}
+          ) : //   <div className="flex mx-3">
+          //   {presentacionData.disponibilidad_web == true && (
+          //     <div className="w-6 h-6 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
+          //       W
+          //     </div>
+          //   )}
+
+          //   {presentacionData.disponibilidad_local == true && (
+          //     <div className="w-6 h-6 bg-red-500 text-center text-md text-white font-bold rounded">
+          //       L
+          //     </div>
+          //   )}
+          // </div>
+          null}
 
           {dispSoloLocal === true ? (
             <p className="text-xs">Solo consumo en local </p>
