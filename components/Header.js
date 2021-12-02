@@ -96,9 +96,11 @@ const Header = () => {
               className="cursor-pointer ml-2 ransition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
               {localSeleccionado == 1 ? (
-                <Canete className="w-7 h-7" />
+                // <Canete className="w-7 h-7" />
+                <img src="./canete.png" alt="." className="w-7 h-7" />
               ) : (
-                <Ica className="w-7 h-7" />
+                // <Ica className="w-7 h-7" />
+                <img src="./ica.png" alt="." className="w-7 h-7" />
               )}
             </a>
           </div>

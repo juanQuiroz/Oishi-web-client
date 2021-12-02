@@ -73,7 +73,7 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                     }}
                   >
                     <img
-                      src="/oishicanete.jpg"
+                      src="/oishicanete.jpeg"
                       alt=""
                       className="w-32 rounded-xl"
                     />
