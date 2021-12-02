@@ -6,7 +6,7 @@ import PedidosContext from "../context/pedidos/pedidosContex";
 
 export default function ModalIndex({ isOpen, setIsOpen }) {
   const pedidosContext = React.useContext(PedidosContext);
-  const { selectLocal, localSeleccionado } = pedidosContext;
+  const { selectLocal, localSeleccionado, vaciarCesta } = pedidosContext;
 
   console.log("localSeleccionado: ", localSeleccionado);
 
@@ -69,6 +69,7 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                     onClick={() => {
                       selectLocal(1);
                       addLocalLocalStorage(1);
+                      vaciarCesta();
                       closeModal();
                     }}
                   >
@@ -87,6 +88,7 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                     onClick={() => {
                       selectLocal(2);
                       addLocalLocalStorage(2);
+                      vaciarCesta();
                       closeModal();
                     }}
                   >
@@ -98,30 +100,6 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                     <p className="text-lg font-Andika text-center">Oishi Ica</p>
                   </div>
                 </div>
-
-                {/* <div className=" px-3 mb-3 mt-6 w-full">
-                  <button
-                    type="button"
-                    className="w-full inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-700  border border-blue-600 rounded-xl  focus:outline-none "
-                    onClick={closeModal}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                      />
-                    </svg>
-                    Retornar
-                  </button>
-                </div> */}
               </div>
             </Transition.Child>
           </div>

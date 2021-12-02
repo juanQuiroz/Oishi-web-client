@@ -11,7 +11,13 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
   const [efectivo, setEfectivo] = React.useState(false);
 
   const pcontext = React.useContext(PedidosContext);
-  const { vaciarTotalPedido, addDataPedido, presentacion } = pcontext;
+  const {
+    vaciarTotalPedido,
+    addDataPedido,
+    presentacion,
+    ofertasSeleccionada,
+    combosSeleccionados,
+  } = pcontext;
 
   const formik = useFormik({
     initialValues: {
@@ -41,6 +47,16 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       const pedidoPresentaciones = presentacion.map(p => {
         return { id: p.id, cantidad: p.cantidad };
       });
+      // Estraer solo cantidad y id de  ofertasSeleccionada
+      const pedidofertasSeleccionada = ofertasSeleccionada.map(p => {
+        return { id: p.oferta_id, cantidad: p.cantidad };
+      });
+      console.log("pedidofertasSeleccionada", pedidofertasSeleccionada);
+      // Estraer solo cantidad y id de combosSeleccionados
+      const pedidocombosSeleccionados = combosSeleccionados.map(p => {
+        return { id: p.id, cantidad: p.cantidad };
+      });
+      console.log("pedidocombosSeleccionados", pedidocombosSeleccionados);
 
       console.log("FinalizarPedido: ", pedidoPresentaciones);
 
@@ -60,6 +76,8 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
             telefono: values.telefono,
             persona_asignada: values.recoge_pedido,
             presentaciones_productos: pedidoPresentaciones,
+            presentaciones_combos: pedidocombosSeleccionados,
+            ofertas: pedidofertasSeleccionada,
           },
           {
             headers: {
