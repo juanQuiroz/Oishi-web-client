@@ -39,16 +39,6 @@ const Layout = ({ children }) => {
       </Head>
 
       <div className="bg-gradient-to-r from-trueGray-50 to-trueGray-100">
-        <style jsx global>
-          {`
-            @font-face {
-              font-family: "Cunia";
-              src: local("Cunia"), url(../assets/fonts/Cunia.ttf) format("ttf");
-              /* other formats include: 'woff2', 'truetype, 'opentype',
-                                      'embedded-opentype', and 'svg' */
-            }
-          `}
-        </style>
         <Header />
         {children}
         <Footer />

@@ -335,7 +335,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                     target="_blank"
                     className="font-semibold text-oishiAzul"
                   >
-                    Nuestros cobertura
+                    Nuestra cobertura
                   </a>
                 </span>
               </p>
