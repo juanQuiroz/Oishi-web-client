@@ -118,6 +118,7 @@ const PedidosState = ({ children }) => {
         ofertasSeleccionada: state.ofertasSeleccionada,
         combosSeleccionados: state.combosSeleccionados,
         localSeleccionado: state.localSeleccionado,
+        totalPedidos: state.pedido.totalPedidos,
         addDataProducto,
         addPresentacion,
         vaciarCesta,

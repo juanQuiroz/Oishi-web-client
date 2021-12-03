@@ -19,6 +19,7 @@ export default (state, action) => {
         ...state,
         localSeleccionado: action.payload,
       };
+
     case ACTUALIAZAR_CANTPRESENTACION:
       if (state.presentacion.some(p => p.id === action.payload.id)) {
         return {
@@ -72,6 +73,7 @@ export default (state, action) => {
           presentacionesPedidas: [], // ids de las presentaciones seleccionadas
           totalPedidos: 0,
         },
+        localSeleccionado: "",
       };
 
     case VACIAR_TOTALPEDIDO:

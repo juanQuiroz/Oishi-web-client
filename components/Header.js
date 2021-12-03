@@ -28,7 +28,7 @@ const Header = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full sm:pt-7">
       <div className="w-full flex justify-center">
         <Logo className="w-48 text-center" />
       </div>
@@ -92,8 +92,8 @@ const Header = () => {
 
             <a
               onClick={() => {
-                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
                 vaciarCesta();
+                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
               }}
               className="cursor-pointer ml-2 ransition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
             >

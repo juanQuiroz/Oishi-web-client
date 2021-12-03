@@ -67,9 +67,9 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                   <div
                     className="cursor-pointer bg-transparent flex-col items-center p-2"
                     onClick={() => {
+                      vaciarCesta();
                       selectLocal(1);
                       addLocalLocalStorage(1);
-                      vaciarCesta();
                       closeModal();
                     }}
                   >
@@ -86,9 +86,9 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                   <div
                     className="cursor-pointer bg-transparent flex-col items-center p-2"
                     onClick={() => {
+                      vaciarCesta();
                       selectLocal(2);
                       addLocalLocalStorage(2);
-                      vaciarCesta();
                       closeModal();
                     }}
                   >

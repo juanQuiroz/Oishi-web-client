@@ -17,6 +17,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
     presentacion,
     ofertasSeleccionada,
     combosSeleccionados,
+    totalPedidos,
   } = pcontext;
 
   const formik = useFormik({
@@ -319,6 +320,32 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               name="dedicatoria"
             />
           </div>
+
+          <div className="px-1">
+            {entregaDelivery && (
+              <p className="text-sm text-gray-700 leading-4">
+                * El precio no incluye costos de envio, si desea consultar los
+                costos de delivery revise el siguiente enlace
+                <span>
+                  {" "}
+                  <a
+                    href="/nuestros-locales"
+                    target="_blank"
+                    className="font-semibold text-oishiAzul"
+                  >
+                    Nuestros locales
+                  </a>
+                </span>
+              </p>
+            )}
+          </div>
+          <div className="flex justify-between mt-4">
+            <p className="text-oishiNegro text-lg">Total:</p>
+            <p className="text-oishiNegro text-xl font-semibold">
+              S/ {totalPedidos.toFixed(2)}
+            </p>
+          </div>
+
           <div className="flex mt-6 mb-4 justify-evenly">
             <button
               onClick={() => {
@@ -338,11 +365,6 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
           </div>
         </div>
       </form>
-      <iframe
-        src="https://www.google.com/maps/d/embed?mid=1MVdJVg2PtkgscmC52huUymgKZH3Z7fPJ"
-        width="100%"
-        height="480"
-      ></iframe>
     </div>
   );
 };
