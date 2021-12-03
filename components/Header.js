@@ -8,7 +8,8 @@ import Ica from "../assets/localosihi/ica.svg";
 
 const Header = () => {
   const pedidosContext = useContext(PedidosContext);
-  const { selectLocal, localSeleccionado, vaciarCesta } = pedidosContext;
+  const { selectLocal, localSeleccionado, vaciarCesta, totalPedidos } =
+    pedidosContext;
 
   React.useEffect(() => {
     const local = JSON.parse(localStorage.getItem("local"));
@@ -55,8 +56,8 @@ const Header = () => {
             )}
           </svg>
         </button>
-        <ul className="flex flex-none justify-end py-1  rounded-full w-auto">
-          <div className="flex bg-oishiCeleste px-4 py-2 rounded-l-full">
+        <ul className="flex flex-none justify-end py-1 rounded-full w-auto">
+          <div className="flex bg-oishiCeleste px-4 py-1.5 rounded-l-full">
             {/* <Link href="/users/login">
               <a>
                 <User className="h-9 sm:h-10 cursor-pointer" />
@@ -64,7 +65,10 @@ const Header = () => {
             </Link> */}
             {/* cesta movil */}
             <Link href="/cesta/cesta">
-              <a className="ransition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110">
+              <a className="relative transition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110">
+                {totalPedidos > 0 && (
+                  <div class="absolute top-0 right-0 bg-red-600 h-2 w-2 rounded-full"></div>
+                )}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 470.21 383.81"
@@ -95,14 +99,14 @@ const Header = () => {
                 vaciarCesta();
                 localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
               }}
-              className="cursor-pointer ml-2 ransition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
+              className="cursor-pointer ml-2 transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
               {localSeleccionado == 1 ? (
-                // <Canete className="w-7 h-7" />
-                <img src="./canete.png" alt="." className="w-7 h-7" />
+                <Canete className="w-8 h-8" />
               ) : (
-                // <Ica className="w-7 h-7" />
-                <img src="./ica.png" alt="." className="w-7 h-7" />
+                // <img src="./canete.png" alt="." className="w-7 h-7" />
+                <Ica className="w-8 h-8" />
+                // <img src="./ica.png" alt="." className="w-7 h-7" />
               )}
             </a>
           </div>
@@ -139,13 +143,16 @@ const Header = () => {
           </li>
         </ul>
         <ul className="flex flex-none justify-end py-1 px-2 rounded-full w-auto">
-          <div className="flex bg-oishiCeleste px-3 py-1 rounded-full ">
+          <div className="flex bg-oishiCeleste px-4 py-2 rounded-full">
             <Link href="/cesta/cesta">
-              <a className="ransition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110">
+              <a className="relative">
+                {totalPedidos > 0 && (
+                  <div class="absolute top-0 right-0 bg-red-600 h-2 w-2 rounded-full"></div>
+                )}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 470.21 383.81"
-                  className="h-8 w-8"
+                  className="z-0 h-8 w-8"
                   fill="none"
                   stroke="currentColor"
                 >
@@ -171,14 +178,14 @@ const Header = () => {
                 localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
                 vaciarCesta();
               }}
-              className="cursor-pointer ml-2 ransition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
+              className="cursor-pointer ml-3"
             >
               {localSeleccionado == 1 ? (
-                // <Canete className="w-7 h-7" />
-                <img src="./canete.png" alt="." className="w-8 h-8" />
+                <Canete className="w-8 h-8" />
               ) : (
-                // <Ica className="w-7 h-7" />
-                <img src="./ica.png" alt="." className="w-8 h-8" />
+                // <img src="./canete.png" alt="." className="w-8 h-8" />
+                <Ica className="w-8 h-8" />
+                // <img src="./ica.png" alt="." className="w-8 h-8" />
               )}
             </a>
           </div>

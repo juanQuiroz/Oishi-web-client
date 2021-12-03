@@ -278,7 +278,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   value="1"
                   onClick={() => setEfectivo(false)}
                 />
-                <span className="ml-2">Tarjeta</span>
+                <span className="ml-2">POS</span>
               </label>
               <label className="inline-flex items-center ml-6">
                 <input

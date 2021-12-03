@@ -14,7 +14,7 @@ const cesta = () => {
           <FinalizarPedido setConfirmarpedido={setConfirmarpedido} />
         ) : (
           <div>
-            <OfertaExtra />
+            {/* <OfertaExtra /> */}
             <ConfirmarPedido setConfirmarpedido={setConfirmarpedido} />
           </div>
         )}
