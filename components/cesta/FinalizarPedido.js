@@ -324,16 +324,18 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
           <div className="px-1">
             {entregaDelivery && (
               <p className="text-sm text-gray-700 leading-4">
-                * El precio no incluye costos de envio, si desea consultar los
-                costos de delivery revise el siguiente enlace
+                * Si seleccionó la modalidad{" "}
+                <span className="font-semibold">Delivery</span> se adicionará el
+                costo de envío a la dirección que indico por consiguiente el
+                monto a pagar se incrementará.
                 <span>
                   {" "}
                   <a
-                    href="/nuestros-locales"
+                    href="/cobertura"
                     target="_blank"
                     className="font-semibold text-oishiAzul"
                   >
-                    Nuestros locales
+                    Nuestros cobertura
                   </a>
                 </span>
               </p>

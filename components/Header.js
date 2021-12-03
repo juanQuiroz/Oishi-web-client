@@ -33,6 +33,9 @@ const Header = () => {
       <div className="w-full flex justify-center">
         <Logo className="w-48 text-center" />
       </div>
+      <p className="font-Andika text-center text-lg text-gray-600">
+        Te encuentras en {localSeleccionado == 1 ? "Oishi Cañete" : "Oishi Ica"}
+      </p>
 
       <div className="flex justify-between sm:hidden">
         <button type="button" onClick={handleClick}>
