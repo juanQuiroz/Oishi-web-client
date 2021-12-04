@@ -64,7 +64,7 @@ module.exports = {
       McLaren: ['"McLaren"'],
       NanumGothic: ['"Nanum Gothic"'],
       Andika: ['"Andika New Basic"'],
-      adelia: ['"adelia"'],
+      Cunia: ['"Cunia"'],
     },
   },
   variants: {

@@ -5,7 +5,7 @@ const NuestrosLocales = () => {
   return (
     <Layout>
       <div className="flex mt-5 mb-12 mx-5 justify-center items-end font-Andika">
-        <p className="text-oishiNegro text-lg ">Encuentra un </p>
+        <p className="text-oishiNegro text-lg font-Cunia">Encuentra un </p>
         <div className="mx-2">
           <h1 className="font-Andika text-2xl font-semibold leading-6">
             <span className=" font-Andika text-3xl font-semibold text-oishiRosa">
