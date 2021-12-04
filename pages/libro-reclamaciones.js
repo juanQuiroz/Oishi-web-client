@@ -234,7 +234,7 @@ const LibroReclamaciones = () => {
               </div>
               <div className="sm:grid sm:grid-cols-2 sm:gap-2">
                 <div className="mb-2">
-                  <label htmlFor="">Detalle Reclamo:</label>
+                  <label htmlFor="">Detalle Reclamo/Queja:</label>
                   <textarea
                     rows="4"
                     className="bg-gray-100 w-full rounded-lg px-1 py-1"
