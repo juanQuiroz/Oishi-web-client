@@ -32,13 +32,30 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       tipoComprobante: "",
       metodoPago: "",
       cantidad_efectivo: "",
-      dedicatoria: "",
+      paraComprobanteDePago: "",
+      // dedicatoria: "",
     },
     validationSchema: Yup.object({
-      nombre_razon_social: Yup.string().required(
-        "nombre o raz. social obligatorio",
-      ),
-      dni_ruc: Yup.string().required("DNI o RUC obligatorio"),
+      nombre_razon_social: Yup.string().required("Campo obligatorio"),
+      dni_ruc: Yup.number().required("Solo numeros"),
+      telefono: Yup.number().required("Solo numeros"),
+      metEntrega: Yup.string().required("Campo obligatorio"),
+      direccion_entrega: Yup.string().when("entregaDelivery", {
+        is: true,
+        then: Yup.string().required("Campo obligatorio"),
+      }),
+      referencia: Yup.string().when("entregaDelivery", {
+        is: true,
+        then: Yup.string().required("Campo obligatorio"),
+      }),
+      recoge_pedido: Yup.string().required("Campo obligatorio"), // campo se repite en DELIVERY Y REC TIENDA
+      tipoComprobante: Yup.string().required("Campo obligatorio"),
+      metodoPago: Yup.string().required("Campo obligatorio"),
+      cantidad_efectivo: Yup.number().when("efectivo", {
+        is: true,
+        then: Yup.string().required("Campo obligatorio"),
+      }),
+      // dedicatoria: Yup.string().required("Campo obligatorio"),
     }),
 
     onSubmit: async values => {
@@ -57,9 +74,8 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       const pedidocombosSeleccionados = combosSeleccionados.map(p => {
         return { id: p.id, cantidad: p.cantidad };
       });
-      console.log("pedidocombosSeleccionados", pedidocombosSeleccionados);
-
-      console.log("FinalizarPedido: ", pedidoPresentaciones);
+      // // console.log("pedidocombosSeleccionados", pedidocombosSeleccionados);
+      // // console.log("FinalizarPedido: ", pedidoPresentaciones);
 
       try {
         const res = await axios.post(
@@ -189,6 +205,13 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   type="text"
                   name="direccion_entrega"
                 />
+                {formik.touched.direccion_entrega &&
+                formik.errors.direccion_entrega ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.direccion_entrega}
+                  </p>
+                ) : null}
+
                 <p className="text-black text-sm mt-2">Referencia</p>
                 <input
                   onChange={formik.handleChange}
@@ -198,6 +221,12 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   type="text"
                   name="referencia"
                 />
+                {formik.touched.referencia && formik.errors.referencia ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.referencia}
+                  </p>
+                ) : null}
+
                 <p className="text-black text-sm mt-2">Recibe el pedido:</p>
                 <input
                   onChange={formik.handleChange}
@@ -207,6 +236,11 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   type="text"
                   name="recoge_pedido"
                 />
+                {formik.touched.recoge_pedido && formik.errors.recoge_pedido ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.recoge_pedido}
+                  </p>
+                ) : null}
               </div>
             ) : (
               <div className="bg-blueGray-300 p-2 rounded-lg shadow mt-1">
@@ -220,6 +254,11 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   type="text"
                   name="recoge_pedido"
                 />
+                {formik.touched.recoge_pedido && formik.errors.recoge_pedido ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.recoge_pedido}
+                  </p>
+                ) : null}
               </div>
             )}
           </div>
@@ -236,6 +275,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   name="tipoComprobante"
                   value="1"
                 />
+
                 <span className="ml-2">Factura</span>
               </label>
               <label className="inline-flex items-center ml-6">
@@ -248,6 +288,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   name="tipoComprobante"
                   value="2"
                 />
+
                 <span className="ml-2">Boleta</span>
               </label>
             </div>
@@ -263,6 +304,12 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               type="text"
               name="paraComprobanteDePago"
             />
+            {formik.touched.paraComprobanteDePago &&
+            formik.errors.paraComprobanteDePago ? (
+              <p className="mt-0 mb-4 text-red-500">
+                *{formik.errors.paraComprobanteDePago}
+              </p>
+            ) : null}
           </div>
           <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
             <p className="text-black text-md">Método de pago</p>
@@ -302,14 +349,21 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   onBlur={formik.handleBlur}
                   value={formik.values.cantidad_efectivo}
                   className="w-full bg-blueGray-50 rounded-lg px-1"
-                  type="text"
+                  type="number"
+                  onKeypress="if (event.keyCode 57) event.returnValue = false;"
                   placeholder="S/ Monto con el que paga"
                   name="cantidad_efectivo"
-                />
+                />{" "}
+                {formik.touched.cantidad_efectivo &&
+                formik.errors.cantidad_efectivo ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.cantidad_efectivo}
+                  </p>
+                ) : null}
               </div>
             ) : null}
           </div>
-          <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+          {/* <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
             <p className="text-black text-md">Dedicatoria:</p>
             <textarea
               onChange={formik.handleChange}
@@ -319,7 +373,12 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               type="textBox"
               name="dedicatoria"
             />
-          </div>
+            {formik.touched.dedicatoria && formik.errors.dedicatoria ? (
+              <p className="mt-0 mb-4 text-red-500">
+                *{formik.errors.dedicatoria}
+              </p>
+            ) : null}
+          </div> */}
 
           <div className="px-1">
             {entregaDelivery && (
@@ -327,7 +386,8 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                 * Si seleccionó la modalidad{" "}
                 <span className="font-semibold">Delivery</span> se adicionará el
                 costo de envío a la dirección que indico por consiguiente el
-                monto a pagar se incrementará.
+                monto a pagar se incrementará. Revisa nuestros costos de envío
+                en
                 <span>
                   {" "}
                   <a
