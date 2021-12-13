@@ -249,7 +249,7 @@ const LibroReclamaciones = () => {
                     }}
                   />
                 </div>
-                <div className="mb-2">
+                {/* <div className="mb-2">
                   <label htmlFor="">Acciones adoptadas por el proveedor:</label>
                   <textarea
                     rows="4"
@@ -264,7 +264,22 @@ const LibroReclamaciones = () => {
                       });
                     }}
                   />
-                </div>
+                </div> */}
+              </div>
+              <div className="mb-2">
+                <ul>
+                  <li>
+                    * La formulación del reclamo no impide acudir a otras vías
+                    de solución de controversias ni es requisito previo para
+                    interponer una denuncia ante el INDECOPI.{" "}
+                  </li>
+                  <li>
+                    * El proveedor deberá dar respuesta al reclamo en un plazo
+                    no mayor a treinta (30) días calendario, pudiendo ampliar el
+                    plazo hasta por treinta (30) días más, previa comunicación
+                    al consumidor.
+                  </li>
+                </ul>
               </div>
               <button
                 type="submit"

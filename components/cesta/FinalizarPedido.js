@@ -18,6 +18,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
     ofertasSeleccionada,
     combosSeleccionados,
     totalPedidos,
+    localSeleccionado,
   } = pcontext;
 
   const formik = useFormik({
@@ -32,29 +33,39 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       tipoComprobante: "",
       metodoPago: "",
       cantidad_efectivo: "",
-      paraComprobanteDePago: "",
-      // dedicatoria: "",
+      paraComprobanteDePago: "", // Valor por defecto (Checked)
+      dedicatoria: "", // De momento cremas y salsas
     },
     validationSchema: Yup.object({
-      nombre_razon_social: Yup.string().required("Campo obligatorio"),
-      dni_ruc: Yup.number().required("Solo numeros"),
-      telefono: Yup.number().required("Solo numeros"),
-      metEntrega: Yup.string().required("Campo obligatorio"),
+      nombre_razon_social: Yup.string().required("Nombre obligatorio"),
+      dni_ruc: Yup.number()
+        .integer("Ingrese solo numeros")
+        .typeError("Ingrese solo numeros")
+        .required("DNI_RUC requerido"),
+      telefono: Yup.number()
+        .integer("Ingrese solo numeros")
+        .typeError("Ingrese solo numeros")
+        .required("telefono requerido"),
+      metEntrega: Yup.string().required("ingrese metodo de entrega"),
       direccion_entrega: Yup.string().when("entregaDelivery", {
         is: true,
-        then: Yup.string().required("Campo obligatorio"),
+        then: Yup.string().required("Direccion obligatoria"),
       }),
       referencia: Yup.string().when("entregaDelivery", {
         is: true,
-        then: Yup.string().required("Campo obligatorio"),
+        then: Yup.string().required("Referencia obligatoria"),
       }),
-      recoge_pedido: Yup.string().required("Campo obligatorio"), // campo se repite en DELIVERY Y REC TIENDA
-      tipoComprobante: Yup.string().required("Campo obligatorio"),
-      metodoPago: Yup.string().required("Campo obligatorio"),
-      cantidad_efectivo: Yup.number().when("efectivo", {
-        is: true,
-        then: Yup.string().required("Campo obligatorio"),
-      }),
+      recoge_pedido: Yup.string().required("Nombre obligatorio"), // campo se repite en DELIVERY Y REC TIENDA
+      // tipoComprobante: Yup.string().required("obligatorio"), //
+      metodoPago: Yup.string().required("Metodo de pago obligatorio"),
+      cantidad_efectivo: Yup.number()
+        .typeError("Ingrese solo numeros")
+        .when("efectivo", {
+          is: true,
+          then: Yup.number()
+            .typeError("Ingrese solo numeros")
+            .required("Cantidad de efectivo obligatorio"),
+        }),
       // dedicatoria: Yup.string().required("Campo obligatorio"),
     }),
 
@@ -74,13 +85,16 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       const pedidocombosSeleccionados = combosSeleccionados.map(p => {
         return { id: p.id, cantidad: p.cantidad };
       });
-      // // console.log("pedidocombosSeleccionados", pedidocombosSeleccionados);
+      console.log("pedidocombosSeleccionados", pedidocombosSeleccionados);
       // // console.log("FinalizarPedido: ", pedidoPresentaciones);
 
+      // PARA WEB SOCKET
       try {
         const res = await axios.post(
           "http://localhost:4000/crearpedido",
           {
+            local_id: localSeleccionado,
+            paraComprobantePago: values.paraComprobanteDePago,
             dni_ruc: values.dni_ruc,
             nombre_razon_social: values.nombre_razon_social,
             dedicatoria: values.dedicatoria,
@@ -107,13 +121,47 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       } catch (e) {
         console.log(e);
       }
+
+      // Para NOTIFICACION PUSH
+      try {
+        const res = await axios.post(
+          "http://localhost:4000/nuevopedido",
+          {
+            local_id: localSeleccionado,
+            dni_ruc: values.dni_ruc,
+            nombre_razon_social: values.nombre_razon_social,
+            dedicatoria: values.dedicatoria,
+            metodo_entrega_id: values.metEntrega,
+            direccion_entrega: values.direccion_entrega,
+            referencia: values.referencia,
+            metodo_pago_id: values.metodoPago,
+            cantidad_efectivo: values.cantidad_efectivo,
+            comprobante_pago_id: values.tipoComprobante,
+            telefono: values.telefono,
+            persona_asignada: values.recoge_pedido,
+            presentaciones_productos: pedidoPresentaciones,
+            presentaciones_combos: pedidocombosSeleccionados,
+            ofertas: pedidofertasSeleccionada,
+            paraComprobantePago: values.paraComprobanteDePago,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          },
+        );
+        console.log("CREAR PEDIDO: ", res);
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
 
   return (
     <div>
       <Subtitulo>Continuar con el pedido</Subtitulo>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} className="font-Andika">
         <div className="rounded-md p-1 sm:p-3">
           <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
             <p className="text-black text-md">Nombre / Raz. Soc.:</p>
@@ -124,6 +172,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               className="w-full bg-blueGray-50 rounded-lg px-1"
               type="text"
               name="nombre_razon_social"
+              placeholder="Nombres y apellidos o razon social"
             />
             {formik.touched.nombre_razon_social &&
             formik.errors.nombre_razon_social ? (
@@ -293,7 +342,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               </label>
             </div>
             <p className="text-black text-sm mt-2">
-              DNI / RUC (para facturación)
+              Nombre / Raz. Soc. - DNI / RUC (para facturación)
             </p>
             {/* DATOS PARA COMPROBANTE DE PAGO */}
             <input
@@ -303,6 +352,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               className="w-full bg-blueGray-50 rounded-lg px-1"
               type="text"
               name="paraComprobanteDePago"
+              placeholder="Ej: Juan Perez - 12345678"
             />
             {formik.touched.paraComprobanteDePago &&
             formik.errors.paraComprobanteDePago ? (
@@ -349,7 +399,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
                   onBlur={formik.handleBlur}
                   value={formik.values.cantidad_efectivo}
                   className="w-full bg-blueGray-50 rounded-lg px-1"
-                  type="number"
+                  type="text"
                   onKeypress="if (event.keyCode 57) event.returnValue = false;"
                   placeholder="S/ Monto con el que paga"
                   name="cantidad_efectivo"
@@ -363,8 +413,18 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               </div>
             ) : null}
           </div>
-          {/* <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
-            <p className="text-black text-md">Dedicatoria:</p>
+          <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+            <p className="text-black text-md mb-1">
+              <span className="font-semibold">
+                Que salsa desea para su pedido?
+              </span>{" "}
+              <br />
+              <span className="font-semibold">Nota:</span> Recuerde que la
+              cantidad depende de la presentación a comprar acevichado,
+              <span className="font-semibold">
+                maracuya, anguila, tiradito, aji oishi:
+              </span>
+            </p>
             <textarea
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -372,13 +432,14 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
               className="w-full bg-blueGray-50 rounded-lg px-1"
               type="textBox"
               name="dedicatoria"
+              placeholder="Ej: Maracuya x2 - Anguila x3"
             />
             {formik.touched.dedicatoria && formik.errors.dedicatoria ? (
               <p className="mt-0 mb-4 text-red-500">
                 *{formik.errors.dedicatoria}
               </p>
             ) : null}
-          </div> */}
+          </div>
 
           <div className="px-1">
             {entregaDelivery && (

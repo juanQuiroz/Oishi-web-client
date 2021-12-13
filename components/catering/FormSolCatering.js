@@ -123,6 +123,7 @@ const FormSolCatering = () => {
                   className="bg-white w-full rounded-lg px-1 py-1"
                   type="text"
                   name="dni"
+                  placeholder="Ejemplo: Dni - 85854871"
                   value={camposCotizacion.dni}
                   onChange={e => {
                     setCamposCotizacion({
@@ -140,7 +141,6 @@ const FormSolCatering = () => {
                   type="text"
                   name="celular"
                   value={camposCotizacion.celular}
-                  placeholder="Ejemplo: Dni - 85854871"
                   onChange={e => {
                     setCamposCotizacion({
                       ...camposCotizacion,
@@ -212,8 +212,8 @@ const FormSolCatering = () => {
                     });
                   }}
                 >
+                  <option value="Detallado">Detallado</option>
                   <option value="Consumo">Consumo</option>
-                  <option value="Detallado">Detallado o Consumo</option>
                 </select>
               </div>
             </div>
@@ -300,9 +300,9 @@ const FormSolCatering = () => {
                     });
                   }}
                 >
-                  <option value="Basico">Basico</option>
-                  <option value="Estandar">Estandar</option>
-                  <option value="Premium">Premium</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Gold">Gold</option>
+                  <option value="Black">Black</option>
                 </select>
               </div>
 
