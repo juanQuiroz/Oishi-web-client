@@ -71,7 +71,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
 
     onSubmit: async values => {
       // Enviar datos al Context state
-      console.log("initialValues", values);
+
       // Estraer solo cantidad y id de la presentacion
       const pedidoPresentaciones = presentacion.map(p => {
         return { id: p.id, cantidad: p.cantidad };
@@ -80,18 +80,19 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       const pedidofertasSeleccionada = ofertasSeleccionada.map(p => {
         return { id: p.oferta_id, cantidad: p.cantidad };
       });
-      console.log("pedidofertasSeleccionada", pedidofertasSeleccionada);
       // Estraer solo cantidad y id de combosSeleccionados
       const pedidocombosSeleccionados = combosSeleccionados.map(p => {
-        return { id: p.id, cantidad: p.cantidad };
+        return { id: p.presentacion_id, cantidad: p.cantidad };
       });
-      console.log("pedidocombosSeleccionados", pedidocombosSeleccionados);
-      // // console.log("FinalizarPedido: ", pedidoPresentaciones);
+
+      console.log("presentaciones_combos", pedidocombosSeleccionados);
+      console.log("presentaciones_productos: ", pedidoPresentaciones);
+      console.log("OFERTAS", pedidofertasSeleccionada);
 
       // PARA WEB SOCKET
       try {
         const res = await axios.post(
-          "http://localhost:4000/crearpedido",
+          "http://weboishibackend.com/weboishi/crearpedido",
           {
             local_id: localSeleccionado,
             paraComprobantePago: values.paraComprobanteDePago,
@@ -117,7 +118,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
             },
           },
         );
-        console.log("CREAR PEDIDO: ", res);
+        console.log("Socket Res: ", res);
       } catch (e) {
         console.log(e);
       }
@@ -125,7 +126,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
       // Para NOTIFICACION PUSH
       try {
         const res = await axios.post(
-          "http://localhost:4000/nuevopedido",
+          "http://weboishibackend.com/weboishi/nuevopedido",
           {
             local_id: localSeleccionado,
             dni_ruc: values.dni_ruc,
@@ -151,7 +152,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
             },
           },
         );
-        console.log("CREAR PEDIDO: ", res);
+        console.log("Push Res: ", res);
       } catch (e) {
         console.log(e);
       }

@@ -15,8 +15,6 @@ const ConfirmarPedido = ({ setConfirmarpedido }) => {
     pedido,
   } = PedidosContext;
 
-  console.log("ConfPedido: ", pedido.presentacionesPedidas.length);
-
   // filtrar pedidos
   if (presentacion.length > 0) {
     var pedidosFiltrados = presentacion.filter(p => p.cantidad > 0);

@@ -57,7 +57,7 @@ const Combo = ({ combo }) => {
           <div className="flex justify-evenly my-3">
             <p className="text-gray-600  text-xl line-through">
               S/{" "}
-              {/* {combo?.locales &&
+              {/* {combo?.locales && 
                 combo.locales[0].presentacion[0].precio_default} */}
               {localActual[0].presentacion[0].precio_default}
             </p>

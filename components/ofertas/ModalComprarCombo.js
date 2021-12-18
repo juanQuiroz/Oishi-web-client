@@ -25,6 +25,8 @@ export default function ModalComprarCombo({
 
   const cuentaRenderizado = React.useRef(0);
 
+  // if(localSeleccionado != localActual[0].id){
+
   React.useEffect(() => {
     if (cuentaRenderizado.current === 0) {
       cuentaRenderizado.current = cuentaRenderizado.current + 1;
@@ -34,6 +36,7 @@ export default function ModalComprarCombo({
       id: dataCombo.id,
       nombre: dataCombo.nombre,
       precio: localActual[0].presentacion[0].precio_combo,
+      presentacion_id: localActual[0].presentacion[0].presentacion_id, // para pedidos combos
       // precioIca: dataCombo.locales[1].presentacion[1].precio_combo,
       cantidad: cantCombo,
     });
