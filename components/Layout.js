@@ -10,6 +10,11 @@ const Layout = ({ children }) => {
     <>
       <Head>
         <title>Oishi SushiBar</title>
+        <meta
+          name="viewport"
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
         <link rel="icon" href="/favicon.ico" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
