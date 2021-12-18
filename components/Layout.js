@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
       <Head>
         <title>Oishi SushiBar</title>
         <meta
-          name="viewport"
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
         />
