@@ -8,8 +8,13 @@ import Ica from "../assets/localosihi/ica.svg";
 
 const Header = () => {
   const pedidosContext = useContext(PedidosContext);
-  const { selectLocal, localSeleccionado, vaciarCesta, totalPedidos } =
-    pedidosContext;
+  const {
+    selectLocal,
+    localSeleccionado,
+    vaciarCesta,
+    totalPedidos,
+    setConfirmarpedido,
+  } = pedidosContext;
 
   React.useEffect(() => {
     const local = JSON.parse(localStorage.getItem("local"));
@@ -100,6 +105,7 @@ const Header = () => {
             <a
               onClick={() => {
                 vaciarCesta();
+                setConfirmarpedido(false);
                 localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
               }}
               className="cursor-pointer ml-2 transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
@@ -178,8 +184,9 @@ const Header = () => {
             </Link>
             <a
               onClick={() => {
-                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
                 vaciarCesta();
+                setConfirmarpedido(false);
+                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
               }}
               className="cursor-pointer ml-3"
             >

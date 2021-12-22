@@ -10,10 +10,17 @@ import {
   AGREGAR_COMBO,
   ELIMINAR_COMBO,
   SELECCIONAR_LOCAL,
+  SET_CONFIRMARPEDIDO,
 } from "../../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case SET_CONFIRMARPEDIDO:
+      return {
+        ...state,
+        confirmarPedido: action.payload,
+      };
+
     case SELECCIONAR_LOCAL:
       return {
         ...state,

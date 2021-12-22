@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 import axios from "axios";
 
-const FinalizarPedido = ({ setConfirmarpedido }) => {
+const FinalizarPedido = () => {
   // por defecto el metodo de entrega es mediante delivery
   const [entregaDelivery, setEntregaDelivery] = React.useState(true);
   const [efectivo, setEfectivo] = React.useState(false);
@@ -19,6 +19,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
     combosSeleccionados,
     totalPedidos,
     localSeleccionado,
+    setConfirmarpedido,
   } = pcontext;
 
   const formik = useFormik({
@@ -474,7 +475,7 @@ const FinalizarPedido = ({ setConfirmarpedido }) => {
             <button
               onClick={() => {
                 setConfirmarpedido(false);
-                vaciarTotalPedido();
+                // vaciarTotalPedido();
               }}
               className="font-semibold text-white bg-red-500 px-3 py-2 rounded-full shadow-red hover:shadow-redPlus min-h-10 hover:bg-red-600"
             >

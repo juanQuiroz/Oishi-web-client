@@ -5,7 +5,7 @@ import pedidosContex from "../../context/pedidos/pedidosContex";
 import OfertaPedido from "./OfertaPedido";
 import ComboPedido from "./ComboPedido";
 
-const ConfirmarPedido = ({ setConfirmarpedido }) => {
+const ConfirmarPedido = () => {
   const PedidosContext = useContext(pedidosContex);
   const {
     presentacion,
@@ -13,6 +13,7 @@ const ConfirmarPedido = ({ setConfirmarpedido }) => {
     ofertasSeleccionada,
     combosSeleccionados,
     pedido,
+    setConfirmarpedido,
   } = PedidosContext;
 
   // filtrar pedidos
@@ -38,18 +39,17 @@ const ConfirmarPedido = ({ setConfirmarpedido }) => {
             combosSeleccionados.map(c => (
               <ComboPedido key={c.id} comboPedido={c} />
             ))}
-
-          {pedido && (
-            <div className=" flex justify-between mt-2 mx-1">
-              <p className="text-xl font-medium text-right text-gray-700">
-                Total Pedido:
-              </p>
-              <p className="text-xl font-extrabold text-right text-gray-800">
-                S/ {parseFloat(pedido.totalPedidos).toFixed(2)}
-              </p>
-            </div>
-          )}
         </div>
+        {pedido && (
+          <div className=" flex justify-between mt-2 mx-1">
+            <p className="text-xl font-medium text-right text-gray-700">
+              Total Pedido:
+            </p>
+            <p className="text-xl font-extrabold text-right text-gray-800">
+              S/ {parseFloat(pedido.totalPedidos).toFixed(2)}
+            </p>
+          </div>
+        )}
 
         {(presentacion.length > 0 ||
           ofertasSeleccionada.length > 0 ||
