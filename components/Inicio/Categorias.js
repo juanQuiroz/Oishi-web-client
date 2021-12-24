@@ -1,20 +1,53 @@
 import React from "react";
 import Titulos from "../ui/Titulos";
 import Categoria from "./Categoria";
+import Link from "next/link";
 
 const Categorias = () => {
   return (
     <div className="mx-2 sm:mx-4 my-5 sm:mt-9">
       <Titulos>Categorias</Titulos>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-6 mt-4">
-        <Categoria categoria="Oishi piqueos" />
-        <Categoria categoria="Acompañamientos" />
-        <Categoria categoria="Paltos calientes" />
-        <Categoria categoria="Sanguches" />
-        <Categoria categoria="Makis" />
-        <Categoria categoria="Combinados" />
-        <Categoria categoria="Bebidas" />
-        <Categoria categoria="Sandwich furai" />
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Oishi piqueos" />
+          </a>
+        </Link>
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Acompañamientos" />
+          </a>
+        </Link>
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Platos calientes" />
+          </a>
+        </Link>
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Sanguches" />
+          </a>
+        </Link>
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Makis" />
+          </a>
+        </Link>
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Combinados" />
+          </a>
+        </Link>
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Bebidas" />
+          </a>
+        </Link>
+        <Link href="/carta">
+          <a>
+            <Categoria categoria="Sandwich furai" />
+          </a>
+        </Link>
       </div>
     </div>
   );

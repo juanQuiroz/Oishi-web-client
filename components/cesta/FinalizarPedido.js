@@ -443,28 +443,28 @@ const FinalizarPedido = () => {
             ) : null}
           </div>
 
-          <div className="px-1">
-            {entregaDelivery && (
-              <p className="text-sm text-gray-700 leading-4">
-                * Si seleccionó la modalidad{" "}
-                <span className="font-semibold">Delivery</span> se adicionará el
-                costo de envío a la dirección que indico por consiguiente el
-                monto a pagar se incrementará. Revisa nuestros costos de envío
-                en
-                <span>
-                  {" "}
-                  <a
-                    href="/cobertura"
-                    target="_blank"
-                    className="font-semibold text-oishiAzul"
-                  >
-                    Nuestra cobertura
-                  </a>
-                </span>
-              </p>
-            )}
-          </div>
           <div className="flex justify-between mt-4">
+            <div className="px-1">
+              {entregaDelivery && (
+                <p className="text-sm text-gray-700 leading-4">
+                  * Si seleccionó la modalidad{" "}
+                  <span className="font-semibold">Delivery</span> se adicionará
+                  el costo de envío a la dirección que indico por consiguiente
+                  el monto a pagar se incrementará. Revisa nuestros costos de
+                  envío en
+                  <span>
+                    {" "}
+                    <a
+                      href="/cobertura"
+                      target="_blank"
+                      className="font-semibold text-oishiAzul"
+                    >
+                      Nuestra cobertura
+                    </a>
+                  </span>
+                </p>
+              )}
+            </div>
             <p className="text-oishiNegro text-lg">Total:</p>
             <p className="text-oishiNegro text-xl font-semibold">
               S/ {totalPedidos.toFixed(2)}

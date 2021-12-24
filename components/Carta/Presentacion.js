@@ -53,13 +53,22 @@ const Presentacion = ({ presentacionData }) => {
     ]);
   }, [cantPresentacion]);
 
-  // comprobar los productos cuyo disponibilidad sea SOLO LOCAL
+  // comprobar los productos cuya disponibilidad sea SOLO LOCAL
   let dispSoloLocal = false;
   if (
     presentacionData.disponibilidadLocal === true &&
     presentacionData.disponibilidadWeb === false
   ) {
     dispSoloLocal = true;
+  }
+
+  // comprobar los productos cuya disponibilidad sea SOLO WEB
+  let dispSoloWeb = false;
+  if (
+    presentacionData.disponibilidadLocal === false &&
+    presentacionData.disponibilidadWeb === true
+  ) {
+    dispSoloWeb = true;
   }
 
   return (
@@ -84,18 +93,24 @@ const Presentacion = ({ presentacionData }) => {
           {presentacionData.disponibilidadLocal ||
           presentacionData.disponibilidadWeb === true ? (
             <div className="flex px-2 py-1">
-              {presentacionData.disponibilidadWeb === true && (
+              {dispSoloWeb === true && (
                 <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
                   W
                 </p>
               )}
-              {presentacionData.disponibilidadLocal === true && (
+              {dispSoloLocal === true && (
                 <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded">
                   L
                 </p>
               )}
             </div>
           ) : null}
+
+          {/* {dispSoloWeb === true ? (
+            <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
+              W
+            </p>
+          ) : null} */}
 
           {dispSoloLocal === true ? (
             <p className="text-xs">Solo consumo en local </p>
