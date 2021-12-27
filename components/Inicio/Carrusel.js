@@ -22,7 +22,6 @@ const Carrusel = () => {
 
   React.useEffect(() => {
     getImgUrls();
-    console.log(imgURL);
   }, []);
 
   return (

@@ -27,7 +27,7 @@ const Carta = () => {
     <div>
       <div className="w-full p-2 px-3 sm:px-6">
         <div
-          class="bg-cover bg-center w-full h-28 rounded-xl sm:h-80 "
+          className="bg-cover bg-center w-full h-28 rounded-xl sm:h-80 "
           style={{
             backgroundSize: "cover",
             backgroundAttachment: "scroll",

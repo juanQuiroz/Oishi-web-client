@@ -4,8 +4,25 @@ import ProductoPedido from "./ProductoPedido";
 import pedidosContex from "../../context/pedidos/pedidosContex";
 import OfertaPedido from "./OfertaPedido";
 import ComboPedido from "./ComboPedido";
+import dayjs from "dayjs";
 
 const ConfirmarPedido = () => {
+  const [horarioLaboral, setHorarioLaboral] = React.useState(false);
+
+  React.useEffect(() => {
+    if (dayjs().hour() >= 12 && dayjs().hour() < 21) {
+      setHorarioLaboral(true);
+    } else if (
+      dayjs().hour() == 21 &&
+      dayjs().minute() >= 0 &&
+      dayjs().minute() <= 30
+    ) {
+      setHorarioLaboral(true);
+    } else {
+      setHorarioLaboral(false);
+    }
+  }, [horarioLaboral]);
+
   const PedidosContext = useContext(pedidosContex);
   const {
     presentacion,
@@ -61,12 +78,19 @@ const ConfirmarPedido = () => {
             >
               Vaciar cesta
             </button>
-            <button
-              className="font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
-              onClick={() => setConfirmarpedido(true)}
-            >
-              Confirmar productos
-            </button>
+
+            {horarioLaboral == true ? (
+              <button
+                className="font-Andika  font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
+                onClick={() => setConfirmarpedido(true)}
+              >
+                Confirmar productos
+              </button>
+            ) : (
+              <h2 className="font-Andika font-semibold border-2 border-blue-500 rounded-full px-2 py-1 text-blue-800">
+                Puedes pedir entre 12:00 pm - 09:30 pm
+              </h2>
+            )}
           </div>
         )}
       </div>
