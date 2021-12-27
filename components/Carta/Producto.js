@@ -4,6 +4,7 @@ import ModalDetalleProducto from "./ModalDetalleProducto";
 const Producto = ({ producto }) => {
   let [isOpen, setIsOpen] = React.useState(false);
   let [product, setProduct] = React.useState();
+  const urlImage = `http://api-oishi.mydevcpanel.xyz/api/v1${producto.url}`;
 
   return (
     <>
@@ -16,7 +17,7 @@ const Producto = ({ producto }) => {
       >
         <div>
           <img
-            src={producto.url}
+            src={urlImage}
             alt="imagen de producto oishisushibar"
             className="rounded-t-md"
           />

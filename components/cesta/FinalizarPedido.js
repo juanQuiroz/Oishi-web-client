@@ -15,7 +15,7 @@ const FinalizarPedido = () => {
     } else if (
       dayjs().hour() == 21 &&
       dayjs().minute() >= 0 &&
-      dayjs().minute() <= 30
+      dayjs().minute() <= 45
     ) {
       setHorarioLaboral(true);
     } else {
@@ -517,7 +517,7 @@ const FinalizarPedido = () => {
       ) : (
         <h2 className="sm:ml-4 font-Andika font-semibold  py-1 text-red-600">
           lo sentimos, estas fuera del horario de atención. Puedes pedir entre
-          <span className="ml-2 text-lg">12:00 pm - 09:30 pm</span>
+          <span className="ml-2 text-lg">12:00 pm - 09:45 pm</span>
         </h2>
       )}
     </div>

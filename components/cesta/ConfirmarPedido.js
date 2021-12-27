@@ -15,7 +15,7 @@ const ConfirmarPedido = () => {
     } else if (
       dayjs().hour() == 21 &&
       dayjs().minute() >= 0 &&
-      dayjs().minute() <= 30
+      dayjs().minute() <= 45
     ) {
       setHorarioLaboral(true);
     } else {
@@ -88,7 +88,7 @@ const ConfirmarPedido = () => {
               </button>
             ) : (
               <h2 className="font-Andika font-semibold border-2 border-blue-500 rounded-full px-2 py-1 text-blue-800">
-                Puedes pedir entre 12:00 pm - 09:30 pm
+                Puedes pedir entre 12:00 pm - 09:45 pm
               </h2>
             )}
           </div>

@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
         />
       </Head>
 
-      <div className="bg-gradient-to-r from-trueGray-50 to-trueGray-100">
+      <div className="bg-gradient-to-r from-trueGray-50 to-trueGray-100 min-h-screen">
         <Header />
         {children}
         <Footer />
