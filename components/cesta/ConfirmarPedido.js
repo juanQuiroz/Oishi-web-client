@@ -40,7 +40,7 @@ const ConfirmarPedido = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-[29rem] flex flex-col justify-start">
       <Subtitulo>Detalle del pedido</Subtitulo>
       <div className=" bg-blueGray-200 rounded-md p-2 sm:p-3">
         <div className=" grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-3">

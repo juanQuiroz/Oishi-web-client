@@ -21,7 +21,7 @@ const Carta = () => {
 
   React.useEffect(() => {
     getProducts();
-  }, []);
+  }, [products]);
 
   return (
     <div>
@@ -38,8 +38,8 @@ const Carta = () => {
 
       {products ? (
         products.map(categoria => (
-          <div className="px-1 sm:px-2">
-            <Categoria key={categoria.id} categoria={categoria} />
+          <div className="px-1 sm:px-2" key={categoria.id}>
+            <Categoria categoria={categoria} />
           </div>
         ))
       ) : (

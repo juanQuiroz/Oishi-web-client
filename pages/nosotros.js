@@ -44,7 +44,7 @@ const nosotros = () => {
         </p>
       </div>
       <div className="my-3 font-Andika">
-        <div className="bg-oishiCeleste w-10/12 h-44 rounded-r-xl p-2">
+        <div className="bg-oishiCeleste w-10/12  rounded-r-xl p-2  h-auto">
           <p className="text-oishiNaranja font-bold text-2xl">Misión</p>
           <p className="text-base">
             Somos Oishi Sushi Bar, un concepto diferente de la comida nikkei;
@@ -52,12 +52,12 @@ const nosotros = () => {
             transmitiendo sensaciones con todos los sentidos.
           </p>
         </div>
-        <div className="flex flex-row-reverse mt-3">
-          <div className="bg-oishiCeleste w-10/12 h-32 rounded-l-xl p-2">
+        <div className="flex flex-row-reverse mt-3 h-auto">
+          <div className="bg-oishiCeleste w-10/12 rounded-l-xl p-2">
             <p className="text-oishiNaranja font-bold text-right text-2xl">
               Visión
             </p>
-            <p className="text-base text-right">
+            <p className="text-base text-right h-auto">
               Tener alcance en el territorio nacional, dar a conocer la comida
               nikkei y a su vez generar oportunidades a nuevos talentos.
             </p>

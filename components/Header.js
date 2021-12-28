@@ -75,7 +75,7 @@ const Header = () => {
             <Link href="/cesta/cesta">
               <a className="relative transition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110">
                 {totalPedidos > 0 && (
-                  <div class="absolute top-0 right-0 bg-red-600 h-2 w-2 rounded-full"></div>
+                  <div className="absolute top-0 right-0 bg-red-600 h-2 w-2 rounded-full"></div>
                 )}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
