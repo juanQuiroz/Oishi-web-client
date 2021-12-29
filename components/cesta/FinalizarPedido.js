@@ -5,12 +5,13 @@ import * as Yup from "yup";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 import axios from "axios";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
 
 const FinalizarPedido = () => {
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
 
   React.useEffect(() => {
-    if (dayjs().hour() >= 12 && dayjs().hour() < 21) {
+    if (dayjs().hour() >= 1 && dayjs().hour() < 21) {
       setHorarioLaboral(true);
     } else if (
       dayjs().hour() == 21 &&
@@ -87,7 +88,7 @@ const FinalizarPedido = () => {
       // dedicatoria: Yup.string().required("Campo obligatorio"),
     }),
 
-    onSubmit: async values => {
+    onSubmit: async (values, { resetForm }) => {
       // Enviar datos al Context state
 
       // Estraer solo cantidad y id de la presentacion
@@ -107,7 +108,7 @@ const FinalizarPedido = () => {
       console.log("presentaciones_productos: ", pedidoPresentaciones);
       console.log("OFERTAS", pedidofertasSeleccionada);
 
-      // PARA WEB SOCKET
+      // PARA WEB SOCKET - API PHP
       try {
         const res = await axios.post(
           "http://weboishibackend.com/weboishi/crearpedido",
@@ -137,6 +138,12 @@ const FinalizarPedido = () => {
           },
         );
         console.log("Socket Res: ", res);
+        Swal.fire({
+          title: "Oishi Sushi Bar",
+          text: "Pedido generado correctamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+        });
       } catch (e) {
         console.log(e);
       }
@@ -174,353 +181,379 @@ const FinalizarPedido = () => {
       } catch (e) {
         console.log(e);
       }
+      resetForm();
     },
   });
 
   return (
-    <div>
-      <Subtitulo>Continuar con el pedido</Subtitulo>
+    <>
       {horarioLaboral == true ? (
-        <form onSubmit={formik.handleSubmit} className="font-Andika">
-          <div className="rounded-md p-1 sm:p-3">
-            <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
-              <p className="text-black text-md">Nombre / Raz. Soc.:</p>
-              <input
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.nombre_razon_social}
-                className="w-full bg-blueGray-50 rounded-lg px-1"
-                type="text"
-                name="nombre_razon_social"
-                placeholder="Nombres y apellidos o razon social"
-              />
-              {formik.touched.nombre_razon_social &&
-              formik.errors.nombre_razon_social ? (
-                <p className="mt-0 mb-4 text-red-500">
-                  *{formik.errors.nombre_razon_social}
-                </p>
-              ) : null}
-              <p className="text-black text-md mt-2">DNI / RUC:</p>
-              <input
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.dni_ruc}
-                className="w-full bg-blueGray-50 rounded-lg px-1"
-                type="text"
-                name="dni_ruc"
-              />
-              {formik.touched.dni_ruc && formik.errors.dni_ruc ? (
-                <p className="mt-0 mb-4 text-red-500">
-                  *{formik.errors.dni_ruc}
-                </p>
-              ) : null}
-              <p className="text-black text-md mt-2">Telefono:</p>
-              <input
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.telefono}
-                className="w-full bg-blueGray-50 rounded-lg px-1"
-                type="text"
-                name="telefono"
-              />
-              {formik.touched.telefono && formik.errors.telefono ? (
-                <p className="mt-0 mb-4 text-red-500">
-                  *{formik.errors.telefono}
-                </p>
-              ) : null}
-            </div>
-            <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
-              <p className="text-black text-md">
-                ¿Como quieres recibir tu pedido?
-              </p>
-              <div className="mt-2">
-                <label className="inline-flex items-center">
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.metEntrega}
-                    value="1"
-                    defaultChecked
-                    type="radio"
-                    className="form-radio"
-                    name="metEntrega"
-                    onClick={() => setEntregaDelivery(true)}
-                  />
-                  <span className="ml-2">Delivery</span>
-                </label>
-                <label className="inline-flex items-center ml-6">
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.metEntrega}
-                    value="2"
-                    type="radio"
-                    className="form-radio"
-                    name="metEntrega"
-                    onClick={() => setEntregaDelivery(false)}
-                  />
-                  <span className="ml-2">Recojo en tienda</span>
-                </label>
-              </div>
-              {entregaDelivery ? (
-                <div className="bg-blueGray-300 p-2 rounded-lg  shadow mt-1">
-                  <p className="text-black text-md">
-                    ¿A donde te llevamos tu pedido?
+        <div>
+          <Subtitulo>Continuar con el pedido</Subtitulo>
+          <form onSubmit={formik.handleSubmit} className="font-Andika">
+            <div className="rounded-md p-1 sm:p-3">
+              <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+                <p className="text-black text-md">Nombre / Raz. Soc.:</p>
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.nombre_razon_social}
+                  className="w-full bg-blueGray-50 rounded-lg px-1"
+                  type="text"
+                  name="nombre_razon_social"
+                  placeholder="Nombres y apellidos o razon social"
+                />
+                {formik.touched.nombre_razon_social &&
+                formik.errors.nombre_razon_social ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.nombre_razon_social}
                   </p>
-                  <p className="text-black text-sm mt-2">
-                    Direccion de entrega
+                ) : null}
+                <p className="text-black text-md mt-2">DNI / RUC:</p>
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.dni_ruc}
+                  className="w-full bg-blueGray-50 rounded-lg px-1"
+                  type="text"
+                  name="dni_ruc"
+                />
+                {formik.touched.dni_ruc && formik.errors.dni_ruc ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.dni_ruc}
                   </p>
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.direccion_entrega}
-                    className="w-full bg-blueGray-50 rounded-lg px-1"
-                    type="text"
-                    name="direccion_entrega"
-                  />
-                  {formik.touched.direccion_entrega &&
-                  formik.errors.direccion_entrega ? (
-                    <p className="mt-0 mb-4 text-red-500">
-                      *{formik.errors.direccion_entrega}
-                    </p>
-                  ) : null}
-
-                  <p className="text-black text-sm mt-2">Referencia</p>
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.referencia}
-                    className="w-full bg-blueGray-50 rounded-lg px-1"
-                    type="text"
-                    name="referencia"
-                  />
-                  {formik.touched.referencia && formik.errors.referencia ? (
-                    <p className="mt-0 mb-4 text-red-500">
-                      *{formik.errors.referencia}
-                    </p>
-                  ) : null}
-
-                  <p className="text-black text-sm mt-2">Recibe el pedido:</p>
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.recoge_pedido}
-                    className="w-full bg-blueGray-50 rounded-lg px-1"
-                    type="text"
-                    name="recoge_pedido"
-                  />
-                  {formik.touched.recoge_pedido &&
-                  formik.errors.recoge_pedido ? (
-                    <p className="mt-0 mb-4 text-red-500">
-                      *{formik.errors.recoge_pedido}
-                    </p>
-                  ) : null}
-                </div>
-              ) : (
-                <div className="bg-blueGray-300 p-2 rounded-lg shadow mt-1">
-                  <p className="text-black text-md">¿Quien recoge tu pedido?</p>
-                  <p className="text-black text-sm mt-2">Nombres y apellidos</p>
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.recoge_pedido}
-                    className="w-full bg-blueGray-50 rounded-lg px-1"
-                    type="text"
-                    name="recoge_pedido"
-                  />
-                  {formik.touched.recoge_pedido &&
-                  formik.errors.recoge_pedido ? (
-                    <p className="mt-0 mb-4 text-red-500">
-                      *{formik.errors.recoge_pedido}
-                    </p>
-                  ) : null}
-                </div>
-              )}
-            </div>
-            <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
-              <p className="text-black text-md">Comprobante de pago</p>
-              <div className="mt-2">
-                <label className="inline-flex items-center">
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.tipoComprobante}
-                    type="radio"
-                    className="form-radio"
-                    name="tipoComprobante"
-                    value="1"
-                  />
-
-                  <span className="ml-2">Factura</span>
-                </label>
-                <label className="inline-flex items-center ml-6">
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.tipoComprobante}
-                    type="radio"
-                    className="form-radio"
-                    name="tipoComprobante"
-                    value="2"
-                  />
-
-                  <span className="ml-2">Boleta</span>
-                </label>
+                ) : null}
+                <p className="text-black text-md mt-2">Telefono:</p>
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.telefono}
+                  className="w-full bg-blueGray-50 rounded-lg px-1"
+                  type="text"
+                  name="telefono"
+                />
+                {formik.touched.telefono && formik.errors.telefono ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.telefono}
+                  </p>
+                ) : null}
               </div>
-              <p className="text-black text-sm mt-2">
-                Nombre / Raz. Soc. - DNI / RUC (para facturación)
-              </p>
-              {/* DATOS PARA COMPROBANTE DE PAGO */}
-              <input
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.paraComprobanteDePago}
-                className="w-full bg-blueGray-50 rounded-lg px-1"
-                type="text"
-                name="paraComprobanteDePago"
-                placeholder="Ej: Juan Perez - 12345678"
-              />
-              {formik.touched.paraComprobanteDePago &&
-              formik.errors.paraComprobanteDePago ? (
-                <p className="mt-0 mb-4 text-red-500">
-                  *{formik.errors.paraComprobanteDePago}
+              <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+                <p className="text-black text-md">
+                  ¿Como quieres recibir tu pedido?
                 </p>
-              ) : null}
-            </div>
-            <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
-              <p className="text-black text-md">Método de pago</p>
-              <div className="mt-2">
-                <label className="inline-flex items-center">
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.metodoPago}
-                    type="radio"
-                    className="form-radio"
-                    name="metodoPago"
-                    value="1"
-                    onClick={() => setEfectivo(false)}
-                  />
-                  <span className="ml-2">POS</span>
-                </label>
-                <label className="inline-flex items-center ml-6">
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.metodoPago}
-                    type="radio"
-                    className="form-radio"
-                    name="metodoPago"
-                    value="2"
-                    onClick={() => setEfectivo(true)}
-                  />
-                  <span className="ml-2">Efectivo</span>
-                </label>
-              </div>
-              {efectivo ? (
-                <div className="bg-blueGray-300 p-2 rounded-lg shadow mt-1">
-                  <p className="text-black text-sm ">paga con:</p>
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.cantidad_efectivo}
-                    className="w-full bg-blueGray-50 rounded-lg px-1"
-                    type="text"
-                    onKeypress="if (event.keyCode 57) event.returnValue = false;"
-                    placeholder="S/ Monto con el que paga"
-                    name="cantidad_efectivo"
-                  />{" "}
-                  {formik.touched.cantidad_efectivo &&
-                  formik.errors.cantidad_efectivo ? (
-                    <p className="mt-0 mb-4 text-red-500">
-                      *{formik.errors.cantidad_efectivo}
-                    </p>
-                  ) : null}
+                <div className="mt-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.metEntrega}
+                      value="1"
+                      defaultChecked
+                      type="radio"
+                      className="form-radio"
+                      name="metEntrega"
+                      onClick={() => setEntregaDelivery(true)}
+                    />
+                    <span className="ml-2">Delivery</span>
+                  </label>
+                  <label className="inline-flex items-center ml-6">
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.metEntrega}
+                      value="2"
+                      type="radio"
+                      className="form-radio"
+                      name="metEntrega"
+                      onClick={() => setEntregaDelivery(false)}
+                    />
+                    <span className="ml-2">Recojo en tienda</span>
+                  </label>
                 </div>
-              ) : null}
-            </div>
-            <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
-              <p className="text-black text-md mb-1">
-                <span className="font-semibold">
-                  Que salsa desea para su pedido?
-                </span>{" "}
-                <br />
-                <span className="font-semibold">Nota:</span> Recuerde que la
-                cantidad depende de la presentación a comprar acevichado,
-                <span className="font-semibold">
-                  maracuya, anguila, tiradito, aji oishi:
-                </span>
-              </p>
-              <textarea
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.dedicatoria}
-                className="w-full bg-blueGray-50 rounded-lg px-1"
-                type="textBox"
-                name="dedicatoria"
-                placeholder="Ej: Maracuya x2 - Anguila x3"
-              />
-              {formik.touched.dedicatoria && formik.errors.dedicatoria ? (
-                <p className="mt-0 mb-4 text-red-500">
-                  *{formik.errors.dedicatoria}
-                </p>
-              ) : null}
-            </div>
+                {entregaDelivery ? (
+                  <div className="bg-blueGray-300 p-2 rounded-lg  shadow mt-1">
+                    <p className="text-black text-md">
+                      ¿A donde te llevamos tu pedido?
+                    </p>
+                    <p className="text-black text-sm mt-2">
+                      Direccion de entrega
+                    </p>
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.direccion_entrega}
+                      className="w-full bg-blueGray-50 rounded-lg px-1"
+                      type="text"
+                      name="direccion_entrega"
+                    />
+                    {formik.touched.direccion_entrega &&
+                    formik.errors.direccion_entrega ? (
+                      <p className="mt-0 mb-4 text-red-500">
+                        *{formik.errors.direccion_entrega}
+                      </p>
+                    ) : null}
 
-            <div className="px-1">
-              {entregaDelivery && (
-                <p className="text-sm text-gray-700 leading-4">
-                  * Si seleccionó la modalidad{" "}
-                  <span className="font-semibold">Delivery</span> se adicionará
-                  el costo de envío a la dirección que indico por consiguiente
-                  el monto a pagar se incrementará. Revisa nuestros costos de
-                  envío en
-                  <span>
-                    {" "}
-                    <a
-                      href="/cobertura"
-                      target="_blank"
-                      className="font-semibold text-oishiAzul"
-                    >
-                      Nuestra cobertura
-                    </a>
+                    <p className="text-black text-sm mt-2">Referencia</p>
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.referencia}
+                      className="w-full bg-blueGray-50 rounded-lg px-1"
+                      type="text"
+                      name="referencia"
+                    />
+                    {formik.touched.referencia && formik.errors.referencia ? (
+                      <p className="mt-0 mb-4 text-red-500">
+                        *{formik.errors.referencia}
+                      </p>
+                    ) : null}
+
+                    <p className="text-black text-sm mt-2">Recibe el pedido:</p>
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.recoge_pedido}
+                      className="w-full bg-blueGray-50 rounded-lg px-1"
+                      type="text"
+                      name="recoge_pedido"
+                    />
+                    {formik.touched.recoge_pedido &&
+                    formik.errors.recoge_pedido ? (
+                      <p className="mt-0 mb-4 text-red-500">
+                        *{formik.errors.recoge_pedido}
+                      </p>
+                    ) : null}
+                  </div>
+                ) : (
+                  <div className="bg-blueGray-300 p-2 rounded-lg shadow mt-1">
+                    <p className="text-black text-md">
+                      ¿Quien recoge tu pedido?
+                    </p>
+                    <p className="text-black text-sm mt-2">
+                      Nombres y apellidos
+                    </p>
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.recoge_pedido}
+                      className="w-full bg-blueGray-50 rounded-lg px-1"
+                      type="text"
+                      name="recoge_pedido"
+                    />
+                    {formik.touched.recoge_pedido &&
+                    formik.errors.recoge_pedido ? (
+                      <p className="mt-0 mb-4 text-red-500">
+                        *{formik.errors.recoge_pedido}
+                      </p>
+                    ) : null}
+                  </div>
+                )}
+              </div>
+              <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+                <p className="text-black text-md">Comprobante de pago</p>
+                <div className="mt-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.tipoComprobante}
+                      type="radio"
+                      className="form-radio"
+                      name="tipoComprobante"
+                      value="1"
+                    />
+
+                    <span className="ml-2">Factura</span>
+                  </label>
+                  <label className="inline-flex items-center ml-6">
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.tipoComprobante}
+                      type="radio"
+                      className="form-radio"
+                      name="tipoComprobante"
+                      value="2"
+                    />
+
+                    <span className="ml-2">Boleta</span>
+                  </label>
+                </div>
+                <p className="text-black text-sm mt-2">
+                  Nombre / Raz. Soc. - DNI / RUC (para facturación)
+                </p>
+                {/* DATOS PARA COMPROBANTE DE PAGO */}
+                <input
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.paraComprobanteDePago}
+                  className="w-full bg-blueGray-50 rounded-lg px-1"
+                  type="text"
+                  name="paraComprobanteDePago"
+                  placeholder="Ej: Juan Perez - 12345678"
+                />
+                {formik.touched.paraComprobanteDePago &&
+                formik.errors.paraComprobanteDePago ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.paraComprobanteDePago}
+                  </p>
+                ) : null}
+              </div>
+              <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+                <p className="text-black text-md">Método de pago</p>
+                <div className="mt-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.metodoPago}
+                      type="radio"
+                      className="form-radio"
+                      name="metodoPago"
+                      value="1"
+                      onClick={() => setEfectivo(false)}
+                    />
+                    <span className="ml-2">POS</span>
+                  </label>
+                  <label className="inline-flex items-center ml-6">
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.metodoPago}
+                      type="radio"
+                      className="form-radio"
+                      name="metodoPago"
+                      value="2"
+                      onClick={() => setEfectivo(true)}
+                    />
+                    <span className="ml-2">Efectivo</span>
+                  </label>
+                </div>
+                {efectivo ? (
+                  <div className="bg-blueGray-300 p-2 rounded-lg shadow mt-1">
+                    <p className="text-black text-sm ">paga con:</p>
+                    <input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.cantidad_efectivo}
+                      className="w-full bg-blueGray-50 rounded-lg px-1"
+                      type="text"
+                      placeholder="S/ Monto con el que paga"
+                      name="cantidad_efectivo"
+                    />{" "}
+                    {formik.touched.cantidad_efectivo &&
+                    formik.errors.cantidad_efectivo ? (
+                      <p className="mt-0 mb-4 text-red-500">
+                        *{formik.errors.cantidad_efectivo}
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
+              <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+                <p className="text-black text-md mb-1">
+                  <span className="font-semibold">
+                    Que salsa desea para su pedido?
+                  </span>{" "}
+                  <br />
+                  <span className="font-semibold">Nota:</span> Recuerde que la
+                  cantidad depende de la presentación a comprar acevichado,
+                  <span className="font-semibold">
+                    maracuya, anguila, tiradito, aji oishi:
                   </span>
                 </p>
-              )}
-            </div>
-            <div className="flex justify-between mt-4">
-              <p className="text-oishiNegro text-lg">Total:</p>
-              <p className="text-oishiNegro text-xl font-semibold">
-                S/ {totalPedidos.toFixed(2)}
-              </p>
-            </div>
+                <textarea
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.dedicatoria}
+                  className="w-full bg-blueGray-50 rounded-lg px-1"
+                  type="textBox"
+                  name="dedicatoria"
+                  placeholder="Ej: Maracuya x2 - Anguila x3"
+                />
+                {formik.touched.dedicatoria && formik.errors.dedicatoria ? (
+                  <p className="mt-0 mb-4 text-red-500">
+                    *{formik.errors.dedicatoria}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="flex mt-6 mb-4 justify-evenly">
-              <button
-                onClick={() => {
-                  setConfirmarpedido(false);
-                  // vaciarTotalPedido();
-                }}
-                className="font-semibold text-white bg-red-500 px-3 py-2 rounded-full shadow-red hover:shadow-redPlus min-h-10 hover:bg-red-600"
-              >
-                Volver
-              </button>
-              <button
-                type="submit"
-                className="font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
-              >
-                Confirmar Pedido
-              </button>
+              <div className="px-1">
+                {entregaDelivery && (
+                  <p className="text-sm text-gray-700 leading-4">
+                    * Si seleccionó la modalidad{" "}
+                    <span className="font-semibold">Delivery</span> se
+                    adicionará el costo de envío a la dirección que indico por
+                    consiguiente el monto a pagar se incrementará. Revisa
+                    nuestros costos de envío en
+                    <span>
+                      {" "}
+                      <a
+                        href="/cobertura"
+                        target="_blank"
+                        className="font-semibold text-oishiAzul"
+                      >
+                        Nuestra cobertura
+                      </a>
+                    </span>
+                  </p>
+                )}
+              </div>
+              <div className="flex justify-between mt-4">
+                <p className="text-oishiNegro text-lg">Total:</p>
+                <p className="text-oishiNegro text-xl font-semibold">
+                  S/ {totalPedidos.toFixed(2)}
+                </p>
+              </div>
+
+              <div className="flex mt-6 mb-4 justify-evenly">
+                <button
+                  onClick={() => {
+                    setConfirmarpedido(false);
+                    // vaciarTotalPedido();
+                  }}
+                  className="font-semibold text-white bg-red-500 px-3 py-2 rounded-full shadow-red hover:shadow-redPlus min-h-10 hover:bg-red-600"
+                >
+                  Volver
+                </button>
+                <button
+                  type="submit"
+                  className="font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
+                >
+                  Confirmar Pedido
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       ) : (
-        <h2 className="sm:ml-4 font-Andika font-semibold  py-1 text-red-600">
-          lo sentimos, estas fuera del horario de atención. Puedes pedir entre
-          <span className="ml-2 text-lg">12:00 pm - 09:45 pm</span>
-        </h2>
+        <div className="px-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-alert-circle"
+            width={54}
+            height={54}
+            viewBox="0 0 24 24"
+            stroke-width={2}
+            stroke="#ff2820"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx={12} cy={12} r={9}></circle>
+            <line x1={12} y1={8} x2={12} y2={12}></line>
+            <line x1={12} y1={16} x2="12.01" y2={16}></line>
+          </svg>
+          <h2 className="text-lg font-Andika font-semibold py-1 text-red-600">
+            lo sentimos, estas fuera del horario de atención. Puedes pedir entre
+            <br />
+            <span className=" text-2xl text-red-500">12:00 pm - 09:45 pm</span>
+          </h2>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
