@@ -6,12 +6,15 @@ import PedidosContext from "../../context/pedidos/pedidosContex";
 import axios from "axios";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const FinalizarPedido = () => {
+  const router = useRouter();
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
 
   React.useEffect(() => {
-    if (dayjs().hour() >= 1 && dayjs().hour() < 21) {
+    if (dayjs().hour() >= 0 && dayjs().hour() < 21) {
       setHorarioLaboral(true);
     } else if (
       dayjs().hour() == 21 &&
@@ -138,12 +141,36 @@ const FinalizarPedido = () => {
           },
         );
         console.log("Socket Res: ", res);
+        // SWALHERE
         Swal.fire({
-          title: "Oishi Sushi Bar",
-          text: "Pedido generado correctamente",
+          title: "Pedido realizado",
+          text: "Gracias por pedir en Oishi",
           icon: "success",
           confirmButtonText: "Aceptar",
+
+          allowOutsideClick: () => !Swal.isLoading(),
+        }).then(() => {
+          if (entregaDelivery) {
+            Swal.fire({
+              confirmButtonText: "Aceptar",
+              imageUrl:
+                "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/delivery_xuwobo.jpg",
+              imageWidth: 450,
+              imageHeight: 426,
+              imageAlt: "Oishi message",
+            });
+          } else {
+            Swal.fire({
+              confirmButtonText: "Aceptar",
+              imageUrl:
+                "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/recojo_hhids9.jpg",
+              imageWidth: 450,
+              imageHeight: 426,
+              imageAlt: "Oishi message",
+            });
+          }
         });
+        router.push("/carta");
       } catch (e) {
         console.log(e);
       }
@@ -453,7 +480,7 @@ const FinalizarPedido = () => {
               </div>
               <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
                 <p className="text-black text-md mb-1">
-                  <span className="font-semibold">
+                  {/* <span className="font-semibold">
                     Que salsa desea para su pedido?
                   </span>{" "}
                   <br />
@@ -461,7 +488,23 @@ const FinalizarPedido = () => {
                   cantidad depende de la presentación a comprar acevichado,
                   <span className="font-semibold">
                     maracuya, anguila, tiradito, aji oishi:
-                  </span>
+                  </span> */}
+                  <span className="font-semibold">
+                    Elige tus salsas favoritas: acevichado, maracuya, anguila,
+                    tiradito, aji oishi.
+                  </span>{" "}
+                  <span className="text-gray-700">
+                    Pero Recuerda que la cantidad de salsas (Salseros) depende
+                    de la presentación a comprar,
+                  </span>{" "}
+                  <span className="text-blue-700">
+                    si quieres conocer cuanto te corresponde
+                  </span>{" "}
+                  <Link href="https://drive.google.com/file/d/14iQ7ZY-jNUMtqSP-6yFcpEOUi2bkc_x2/view?usp=sharing">
+                    <a target="_blank" className="text-blue-600 font-bold">
+                      haz clic aquí
+                    </a>
+                  </Link>
                 </p>
                 <textarea
                   onChange={formik.handleChange}

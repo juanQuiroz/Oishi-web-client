@@ -13,6 +13,7 @@ const ofertas = () => {
   // State para almacenar los combos
   const [combos, setCombos] = React.useState();
 
+  // obtener ofertas
   const getOfertas = async () => {
     const res = await api.get("/ofertas", {
       headers: {
@@ -51,7 +52,9 @@ const ofertas = () => {
       <MensajeDisponibilidad />
       <div className="w-full h-auto m-0 pt-2 bg-oishiCeleste pb-3 mt-3">
         <Subtitulo>
-          <p className="text-center text-3xl text-black mb-3">Combos Oishi</p>
+          <p className="text-center text-3xl text-black mb-3 font-Cunia">
+            Combos Oishi
+          </p>
         </Subtitulo>
         <div className="flex overflow-x-scroll ">
           <div className="flex flex-row-reverse flex-nowrap ml-2">
@@ -67,7 +70,7 @@ const ofertas = () => {
       </div>
       <div className="m-3 mt-4">
         <Subtitulo>
-          <p className="text-center text-2xl">Nuestras ofertas</p>
+          <p className="text-center text-2xl font-Cunia">Nuestras ofertas</p>
         </Subtitulo>
         {ofertas &&
           ofertas.map(ofer => <Ofertas key={ofer.producto_id} oferta={ofer} />)}

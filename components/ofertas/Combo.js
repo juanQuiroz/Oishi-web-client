@@ -42,7 +42,7 @@ const Combo = ({ combo }) => {
 
           {/* <ul className="flex justify-around flex-wrap"> */}
           <ul className="grid grid-cols-1 gap-0 mx-2 mt-2">
-            {combo?.presentaciones_base &&
+            {combo.presentaciones_base.length > 0 &&
               combo.presentaciones_base[0].productos_presentaciones.map(
                 presentacionesBase => (
                   <li className="px-1 ">

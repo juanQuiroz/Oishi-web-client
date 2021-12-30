@@ -10,7 +10,7 @@ const ConfirmarPedido = () => {
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
 
   React.useEffect(() => {
-    if (dayjs().hour() >= 1 && dayjs().hour() < 21) {
+    if (dayjs().hour() >= 0 && dayjs().hour() < 21) {
       setHorarioLaboral(true);
     } else if (
       dayjs().hour() == 21 &&
