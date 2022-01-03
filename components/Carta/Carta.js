@@ -1,8 +1,6 @@
 import React from "react";
 import Titulos from "../ui/Titulos";
 import Categoria from "./Categoria";
-
-import Sushi2 from "../../assets/sushi2.svg";
 // import { CartaOishi } from "../../api/restaurantApi";
 import api from "../../config/axios";
 
@@ -21,7 +19,7 @@ const Carta = () => {
 
   React.useEffect(() => {
     getProducts();
-  }, [products]);
+  }, []);
 
   return (
     <div>

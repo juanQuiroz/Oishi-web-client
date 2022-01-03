@@ -14,7 +14,7 @@ const FinalizarPedido = () => {
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
 
   React.useEffect(() => {
-    if (dayjs().hour() >= 0 && dayjs().hour() < 21) {
+    if (dayjs().hour() >= 12 && dayjs().hour() < 21) {
       setHorarioLaboral(true);
     } else if (
       dayjs().hour() == 21 &&
@@ -41,6 +41,7 @@ const FinalizarPedido = () => {
     totalPedidos,
     localSeleccionado,
     setConfirmarpedido,
+    vaciarCesta,
   } = pcontext;
 
   const formik = useFormik({
@@ -170,6 +171,7 @@ const FinalizarPedido = () => {
             });
           }
         });
+        vaciarCesta();
         router.push("/carta");
       } catch (e) {
         console.log(e);
