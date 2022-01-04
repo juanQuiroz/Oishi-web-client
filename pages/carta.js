@@ -9,7 +9,7 @@ const carta = () => {
       <div className="w-full p-2 px-3 sm:px-6 text-blue-600 font-Cunia">
         Carta Oishi Sushi Bar 👉🏼
         <a href="https://bit.ly/cartaoishisb" target="_blank" className="">
-          🍘🍙🍚🍛🍜🦪🍣🍤🍱🥡🍥🥮🍢🧆🥘
+          🍘🍙🍚🍜🍣🍱🍥🍢
         </a>
       </div>
       <MensajeDisponibilidad />
