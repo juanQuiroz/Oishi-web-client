@@ -14,12 +14,23 @@ const FinalizarPedido = () => {
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
 
   React.useEffect(() => {
-    if (dayjs().hour() >= 12 && dayjs().hour() < 21) {
+    // if (dayjs().hour() >= 12 && dayjs().hour() < 21) {
+    //   setHorarioLaboral(true);
+    // } else if (
+    //   dayjs().hour() == 21 &&
+    //   dayjs().minute() >= 0 &&
+    //   dayjs().minute() <= 45
+    // ) {
+    //   setHorarioLaboral(true);
+    // } else {
+    //   setHorarioLaboral(false);
+    // }
+    if (dayjs().hour() >= 0 && dayjs().hour() < 23) {
       setHorarioLaboral(true);
     } else if (
-      dayjs().hour() == 21 &&
+      dayjs().hour() == 23 &&
       dayjs().minute() >= 0 &&
-      dayjs().minute() <= 45
+      dayjs().minute() <= 59
     ) {
       setHorarioLaboral(true);
     } else {
