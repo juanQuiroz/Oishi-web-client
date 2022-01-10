@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 import axios from "axios";
 import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,32 +14,6 @@ import { useRouter } from "next/router";
 const FinalizarPedido = () => {
   const router = useRouter();
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
-
-  React.useEffect(() => {
-    // if (dayjs().hour() >= 12 && dayjs().hour() < 21) {
-    //   setHorarioLaboral(true);
-    // } else if (
-    //   dayjs().hour() == 21 &&
-    //   dayjs().minute() >= 0 &&
-    //   dayjs().minute() <= 45
-    // ) {
-    //   setHorarioLaboral(true);
-    // } else {
-    //   setHorarioLaboral(false);
-    // }
-
-    if (dayjs().hour() >= 0 && dayjs().hour() < 23) {
-      setHorarioLaboral(true);
-    } else if (
-      dayjs().hour() == 23 &&
-      dayjs().minute() >= 0 &&
-      dayjs().minute() <= 59
-    ) {
-      setHorarioLaboral(true);
-    } else {
-      setHorarioLaboral(false);
-    }
-  }, [horarioLaboral]);
 
   // por defecto el metodo de entrega es mediante delivery
   const [entregaDelivery, setEntregaDelivery] = React.useState(true);
@@ -55,6 +31,20 @@ const FinalizarPedido = () => {
     setConfirmarpedido,
     vaciarCesta,
   } = pcontext;
+
+  dayjs.extend(isBetween);
+
+  React.useEffect(() => {
+    if (localSeleccionado == 1) {
+      var startHour = dayjs().hour(12).minute(15);
+      var endHour = dayjs().hour(21).minute(45);
+    } else if (localSeleccionado == 2) {
+      var startHour = dayjs().hour(12).minute(15);
+      var endHour = dayjs().hour(20).minute(45);
+    }
+
+    setHorarioLaboral(dayjs().isBetween(startHour, endHour));
+  }, [horarioLaboral]);
 
   const formik = useFormik({
     initialValues: {

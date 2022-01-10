@@ -5,35 +5,10 @@ import pedidosContex from "../../context/pedidos/pedidosContex";
 import OfertaPedido from "./OfertaPedido";
 import ComboPedido from "./ComboPedido";
 import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 
 const ConfirmarPedido = () => {
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
-
-  React.useEffect(() => {
-    // if (dayjs().hour() >= 12 && dayjs().hour() < 21) {
-    //   setHorarioLaboral(true);
-    // } else if (
-    //   dayjs().hour() == 21 &&
-    //   dayjs().minute() >= 0 &&
-    //   dayjs().minute() <= 45
-    // ) {
-    //   setHorarioLaboral(true);
-    // } else {
-    //   setHorarioLaboral(false);
-    // }
-
-    if (dayjs().hour() >= 0 && dayjs().hour() < 23) {
-      setHorarioLaboral(true);
-    } else if (
-      dayjs().hour() == 23 &&
-      dayjs().minute() >= 0 &&
-      dayjs().minute() <= 59
-    ) {
-      setHorarioLaboral(true);
-    } else {
-      setHorarioLaboral(false);
-    }
-  }, [horarioLaboral]);
 
   const PedidosContext = useContext(pedidosContex);
   const {
@@ -43,7 +18,22 @@ const ConfirmarPedido = () => {
     combosSeleccionados,
     pedido,
     setConfirmarpedido,
+    localSeleccionado,
   } = PedidosContext;
+
+  dayjs.extend(isBetween);
+
+  React.useEffect(() => {
+    if (localSeleccionado == 1) {
+      var startHour = dayjs().hour(12).minute(15);
+      var endHour = dayjs().hour(21).minute(45);
+    } else if (localSeleccionado == 2) {
+      var startHour = dayjs().hour(12).minute(15);
+      var endHour = dayjs().hour(20).minute(45);
+    }
+
+    setHorarioLaboral(dayjs().isBetween(startHour, endHour));
+  }, [horarioLaboral]);
 
   // filtrar pedidos
   if (presentacion.length > 0) {
@@ -120,7 +110,7 @@ const ConfirmarPedido = () => {
                     <line x1={15} y1={10} x2="15.01" y2={10}></line>
                     <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0"></path>
                   </svg>{" "}
-                  Puedes pedir entre 12:00 pm - 09:45 pm
+                  Fuera del horario de atención
                 </h2>
               </div>
             )}
