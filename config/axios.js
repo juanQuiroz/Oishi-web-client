@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const api = axios.create({
-  // baseURL: "https://oishirestaurant.herokuapp.com/api/v1",
-  baseURL: "http://api-oishi.mydevcpanel.xyz/api/v1",
+export const apiv1 = axios.create({
+  baseURL: process.env.v1,
 });
 
-export default api;
+export const apiv2 = axios.create({
+  baseURL: process.env.v2,
+});

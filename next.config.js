@@ -1,4 +1,9 @@
 module.exports = {
+  env: {
+    v1: "https://api-oishi.weboishibackend.com/api/v1",
+    v2: "https://api-oishi.weboishibackend.com/api/v2",
+  },
+
   webpack5: true,
 
   webpack(config) {

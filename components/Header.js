@@ -129,14 +129,9 @@ const Header = () => {
               <a>Inicio</a>
             </Link>
           </li>
-          <li className="mx-2 sm:mx-6">
-            <Link href="/ofertas">
-              <a>Promos Oishi</a>
-            </Link>
-          </li>
 
           <li className="mx-2 sm:mx-6">
-            <Link href="/carta">
+            <Link href="/cartaOishi">
               <a>Carta</a>
             </Link>
           </li>
@@ -209,14 +204,9 @@ const Header = () => {
               <a>Inicio</a>
             </Link>
           </li>
-          <li className="mx-2 my-2 sm:mx-6 px-2">
-            <Link href="/ofertas">
-              <a>Promos Oishi</a>
-            </Link>
-          </li>
 
           <li className="mx-2 my-2 sm:mx-6 px-2">
-            <Link href="/carta">
+            <Link href="/cartaOishi">
               <a>Carta</a>
             </Link>
           </li>

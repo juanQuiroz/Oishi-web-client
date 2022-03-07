@@ -9,7 +9,7 @@ const Producto = ({ producto }) => {
   return (
     <>
       <div
-        className="flex flex-wrap content-between bg-white shadow rounded-md cursor-pointer"
+        className="flex flex-wrap content-between bg-white shadow rounded-md cursor-pointer "
         onClick={() => {
           setProduct(producto);
           setIsOpen(true);

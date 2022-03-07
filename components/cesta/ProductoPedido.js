@@ -20,10 +20,10 @@ const ProductoPedido = ({ presentacionPedido }) => {
         <h2 className="w-5/12 font-semibold">
           {presentacionPedido.producto_nombre}
         </h2>
-        <h3 className="w-3/12 ">
+        <h3 className="w-4/12 ">
           {presentacionPedido.presentacion} x {presentacionPedido.cantidad}
         </h3>
-        <h2 className="w-3/12 font-semibold">S/ {subtotal.toFixed(2)}</h2>
+        <h2 className="w-2/12 font-semibold">S/ {subtotal.toFixed(2)}</h2>
         <button
           className="w-1/12 flex text-red-500 bg-transparent hover:bg-transparent rounded-full"
           onClick={() => {

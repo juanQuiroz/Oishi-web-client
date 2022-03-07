@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Slideshow, Slide, TextoSlide } from "../Inicio/Slideshow";
-import { SliderData } from "../Inicio/SliderData";
+
 import styled from "styled-components";
 
 const Carrusel = () => {
@@ -9,7 +8,7 @@ const Carrusel = () => {
 
   const getImgUrls = async () => {
     const imgCarrusel = await axios.get(
-      "https://oishirestaurant.herokuapp.com/api/v1/carrusel",
+      "https://api-oishi.weboishibackend.com/api/v1/carrusel",
       {
         headers: {
           "Content-Type": "application/json",
@@ -24,30 +23,21 @@ const Carrusel = () => {
     getImgUrls();
   }, []);
 
-  return (
-    <Principal className="-my-7">
-      <Slideshow
-        controles={true}
-        autoplay={true}
-        velocidad="1500"
-        intervalo="6500"
-      >
-        {imgURL &&
-          imgURL.map(slide => {
-            return (
-              <Slide key={slide.id}>
-                {/* <a href="!#"></a> */}
-                <img src={slide.url} alt="" />
+  return hola;
 
-                {/* <TextoSlide>
-                <p>15% descuento en productos Apple</p>
-              </TextoSlide> */}
-              </Slide>
-            );
-          })}
-      </Slideshow>
-    </Principal>
-  );
+  //  <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+  {
+    imgURL &&
+      imgURL.map(slide => {
+        return (
+          <SwiperSlide key={slide.id}>
+            {/* <img src={slide.url} alt="" /> */}
+            hola
+          </SwiperSlide>
+        );
+      });
+  }
+  // </Swiper>
 };
 
 const Titulo = styled.p`

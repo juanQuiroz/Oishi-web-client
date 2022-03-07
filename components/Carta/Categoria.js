@@ -3,7 +3,7 @@ import Subtitulo from "../ui/Subtitulo";
 import Producto from "./Producto";
 
 const Categoria = ({ categoria }) => {
-  console.log("CategoriaProducto", categoria);
+  console.log("CategoriaProducto:", categoria);
   return (
     <div className="border border-blueGray-500 mx-2 sm:mx-4 my-4 sm:my-6 rounded-md p-2">
       <Subtitulo key={categoria.id}>

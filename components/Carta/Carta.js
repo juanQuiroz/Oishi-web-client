@@ -2,12 +2,12 @@ import React from "react";
 import Titulos from "../ui/Titulos";
 import Categoria from "./Categoria";
 // import { CartaOishi } from "../../api/restaurantApi";
-import api from "../../config/axios";
+import { apiv1 } from "../../config/axios";
 
 const Carta = () => {
   const [products, setProducts] = React.useState();
   const getProducts = async () => {
-    const res = await api.get("/categoriaproductos/all/productos", {
+    const res = await apiv1.get("/categoriaproductos/all/productos", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
