@@ -7,19 +7,17 @@ const PresentacionOferta = ({ presentacionOferta, dataProducto }) => {
   let [isOpen, setIsOpen] = React.useState(false);
   let [product, setProduct] = React.useState();
 
-  console.log("presentacionOferta -> ", presentacionOferta);
-
   return (
     // <div className="flex m-1 backdrop-filter backdrop-blur-3xl  rounded-lg shadow-sm">
     <div
       className="flex m-1 bg-gray-50 opacity-90  rounded-lg shadow-md cursor-pointer"
       onClick={() => {
         setIsOpen(true);
-        console.log("ONCLICK OFERTA COMPONENT");
       }}
     >
       <div className="flex w-full px-2 py-1 items-center justify-between">
         <div>
+          <p className="font-bold">{dataProducto.nombre}</p>
           <p className="font-bold">
             {presentacionOferta.descripcion_presentacion}
           </p>

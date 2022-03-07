@@ -2,10 +2,15 @@ import React from "react";
 import Layout from "../components/Layout";
 import { apiv1 } from "../config/axios";
 import Producto from "../components/Carta/Producto";
+import Ofertas from "../components/ofertas/Ofertas";
 
 const cartaOishi = () => {
   // Productos obtenidos desde API
   const [products, setProducts] = React.useState();
+
+  // State para almacenar las ofertas
+  const [ofertas, setOfertas] = React.useState();
+
   // Categoria Seleccionada
   const [selectedCategory, setSelectedCategory] = React.useState(1);
 
@@ -63,19 +68,33 @@ const cartaOishi = () => {
     console.log("productosFiltrados -> ", productosFiltrados);
   }
 
+  // obtener ofertas
+  const getOfertas = async () => {
+    const res = await apiv1.get("/ofertas", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    console.log("resOfertas :", res.data.data);
+
+    setOfertas(res?.data?.data);
+  };
+
+  React.useEffect(() => {
+    getOfertas();
+  }, []);
   return (
     <Layout>
-      <div className="p-1 bg-oishiAzul rounded-lg shadow-md my-2 mx-2">
-        <h3 className="text-xl font-Cunia text-blueGray-50 my-3 mx-2">
+      <div className="p-1  bg-oishiAzul rounded-lg shadow-md mb-2 mx-2">
+        <h3 className="text-xl font-Cunia text-blueGray-50 m-3 mx-2">
           Ofertas
         </h3>
-        <div className="mt-1 grid grid-cols-2 gap-1 h-48 overflowy-auto">
-          <div className="p-1 bg-white rounded shadow">Producto</div>
-          <div className="p-1 bg-white rounded shadow">Producto</div>
-          <div className="p-1 bg-white rounded shadow">Producto</div>
-          <div className="p-1 bg-white rounded shadow">Producto</div>
-          <div className="p-1 bg-white rounded shadow">Producto</div>
-          <div className="p-1 bg-white rounded shadow">Producto</div>
+        <div className="mt-1  h-56  overflow-auto">
+          {ofertas &&
+            ofertas.map(ofer => (
+              <Ofertas key={ofer.producto_id} oferta={ofer} />
+            ))}
         </div>
       </div>
 
@@ -104,7 +123,7 @@ const cartaOishi = () => {
           ))}
         </div>
 
-        <div className="mx-1 sm:mx-2 mt-1 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 overflow-y-auto h-64">
+        <div className="mb-1 sm:mb-2 mx-1 sm:mx-2 mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 overflow-y-auto h-64">
           {productosFiltrados &&
             productosFiltrados.productos.map(producto => (
               <Producto key={producto.id} producto={producto} />

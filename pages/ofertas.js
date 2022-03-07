@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import Titulos from "../components/ui/Titulos";
-import api from "../config/axios";
+import { apiv1 } from "../config/axios";
 import Ofertas from "../components/ofertas/Ofertas";
 import Subtitulo from "../components/ui/Subtitulo";
 import Combo from "../components/ofertas/Combo";
@@ -15,7 +15,7 @@ const ofertas = () => {
 
   // obtener ofertas
   const getOfertas = async () => {
-    const res = await api.get("/ofertas", {
+    const res = await apiv1.get("/ofertas", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -28,7 +28,7 @@ const ofertas = () => {
 
   // Obtener Combos
   const getCombos = async () => {
-    const res = await api.get("/combos", {
+    const res = await apiv1.get("/combos", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -50,7 +50,7 @@ const ofertas = () => {
     <Layout>
       <Titulos>Promos Oishi !</Titulos>
       <MensajeDisponibilidad />
-      <div className="w-full h-auto m-0 pt-2 bg-oishiCeleste pb-3 mt-3">
+      {/* <div className="w-full h-auto m-0 pt-2 bg-oishiCeleste pb-3 mt-3">
         <Subtitulo>
           <p className="text-center text-3xl text-black mb-3 font-Cunia">
             Combos Oishi
@@ -67,7 +67,7 @@ const ofertas = () => {
               )}
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="m-3 mt-4">
         <Subtitulo>
           <p className="text-center text-2xl font-Cunia">Nuestras ofertas</p>
