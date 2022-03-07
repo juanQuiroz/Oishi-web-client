@@ -9,7 +9,7 @@ const Producto = ({ producto }) => {
   return (
     <>
       <div
-        className="flex flex-wrap content-between bg-white shadow rounded-md cursor-pointer "
+        className="flex flex-wrap content-between bg-white shadow-md rounded-xl cursor-pointer "
         onClick={() => {
           setProduct(producto);
           setIsOpen(true);
@@ -19,7 +19,7 @@ const Producto = ({ producto }) => {
           <img
             src={producto.url}
             alt="imagen de producto oishisushibar"
-            className="rounded-t-md"
+            className="rounded-t-xl"
           />
         </div>
 

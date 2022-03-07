@@ -66,8 +66,10 @@ const cartaOishi = () => {
   return (
     <Layout>
       <div className="p-1 bg-oishiAzul rounded-lg shadow-md my-2 mx-2">
-        <h3 className="text-xl font-Cunia text-blueGray-50 m-3">Ofertas</h3>
-        <div className="mt-1 grid grid-cols-2 gap-1 h-48 overflow-y-auto">
+        <h3 className="text-xl font-Cunia text-blueGray-50 my-3 mx-2">
+          Ofertas
+        </h3>
+        <div className="mt-1 grid grid-cols-2 gap-1 h-48 overflowy-auto">
           <div className="p-1 bg-white rounded shadow">Producto</div>
           <div className="p-1 bg-white rounded shadow">Producto</div>
           <div className="p-1 bg-white rounded shadow">Producto</div>
@@ -78,11 +80,13 @@ const cartaOishi = () => {
       </div>
 
       <div className="p-1 bg-oishiCeleste rounded-lg shadow-md mb-2 mx-2">
-        <h3 className="text-xl font-Cunia text-blueGray-50 m-3">Combos</h3>
+        <h3 className="text-xl font-Cunia text-blueGray-50 my-3 mx-2">
+          Combos
+        </h3>
       </div>
 
-      <div className="p-1 bg-oishiNaranja rounded-lg shadow-md mb-2 mx-2">
-        <h3 className="text-xl font-Cunia text-blueGray-50 m-3">Carta</h3>
+      <div className="p-1  bg-oishiNaranja rounded-lg shadow-md mb-2 mx-2">
+        <h3 className="text-xl font-Cunia text-blueGray-50 m-3 mx-2">Carta</h3>
 
         <div className="pl-1 overflow-x-auto h-8 flex my-2 w-full">
           {categorias.map(categoria => (
@@ -100,7 +104,7 @@ const cartaOishi = () => {
           ))}
         </div>
 
-        <div className="mt-1 grid grid-cols-2 gap-1 h-48 overflow-y-auto">
+        <div className="mx-1 sm:mx-2 mt-1 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 overflow-y-auto h-64">
           {productosFiltrados &&
             productosFiltrados.productos.map(producto => (
               <Producto key={producto.id} producto={producto} />
