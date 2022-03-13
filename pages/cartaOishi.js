@@ -64,8 +64,6 @@ const cartaOishi = () => {
     var productosFiltrados = products.filter(
       producto => producto.id == selectedCategory,
     )[0];
-
-    console.log("productosFiltrados -> ", productosFiltrados);
   }
 
   // obtener ofertas
@@ -76,7 +74,6 @@ const cartaOishi = () => {
         Accept: "application/json",
       },
     });
-    console.log("resOfertas :", res.data.data);
 
     setOfertas(res?.data?.data);
   };
@@ -86,26 +83,24 @@ const cartaOishi = () => {
   }, []);
   return (
     <Layout>
-      <div className="p-1  bg-oishiAzul rounded-lg shadow-md mb-2 mx-2">
-        <h3 className="text-xl font-Cunia text-blueGray-50 m-3 mx-2">
-          Ofertas
-        </h3>
-        <div className="mt-1  h-56  overflow-auto">
-          {ofertas &&
-            ofertas.map(ofer => (
-              <Ofertas key={ofer.producto_id} oferta={ofer} />
-            ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 ">
+        <div className="bg-gradient-to-b from-oishiAzul2 to-oishiAzul p-1 rounded-lg shadow-md mb-2 mx-2">
+          <h3 className="text-xl font-Cunia text-white m-3 mx-2">Ofertas</h3>
+          <div className="mt-1  h-56  overflow-auto">
+            {ofertas &&
+              ofertas.map(ofer => (
+                <Ofertas key={ofer.producto_id} oferta={ofer} />
+              ))}
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-b from-oishiAzul2 to-oishiAzul p-1 rounded-lg shadow-md mb-2 mx-2">
+          <h3 className="text-xl font-Cunia text-white my-3 mx-2">Combos</h3>
         </div>
       </div>
 
-      <div className="p-1 bg-oishiCeleste rounded-lg shadow-md mb-2 mx-2">
-        <h3 className="text-xl font-Cunia text-blueGray-50 my-3 mx-2">
-          Combos
-        </h3>
-      </div>
-
-      <div className="p-1  bg-oishiNaranja rounded-lg shadow-md mb-2 mx-2">
-        <h3 className="text-xl font-Cunia text-blueGray-50 m-3 mx-2">Carta</h3>
+      <div className="bg-gradient-to-b from-oishiAzul2 to-oishiAzul p-1 rounded-lg shadow-md mb-2 mx-2">
+        <h3 className="text-xl font-Cunia text-white m-3 mx-2">Carta</h3>
 
         <div className="pl-1 overflow-x-auto h-8 flex my-2 w-full">
           {categorias.map(categoria => (
@@ -123,7 +118,7 @@ const cartaOishi = () => {
           ))}
         </div>
 
-        <div className="mb-1 sm:mb-2 mx-1 sm:mx-2 mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 overflow-y-auto h-64">
+        <div className="mb-1 sm:mb-2 mx-1 sm:mx-2 mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5 sm:gap-3 overflow-y-auto h-80">
           {productosFiltrados &&
             productosFiltrados.productos.map(producto => (
               <Producto key={producto.id} producto={producto} />
