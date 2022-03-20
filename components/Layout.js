@@ -42,10 +42,10 @@ const Layout = ({ children }) => {
         />
       </Head>
 
-      <div className="flex flex-col justify-between bg-gradient-to-r from-trueGray-50 to-trueGray-100 min-h-screen">
-        <Header />
-        {children}
-        <Footer />
+      <div className="flex flex-col justify-between  min-h-screen bg-gradient-to-r from-trueGray-50 to-trueGray-100 ">
+        <Header className="flex-none" />
+        <div className="grow">{children}</div>
+        <Footer className="flex-none" />
       </div>
     </>
   );

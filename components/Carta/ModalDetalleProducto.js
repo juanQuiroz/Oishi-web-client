@@ -10,8 +10,6 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
     setIsOpen(false);
   }
 
-  console.log("MODALCarta: ", product);
-
   const pedidosContext = React.useContext(PedidosContext);
   const { localSeleccionado } = pedidosContext;
 

@@ -14,9 +14,6 @@ export default function ModalComprarOferta({
     setIsOpen(false);
   }
 
-  console.log("PRESENTACION OFERTA: ->", presentacionOferta);
-  console.log("dataProducto: ->", dataProducto);
-
   const [cantPresentacionOferta, setCantPresentacionOferta] = React.useState(0);
 
   // CONTEXT
@@ -126,7 +123,7 @@ export default function ModalComprarOferta({
                         <p>¿ Cuantos quieres ?</p>
                         <div
                           className="w-4/12"
-                          className="flex justify-center "
+                          // className="flex justify-center "
                         >
                           <button
                             type="button"

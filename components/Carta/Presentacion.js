@@ -77,7 +77,7 @@ const Presentacion = ({ presentacionData }) => {
         <div className="flex justify-between items-center py-1 px-3 bg-warmGray-100 shadow-sm rounded-xl my-1">
           <div className="w-7/12 leading-tight">
             <p className=" font-bold">{presentacionData.presentacion}</p>
-            <p>
+            <div>
               {presentacionData.oferta !== null ? (
                 <p className="flex">
                   S/ {presentacionData.oferta}{" "}
@@ -88,7 +88,7 @@ const Presentacion = ({ presentacionData }) => {
               ) : (
                 presentacionData.precio_default
               )}
-            </p>
+            </div>
           </div>
           {presentacionData.disponibilidadLocal ||
           presentacionData.disponibilidadWeb === true ? (
@@ -115,7 +115,8 @@ const Presentacion = ({ presentacionData }) => {
           {dispSoloLocal === true ? (
             <p className="text-xs">Solo consumo en local </p>
           ) : (
-            <div className="w-4/12" className="flex justify-center ">
+            // <div className="w-4/12" className="flex justify-center ">
+            <div className="w-4/12 flex justify-center ">
               <button
                 type="button"
                 onClick={() => {

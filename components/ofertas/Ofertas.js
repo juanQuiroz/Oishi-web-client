@@ -13,7 +13,7 @@ const Ofertas = ({ oferta }) => {
           {oferta.ofertas.map(ofer =>
             ofer.local_id == localSeleccionado ? (
               ofer.activo == false ? null : (
-                <div className="grid grid-cols-2">
+                <div key={ofer.producto_id} className="grid grid-cols-2">
                   {oferta &&
                     oferta?.ofertas.map(ofertaPresentacion =>
                       ofertaPresentacion.local_id == localSeleccionado &&
