@@ -21,45 +21,49 @@ const cartaOishi = () => {
   const categorias = [
     {
       id: 1,
-      descripcion: "Promos Oishi",
-    },
-    {
-      id: 2,
-      descripcion: "Combos Oishi",
-    },
-    {
-      id: 3,
       descripcion: "Oishi Piqueos",
     },
     {
-      id: 4,
+      id: 2,
       descripcion: "Acompañamientos",
     },
     {
-      id: 5,
+      id: 3,
       descripcion: "Platos Calientes",
     },
     {
-      id: 6,
+      id: 4,
       descripcion: "Sanguches",
     },
     {
-      id: 7,
+      id: 5,
       descripcion: "Makis",
     },
     {
-      id: 8,
+      id: 6,
       descripcion: "Bebidas",
     },
     {
-      id: 9,
+      id: 7,
       descripcion: "Sandwich Furai",
     },
   ];
 
+  const categorias2 = [
+    {
+      id: 8,
+      descripcion: "Promos Oishi",
+    },
+    {
+      id: 9,
+      descripcion: "Combos Oishi",
+    },
+  ];
+
+  // productos activos, presentaciones activas, sin ofertas y del local seleccionado
   const getProducts = async () => {
     const res = await apitest.get(
-      `/api/v2/products?include=product_category,product_type,image,presentations,presentations.offer&product_is_active=1&local_id=${localSeleccionado}`,
+      `/api/v2/products?include=product_category,product_type,image,presentations,presentations.offer&product_is_active=1&presentation_is_active=1&offer_is_active=0&local_id=${localSeleccionado}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +71,6 @@ const cartaOishi = () => {
         },
       },
     );
-    console.log("🚀 ~ file: cartaOishi.js ~ line 66 ~ getProducts ~ res", res);
 
     setProducts(res.data.data);
   };
@@ -84,10 +87,25 @@ const cartaOishi = () => {
 
   return (
     <Layout>
-      <div className=" mx-2 sm:mx-4 mb-4 sm:mb-6">
-        <h3 className="text-2xl font-Cunia text-oishiRojo ">Carta Oishi</h3>
+      <div className=" mx-2 sm:mx-8 mb-4 sm:mb-6">
+        <h3 className="text-2xl font-Cunia text-oishiRojo sm:mx-2">
+          Carta Oishi
+        </h3>
 
         <div className="pl-1 overflow-x-auto flex my-2 w-full h-auto">
+          {categorias2.map(categoria => (
+            <button
+              onClick={() => setSelectedCategory(categoria.id)}
+              className={
+                selectedCategory == categoria.id
+                  ? `bg-oishiCeleste text-black font-bold py-1 px-1.5 mr-1 sm:mr-3 rounded-full shadow min-w-fit sm:px-3`
+                  : `border-2 border-oishiCeleste text-black py-1 px-1.5 mr-1 sm:mr-3 rounded-full min-w-fit sm:px-3`
+              }
+              key={categoria.id}
+            >
+              {categoria.descripcion}
+            </button>
+          ))}
           {categorias.map(categoria => (
             <button
               onClick={() => setSelectedCategory(categoria.id)}

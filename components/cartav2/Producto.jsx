@@ -1,6 +1,16 @@
 import React from 'react'
+import ModalDetalleProducto from '../Carta/ModalDetalleProducto';
 
 const Producto = ({producto}) => {
+
+  const minPrice = Math.min(...producto.presentations.map(presentation => presentation.default_price))
+
+  console.log("🚀 ~ file: Producto.jsx ~ line 9 ~ Producto ~ prices", minPrice)
+
+
+  const [product, setProduct] = React.useState()
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <>
       <div
@@ -27,19 +37,19 @@ const Producto = ({producto}) => {
             
           </p>
           <p className="mt-2  font-bold text-red-500 leading-4 text-lg">
-            {/* S/ {menorPrecio.toFixed(2)} */}
-            S/. 59.90
+            S/ {minPrice.toFixed(2)}
+           
           </p>
         </div>
       </div>
 
-      {/* {product && (
+      {product && (
         <ModalDetalleProducto
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           product={product}
         />
-      )} */}
+      )}
     </>
   )
 }

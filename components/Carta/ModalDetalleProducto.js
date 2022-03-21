@@ -6,6 +6,10 @@ import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
+  console.log(
+    "🚀 ~ file: ModalDetalleProducto.js ~ line 9 ~ ModalDetalleProducto ~ product",
+    product,
+  );
   function closeModal() {
     setIsOpen(false);
   }
@@ -54,39 +58,32 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
                 {product && (
                   <div className="">
                     <img
-                      src={product.url}
+                      src={product.image.url}
                       alt="imagen de producto"
                       className="w-full"
                     />
                     <div className="m-3">
                       <p className="text-2xl text-gray-800 font-bold font-Andika">
-                        {product.nombre}
+                        {product.name}
                       </p>
                       <p className="text-md leading-5 text-gray-600">
-                        {product.descripcion}
+                        {product.description}
                       </p>
                       <div className="my-4">
-                        {product.locales &&
-                          product.locales.map(
-                            local =>
-                              local.localId == localSeleccionado && (
-                                <div key={local.localId} className="my-2">
-                                  <p className="-mb-1">{local.descripcion}</p>
-                                  {local.presentaciones.map(presentacion =>
-                                    presentacion.disponibilidadLocal ===
-                                      false &&
-                                    presentacion.disponibilidadWeb === false ? (
-                                      ""
-                                    ) : (
-                                      <Presentacion
-                                        key={presentacion.presentacion_id}
-                                        presentacionData={presentacion}
-                                      />
-                                    ),
-                                  )}
-                                </div>
-                              ),
+                        {/* <div key={local.localId} className="my-2">
+                          <p className="-mb-1">{local.descripcion}</p>
+                          {local.presentaciones.map(presentacion =>
+                            presentacion.disponibilidadLocal === false &&
+                            presentacion.disponibilidadWeb === false ? (
+                              ""
+                            ) : (
+                              <Presentacion
+                                key={presentacion.presentacion_id}
+                                presentacionData={presentacion}
+                              />
+                            ),
                           )}
+                        </div> */}
                       </div>
                     </div>
                   </div>
