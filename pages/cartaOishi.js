@@ -5,6 +5,7 @@ import Producto from "../components/cartav2/Producto";
 import Ofertas from "../components/ofertas/Ofertas";
 import PedidosContext from "../context/pedidos/pedidosContex";
 import Oferta from "../components/cartav2/Oferta";
+import Combo from "../components/cartav2/Combo";
 
 const cartaOishi = () => {
   const pedidosContext = React.useContext(PedidosContext);
@@ -15,9 +16,10 @@ const cartaOishi = () => {
 
   // Productos obtenidos desde API
   const [products, setProducts] = React.useState();
-
   // State para almacenar las ofertas
   const [ofertas, setOfertas] = React.useState();
+  // State para almacenar las ofertas
+  const [combos, setCombos] = React.useState();
 
   const categorias = [
     {
@@ -75,8 +77,8 @@ const cartaOishi = () => {
 
     setProducts(res.data.data);
   };
-  // productos activos, presentaciones activas, sin ofertas, activo para carta y del local seleccionado
-  const gerOfertas = async () => {
+
+  const getOfertas = async () => {
     const res = await apitest.get(
       `/api/v2/offers?include=presentation.presentationable&offer_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&product_presentatioanble_is_active=1`,
       {
@@ -89,12 +91,24 @@ const cartaOishi = () => {
 
     setOfertas(res.data.data);
   };
+  const getCombos = async () => {
+    const res = await apitest.get(
+      `/api/v2/combos?include=presentations.toppings&combo_is_active=1&local_id=${localSeleccionado}&topping_is_active=1`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      },
+    );
+
+    setCombos(res.data.data);
+  };
 
   React.useEffect(() => {
-    console.log("localSeleccionado", localSeleccionado);
     getProducts();
-    gerOfertas();
-    console.log("products", products);
+    getOfertas();
+    getCombos();
   }, [localSeleccionado]);
 
   // Filtrar productos por categoria
@@ -103,9 +117,6 @@ const cartaOishi = () => {
       producto => producto.product_category.id == selectedCategory,
     );
   }
-  // if (ofertas && ofertas.length > 0) {
-  //   var productosFiltrados2 = ofertas.filter(oferta => 9 == selectedCategory);
-  // }
 
   return (
     <Layout>
@@ -149,8 +160,11 @@ const cartaOishi = () => {
               <Producto key={producto.id} producto={producto} />
             ))}
           {ofertas &&
-            selectedCategory == 9 &&
+            selectedCategory == 8 &&
             ofertas.map(oferta => <Oferta key={oferta.id} oferta={oferta} />)}
+          {combos &&
+            selectedCategory == 9 &&
+            combos.map(combo => <Combo key={combo.id} combo={combo} />)}
         </div>
       </div>
     </Layout>
