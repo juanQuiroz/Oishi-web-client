@@ -4,6 +4,7 @@ import { apitest } from "../config/axios";
 import Producto from "../components/cartav2/Producto";
 import Ofertas from "../components/ofertas/Ofertas";
 import PedidosContext from "../context/pedidos/pedidosContex";
+import Oferta from "../components/cartav2/Oferta";
 
 const cartaOishi = () => {
   const pedidosContext = React.useContext(PedidosContext);
@@ -60,10 +61,10 @@ const cartaOishi = () => {
     },
   ];
 
-  // productos activos, presentaciones activas, sin ofertas y del local seleccionado
+  // productos activos, presentaciones activas, sin ofertas, activo para carta y del local seleccionado
   const getProducts = async () => {
     const res = await apitest.get(
-      `/api/v2/products?include=product_category,product_type,image,presentations,presentations.offer&product_is_active=1&presentation_is_active=1&offer_is_active=0&local_id=${localSeleccionado}`,
+      `/api/v2/products?include=product_category,product_type,image,presentations,presentations.offer&product_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&offer_is_active=0&is_active_carta=1`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -74,16 +75,37 @@ const cartaOishi = () => {
 
     setProducts(res.data.data);
   };
+  // productos activos, presentaciones activas, sin ofertas, activo para carta y del local seleccionado
+  const gerOfertas = async () => {
+    const res = await apitest.get(
+      `/api/v2/offers?include=presentation.presentationable&offer_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&product_presentatioanble_is_active=1`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      },
+    );
+
+    setOfertas(res.data.data);
+  };
 
   React.useEffect(() => {
+    console.log("localSeleccionado", localSeleccionado);
     getProducts();
+    gerOfertas();
+    console.log("products", products);
   }, [localSeleccionado]);
 
+  // Filtrar productos por categoria
   if (products && products.length > 0) {
     var productosFiltrados = products.filter(
       producto => producto.product_category.id == selectedCategory,
     );
   }
+  // if (ofertas && ofertas.length > 0) {
+  //   var productosFiltrados2 = ofertas.filter(oferta => 9 == selectedCategory);
+  // }
 
   return (
     <Layout>
@@ -126,6 +148,9 @@ const cartaOishi = () => {
             productosFiltrados.map(producto => (
               <Producto key={producto.id} producto={producto} />
             ))}
+          {ofertas &&
+            selectedCategory == 9 &&
+            ofertas.map(oferta => <Oferta key={oferta.id} oferta={oferta} />)}
         </div>
       </div>
     </Layout>

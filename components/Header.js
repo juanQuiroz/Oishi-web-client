@@ -19,7 +19,7 @@ const Header = () => {
   React.useEffect(() => {
     const local = JSON.parse(localStorage.getItem("local"));
     selectLocal(local);
-    console.log("local useEffect: ", local);
+    console.log("local useEffect header: ", local);
   }, []);
 
   const cambiarLocal = local => {
@@ -151,7 +151,7 @@ const Header = () => {
             <Link href="/cesta/cesta">
               <a className="relative">
                 {totalPedidos > 0 && (
-                  <div class="absolute top-0 right-0 bg-red-600 h-2 w-2 rounded-full"></div>
+                  <div className="absolute top-0 right-0 bg-red-600 h-2 w-2 rounded-full"></div>
                 )}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

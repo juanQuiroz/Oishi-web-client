@@ -70,20 +70,25 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
                         {product.description}
                       </p>
                       <div className="my-4">
-                        {/* <div key={local.localId} className="my-2">
-                          <p className="-mb-1">{local.descripcion}</p>
-                          {local.presentaciones.map(presentacion =>
+                        <div className="my-2">
+                          <p className="-mb-1">
+                            {product.presentations[0].local_id == 1
+                              ? "Cañete"
+                              : "Ica"}
+                          </p>
+                          {product.presentations.map(presentacion =>
                             presentacion.disponibilidadLocal === false &&
                             presentacion.disponibilidadWeb === false ? (
                               ""
                             ) : (
                               <Presentacion
-                                key={presentacion.presentacion_id}
+                                key={presentacion.id}
                                 presentacionData={presentacion}
+                                product={product}
                               />
                             ),
                           )}
-                        </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -30,6 +30,7 @@ module.exports = {
       oishiNegro: "#07070C",
       oishiGris: "#F1F1F1",
       oishiCeleste: "#BAD9DA",
+      oishiCeleste2: "#DEEFF0",
       oishiRosa: "#F48F91",
       oishiAzul: "#5184A6",
       oishiAzul2: "#4F98C9",

@@ -8,7 +8,7 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
   const pedidosContext = React.useContext(PedidosContext);
   const { selectLocal, localSeleccionado, vaciarCesta } = pedidosContext;
 
-  console.log("localSeleccionado: ", localSeleccionado);
+  console.log("localSeleccionado Modalindex: ", localSeleccionado);
 
   const addLocalLocalStorage = local => {
     localStorage.setItem("local", JSON.stringify(local));

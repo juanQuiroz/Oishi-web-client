@@ -1,7 +1,12 @@
 import React from "react";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
-const Presentacion = ({ presentacionData }) => {
+const Presentacion = ({ presentacionData, product }) => {
+  console.log(
+    "🚀 ~ file: Presentacion.js ~ line 5 ~ Presentacion ~ presentacionData",
+    presentacionData,
+  );
+
   // STATES
   // -> state para cantidad de presentacion de un producto
   const [cantPresentacion, setCantPresentacion] = React.useState(0);
@@ -23,41 +28,28 @@ const Presentacion = ({ presentacionData }) => {
       cuentaRenderizado.current = cuentaRenderizado.current + 1;
       return;
     }
-    if (presentacionData.oferta !== null) {
-      console.log("PRECIOOFERTA:", presentacionData.oferta);
-      addPresentacion({
-        id: presentacionData.presentacion_id,
-        presentacion: presentacionData.presentacion,
-        precio: parseFloat(presentacionData.oferta),
-        producto_id: presentacionData.producto_id,
-        producto_nombre: presentacionData.producto_nombre,
-        cantidad: cantPresentacion,
-      });
-      addTotalPedidos();
-    }
-    if (presentacionData.oferta === null) {
-      console.log("NO HAY OFERTA en:", presentacionData.producto_nombre);
-      addPresentacion({
-        id: presentacionData.presentacion_id,
-        presentacion: presentacionData.presentacion,
-        precio: parseFloat(presentacionData.precio_default),
-        producto_id: presentacionData.producto_id,
-        producto_nombre: presentacionData.producto_nombre,
-        cantidad: cantPresentacion,
-      });
-      addTotalPedidos();
-    }
+
+    addPresentacion({
+      id: presentacionData.id,
+      presentacion: presentacionData.presentation,
+      precio: parseFloat(presentacionData.default_price),
+      producto_id: product.id,
+      producto_nombre: product.name,
+      cantidad: cantPresentacion,
+    });
+    addTotalPedidos();
+    // }
 
     setActualPresentacionContext([
-      presentacion.filter(p => p.id === presentacionData.presentacion_id),
+      presentacion.filter(p => p.id === presentacionData.presentation),
     ]);
   }, [cantPresentacion]);
 
   // comprobar los productos cuya disponibilidad sea SOLO LOCAL
   let dispSoloLocal = false;
   if (
-    presentacionData.disponibilidadLocal === true &&
-    presentacionData.disponibilidadWeb === false
+    presentacionData.local_availability === true &&
+    presentacionData.web_availability === false
   ) {
     dispSoloLocal = true;
   }
@@ -65,33 +57,40 @@ const Presentacion = ({ presentacionData }) => {
   // comprobar los productos cuya disponibilidad sea SOLO WEB
   let dispSoloWeb = false;
   if (
-    presentacionData.disponibilidadLocal === false &&
-    presentacionData.disponibilidadWeb === true
+    presentacionData.local_availability === false &&
+    presentacionData.web_availability === true
   ) {
     dispSoloWeb = true;
   }
 
+  // comprobar que ela presentacion no este disponible ni para web ni local
+  let noWebNoLocal = false;
+  if (
+    presentacionData.local_availability === false &&
+    presentacionData.web_availability === false
+  ) {
+    noWebNoLocal = true;
+  }
+
   return (
     <>
-      {presentacionData.activoCombo === true ? null : (
-        <div className="flex justify-between items-center py-1 px-3 bg-warmGray-100 shadow-sm rounded-xl my-1">
-          <div className="w-7/12 leading-tight">
-            <p className=" font-bold">{presentacionData.presentacion}</p>
-            <div>
-              {presentacionData.oferta !== null ? (
-                <p className="flex">
-                  S/ {presentacionData.oferta}{" "}
-                  <span className="ml-1 text-xs text-red-600 rounded-full">
-                    oferta
-                  </span>
-                </p>
-              ) : (
-                presentacionData.precio_default
-              )}
-            </div>
+      {noWebNoLocal ? (
+        <div>
+          <div className="w-full leading-tight mt-2">
+            <p className=" font-bold text-oishiRojo">
+              No tenemos presentaciones disponibles
+            </p>
+            <div>Vuelve pronto</div>
           </div>
-          {presentacionData.disponibilidadLocal ||
-          presentacionData.disponibilidadWeb === true ? (
+        </div>
+      ) : (
+        <div className="flex justify-between items-center py-1 px-3 bg-oishiCeleste2 shadow-sm rounded-xl my-1">
+          <div className="w-7/12 leading-tight">
+            <p className=" font-bold">{presentacionData.presentation}</p>
+            <div>S/ {Number(presentacionData.default_price).toFixed(2)}</div>
+          </div>
+          {presentacionData.local_availability ||
+          presentacionData.web_availability === true ? (
             <div className="flex px-2 py-1">
               {dispSoloWeb === true && (
                 <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
@@ -106,16 +105,22 @@ const Presentacion = ({ presentacionData }) => {
             </div>
           ) : null}
 
-          {/* {dispSoloWeb === true ? (
-            <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
-              W
-            </p>
-          ) : null} */}
+          {presentacionData.local_availability &&
+          presentacionData.web_availability === true ? (
+            <div className="flex px-2 py-1">
+              <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
+                W
+              </p>
+
+              <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded">
+                L
+              </p>
+            </div>
+          ) : null}
 
           {dispSoloLocal === true ? (
             <p className="text-xs">Solo consumo en local </p>
           ) : (
-            // <div className="w-4/12" className="flex justify-center ">
             <div className="w-4/12 flex justify-center ">
               <button
                 type="button"
