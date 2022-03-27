@@ -6,8 +6,8 @@ import { apitest } from "../../config/axios";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
-import Cliente from "../../components/clientes/cliente";
-import Login from "../../components/clientes/login";
+import Cliente from "../../components/clientes/Cliente";
+import Login from "../../components/clientes/Login";
 
 const cliente = () => {
   const pedidosContext = useContext(PedidosContext);
