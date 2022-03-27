@@ -39,9 +39,10 @@ const Login = () => {
             },
           },
         );
-        console.log(
-          "🚀 ~ file: login.js ~ line 34 ~ onSubmit: ~ res",
-          res.data.data,
+
+        localStorage.setItem(
+          "customer",
+          JSON.stringify(res.data.data.customer),
         );
 
         addCustomer(res.data.data.customer);
