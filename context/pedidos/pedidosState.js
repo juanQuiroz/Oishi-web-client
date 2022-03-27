@@ -15,6 +15,7 @@ import {
   ELIMINAR_COMBO,
   SELECCIONAR_LOCAL,
   SET_CONFIRMARPEDIDO,
+  AGREGAR_CLIENTE,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
@@ -29,11 +30,21 @@ const PedidosState = ({ children }) => {
     },
     localSeleccionado: "",
     confirmarPedido: false,
+    cliente: null,
   };
 
   const [state, dispatch] = useReducer(pedidosReducer, initialState);
 
   // Funciones
+
+  // Agregar informacion del cliente al stateContext
+
+  const addCustomer = customer => {
+    dispatch({
+      type: AGREGAR_CLIENTE,
+      payload: customer,
+    });
+  };
 
   const setConfirmarpedido = data => {
     dispatch({
@@ -130,6 +141,7 @@ const PedidosState = ({ children }) => {
         localSeleccionado: state.localSeleccionado,
         totalPedidos: state.pedido.totalPedidos,
         confirmarPedido: state.confirmarPedido,
+        cliente: state.cliente,
         setConfirmarpedido,
         addDataProducto,
         addPresentacion,
@@ -142,6 +154,7 @@ const PedidosState = ({ children }) => {
         addCombo,
         deleteCombo,
         selectLocal,
+        addCustomer,
       }}
     >
       {children}

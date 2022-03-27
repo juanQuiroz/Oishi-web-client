@@ -14,7 +14,9 @@ const Header = () => {
     vaciarCesta,
     totalPedidos,
     setConfirmarpedido,
+    cliente,
   } = pedidosContext;
+  console.log("🚀 ~ file: Header.js ~ line 19 ~ Header ~ cliente", cliente);
 
   React.useEffect(() => {
     const local = JSON.parse(localStorage.getItem("local"));
@@ -40,6 +42,9 @@ const Header = () => {
       </div>
       <p className="font-Andika text-center text-lg text-gray-600">
         Te encuentras en {localSeleccionado == 1 ? "Oishi Cañete" : "Oishi Ica"}
+      </p>
+      <p className="font-Andika font-bold text-center text-lg text-oishiAzul3">
+        {cliente && cliente.name}
       </p>
 
       <div className="flex justify-between sm:hidden">
@@ -113,7 +118,7 @@ const Header = () => {
                 </svg>
               </a>
             </Link>
-            <Link href="/users/login">
+            <Link href="/users/clientes">
               <a>
                 <User className=" h-9 sm:h-10 cursor-pointer" />
               </a>
@@ -193,7 +198,7 @@ const Header = () => {
                 </svg>
               </a>
             </Link>
-            <Link href="/users/login">
+            <Link href="/users/clientes">
               <a>
                 <User className=" h-9 sm:h-10 cursor-pointer" />
               </a>
