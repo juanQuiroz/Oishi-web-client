@@ -6,6 +6,7 @@ import Ofertas from "../components/ofertas/Ofertas";
 import PedidosContext from "../context/pedidos/pedidosContex";
 import Oferta from "../components/cartav2/Oferta";
 import Combo from "../components/cartav2/Combo";
+import MensajeDisponibilidad from "../components/ui/MensajeDisponibilidad";
 
 const cartaOishi = () => {
   const pedidosContext = React.useContext(PedidosContext);
@@ -77,7 +78,6 @@ const cartaOishi = () => {
 
     setProducts(res.data.data);
   };
-
   const getOfertas = async () => {
     const res = await apitest.get(
       `/api/v2/offers?include=presentation.presentationable&offer_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&product_presentatioanble_is_active=1`,
@@ -124,6 +124,14 @@ const cartaOishi = () => {
         <h3 className="text-2xl font-Cunia text-oishiRojo sm:mx-2">
           Carta Oishi
         </h3>
+
+        <div className="w-full p-2 px-1 sm:px-6 text-oishiAzul3 font-Cunia">
+          Carta PDF 👉🏼
+          <a href="https://bit.ly/cartaoishisb" target="_blank" className="">
+            🍘🍙🍚🍜🍣🍱🍥🍢
+          </a>
+        </div>
+        <MensajeDisponibilidad />
 
         <div className="pl-1 overflow-x-auto flex my-2 w-full h-auto">
           {categorias2.map(categoria => (
