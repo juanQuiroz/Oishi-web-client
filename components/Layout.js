@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
       <Head>
         <title>Oishi SushiBar</title>
         <meta
-          httpEquiv="Content-Security-Policy"
+          // httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
         />
         <link rel="icon" href="/favicon.ico" />

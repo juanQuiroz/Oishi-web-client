@@ -34,6 +34,7 @@ module.exports = {
       oishiRosa: "#F48F91",
       oishiAzul: "#5184A6",
       oishiAzul2: "#4F98C9",
+      oishiAzul3: "#2B6C97",
       oishiRojo: "#DA291C",
       oishiVerde: "#68D984",
     },
@@ -55,6 +56,8 @@ module.exports = {
       blueGray: "0 10px 15px -3px rgba(70, 103, 143, 0.25)",
       carruselCatering: "5px 8px 15px -10px rgba(0, 0, 0, 0.5)",
       oishiShadow1: "4px 8px 20px -11px rgba(81, 132, 166, 0.6)",
+      oishiShadow2: "6px 12px 20px -11px rgba(81, 132, 166, 0.8)",
+      oishiShadow3: "6px 12px 20px -11px rgba(81, 132, 166, 0.8)",
     },
     fontFamily: {
       sans: ["ui-sans-serif", "system-ui"],

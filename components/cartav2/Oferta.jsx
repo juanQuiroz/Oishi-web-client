@@ -25,11 +25,11 @@ const Oferta = ({oferta}) => {
           <p className="text-gray-800 my-0 font-semibold text-base">
             {oferta.presentation.presentationable.name}
           </p>
-          <p className="text-gray-500 font-light leading-4 text-xs">
+          <p className="text-oishiAzul font-bold leading-4 text-xl">
             {oferta.presentation.presentation}
             
           </p>
-          <p className="mt-2  font-bold text-red-500 leading-4 text-lg">
+          <p className="mt-5  font-bold text-red-500 leading-4 text-lg">
             S/ {Number(oferta.offer_price).toFixed(2)}
            
           </p>

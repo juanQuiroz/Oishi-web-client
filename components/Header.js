@@ -65,15 +65,27 @@ const Header = () => {
           </svg>
         </button>
         <ul className="flex flex-none justify-end py-1 rounded-full w-auto">
-          <div className="flex bg-oishiCeleste px-4 py-1.5 rounded-l-full">
-            {/* <Link href="/users/login">
-              <a>
-                <User className="h-9 sm:h-10 cursor-pointer" />
-              </a>
-            </Link> */}
+          <div className="flex items-center bg-oishiCeleste pr-2 pl-1 py-1.5 rounded-l-full">
+            <a
+              onClick={() => {
+                vaciarCesta();
+                setConfirmarpedido(false);
+                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
+              }}
+              className="cursor-pointer mr-2 ml-1 transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
+            >
+              {localSeleccionado == 1 ? (
+                <Canete className="w-8 h-8" />
+              ) : (
+                // <img src="./canete.png" alt="." className="w-7 h-7" />
+                <Ica className="w-8 h-8" />
+                // <img src="./ica.png" alt="." className="w-7 h-7" />
+              )}
+            </a>
+
             {/* cesta movil */}
             <Link href="/cesta/cesta">
-              <a className="relative transition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110">
+              <a className="mx-1 relative transition duration-500 ease-in-out  transform hover:-translate-y-1 hover:scale-110">
                 {totalPedidos > 0 && (
                   <div className="absolute top-0 right-0 bg-red-600 h-2 w-2 rounded-full"></div>
                 )}
@@ -101,23 +113,11 @@ const Header = () => {
                 </svg>
               </a>
             </Link>
-
-            <a
-              onClick={() => {
-                vaciarCesta();
-                setConfirmarpedido(false);
-                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
-              }}
-              className="cursor-pointer ml-2 transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
-            >
-              {localSeleccionado == 1 ? (
-                <Canete className="w-8 h-8" />
-              ) : (
-                // <img src="./canete.png" alt="." className="w-7 h-7" />
-                <Ica className="w-8 h-8" />
-                // <img src="./ica.png" alt="." className="w-7 h-7" />
-              )}
-            </a>
+            <Link href="/users/login">
+              <a>
+                <User className=" h-9 sm:h-10 cursor-pointer" />
+              </a>
+            </Link>
           </div>
         </ul>
       </div>
@@ -147,7 +147,23 @@ const Header = () => {
           </li>
         </ul>
         <ul className="flex flex-none justify-end py-1 px-2 rounded-full w-auto">
-          <div className="flex bg-oishiCeleste px-4 py-2 rounded-full">
+          <div className="flex items-center bg-oishiCeleste px-2 py-1.5 rounded-full">
+            <a
+              onClick={() => {
+                vaciarCesta();
+                setConfirmarpedido(false);
+                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
+              }}
+              className="cursor-pointer ml-1 mr-2"
+            >
+              {localSeleccionado == 1 ? (
+                <Canete className="w-8 h-8" />
+              ) : (
+                // <img src="./canete.png" alt="." className="w-8 h-8" />
+                <Ica className="w-8 h-8" />
+                // <img src="./ica.png" alt="." className="w-8 h-8" />
+              )}
+            </a>
             <Link href="/cesta/cesta">
               <a className="relative">
                 {totalPedidos > 0 && (
@@ -177,22 +193,11 @@ const Header = () => {
                 </svg>
               </a>
             </Link>
-            <a
-              onClick={() => {
-                vaciarCesta();
-                setConfirmarpedido(false);
-                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
-              }}
-              className="cursor-pointer ml-3"
-            >
-              {localSeleccionado == 1 ? (
-                <Canete className="w-8 h-8" />
-              ) : (
-                // <img src="./canete.png" alt="." className="w-8 h-8" />
-                <Ica className="w-8 h-8" />
-                // <img src="./ica.png" alt="." className="w-8 h-8" />
-              )}
-            </a>
+            <Link href="/users/login">
+              <a>
+                <User className=" h-9 sm:h-10 cursor-pointer" />
+              </a>
+            </Link>
           </div>
         </ul>
       </div>

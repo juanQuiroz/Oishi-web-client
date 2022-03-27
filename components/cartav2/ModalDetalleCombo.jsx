@@ -104,7 +104,7 @@ console.log("🚀 ~ file: ModalDetalleCombo.jsx ~ line 9 ~ ModalDetalleCombo ~ c
                       <div className="my-4">
                         <div className="my-2">
                           <p className="-mb-1">
-                            {combo.presentations.local_id == 1
+                            {combo.presentations[0].local_id == 1
                               ? "Cañete"
                               : "Ica"}
                           </p>
