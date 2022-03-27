@@ -14,11 +14,11 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      last_name: "",
-      dni: "",
-      phone: "",
-      email: "",
+      name: cliente.name,
+      last_name: cliente.last_name,
+      dni: cliente.dni,
+      phone: cliente.phone,
+      email: cliente.email,
     },
     validationSchema: Yup.object({
       name: Yup.string().required(" obligatorio"),
@@ -102,7 +102,6 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
               className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
               type="text"
               name="name"
-              placeholder="nombre"
             />
             {formik.touched.name && formik.errors.name ? (
               <p className="mt-0 mb-4 text-red-500">*{formik.errors.name}</p>
@@ -119,7 +118,6 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
               className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
               type="text"
               name="last_name"
-              placeholder="***********"
             />
             {formik.touched.last_name && formik.errors.last_name ? (
               <p className="mt-0 mb-4 text-red-500">
@@ -139,7 +137,6 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
               className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
               type="text"
               name="dni"
-              placeholder="***********"
             />
             {formik.touched.dni && formik.errors.dni ? (
               <p className="mt-0 mb-4 text-red-500">*{formik.errors.dni}</p>
@@ -156,7 +153,6 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
               className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
               type="text"
               name="phone"
-              placeholder="***********"
             />
             {formik.touched.phone && formik.errors.phone ? (
               <p className="mt-0 mb-4 text-red-500">*{formik.errors.phone}</p>
@@ -173,7 +169,6 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
               className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
               type="text"
               name="email"
-              placeholder="***********"
             />
             {formik.touched.email && formik.errors.email ? (
               <p className="mt-0 mb-4 text-red-500">*{formik.errors.email}</p>

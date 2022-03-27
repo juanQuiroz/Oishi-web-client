@@ -46,7 +46,7 @@ const Login = () => {
         );
 
         addCustomer(res.data.data.customer);
-        router.push("/carta");
+        // router.push("/carta")
       } catch (e) {
         console.log(e);
       }
