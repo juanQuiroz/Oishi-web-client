@@ -34,9 +34,9 @@ export default function Home() {
     setImgURL(imgCarrusel.data.data);
   };
 
-  React.useEffect(() => {
-    getImgUrls();
-  }, []);
+  // React.useEffect(() => {
+  //   getImgUrls();
+  // }, []);
 
   return (
     <Layout>

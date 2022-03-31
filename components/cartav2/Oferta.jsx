@@ -15,7 +15,7 @@ const Oferta = ({oferta}) => {
       >
         <div>
           <img
-            src="https://images.pexels.com/photos/1148086/pexels-photo-1148086.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+          src={oferta.image[0].url}
             alt="imagen de producto oishisushibar"
             className="rounded-t-2xl sm:rounded-t-3xl"
           />

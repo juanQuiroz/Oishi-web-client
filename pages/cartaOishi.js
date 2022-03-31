@@ -11,6 +11,10 @@ import MensajeDisponibilidad from "../components/ui/MensajeDisponibilidad";
 const cartaOishi = () => {
   const pedidosContext = React.useContext(PedidosContext);
   const { localSeleccionado } = pedidosContext;
+  console.log(
+    "🚀 ~ file: cartaOishi.js ~ line 14 ~ cartaOishi ~ localSeleccionado",
+    localSeleccionado,
+  );
 
   // Categoria Seleccionada
   const [selectedCategory, setSelectedCategory] = React.useState(1);
@@ -93,7 +97,7 @@ const cartaOishi = () => {
   };
   const getCombos = async () => {
     const res = await apitest.get(
-      `/api/v2/combos?include=presentations.toppings&combo_is_active=1&local_id=${localSeleccionado}&topping_is_active=1`,
+      `/api/v2/combos?include=presentations.toppings,image&combo_is_active=1&local_id=${localSeleccionado}&topping_is_active=1`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -169,7 +173,14 @@ const cartaOishi = () => {
             ))}
           {ofertas &&
             selectedCategory == 8 &&
-            ofertas.map(oferta => <Oferta key={oferta.id} oferta={oferta} />)}
+            ofertas.map(
+              oferta =>
+                (oferta.presentation.local_availability == true ||
+                  oferta.presentation.local_availability == true) && (
+                  <Oferta key={oferta.id} oferta={oferta} />
+                ),
+            )}
+          {/* ofertas.map(oferta => <Oferta key={oferta.id} oferta={oferta} />)} */}
           {combos &&
             selectedCategory == 9 &&
             combos.map(combo => <Combo key={combo.id} combo={combo} />)}

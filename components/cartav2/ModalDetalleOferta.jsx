@@ -24,6 +24,24 @@ console.log("🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~
 
   const cuentaRenderizado = React.useRef(0);
 
+  // comprobar los productos cuya disponibilidad sea SOLO LOCAL
+  let dispSoloLocal = false;
+  if (
+    offer.presentation.local_availability === true &&
+    offer.presentation.web_availability === false
+  ) {
+    dispSoloLocal = true;
+  }
+
+  // comprobar los productos cuya disponibilidad sea SOLO WEB
+  let dispSoloWeb = false;
+  if (
+    offer.presentation.local_availability === false &&
+    offer.presentation.web_availability === true
+  ) {
+    dispSoloWeb = true;
+  }
+
   React.useEffect(() => {
     if (cuentaRenderizado.current === 0) {
       cuentaRenderizado.current = cuentaRenderizado.current + 1;
@@ -81,26 +99,26 @@ console.log("🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~
                 {offer && (
                   <div className="">
                     <img
-                    // *img oferta aqui
-                        src="https://images.pexels.com/photos/1148086/pexels-photo-1148086.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-            
+                      // *img oferta aqui
+                      src={offer.image[0].url}
                       alt="imagen de producto"
                       className="w-full"
                     />
                     <div className="m-3">
                       <p className="text-2xl leading-5 text-gray-800 font-bold font-Andika">
-                      {offer.presentation.presentationable.name}
+                        {offer.presentation.presentationable.name}
                       </p>
                       <p className="mt-2 text-xl leading-5 text-oishiAzul font-semibold">
                         {offer.presentation.presentation}
                       </p>
-                     <div className="flex mt-5">   
-                     <p className="mt-2 text-xl leading-5 text-gray-500  line-through">
-                       S/ {Number(offer.presentation.default_price).toFixed(2)}
-                      </p>   
-                      <p className="ml-6 mt-2 text-2xl leading-5 text-oishiRojo font-semibold">
-                       S/ {Number(offer.offer_price).toFixed(2)}
-                      </p>
+                      <div className="flex mt-5">
+                        <p className="mt-2 text-xl leading-5 text-gray-500  line-through">
+                          S/{" "}
+                          {Number(offer.presentation.default_price).toFixed(2)}
+                        </p>
+                        <p className="ml-6 mt-2 text-2xl leading-5 text-oishiRojo font-semibold">
+                          S/ {Number(offer.offer_price).toFixed(2)}
+                        </p>
                       </div>
                       <div className="my-4">
                         <div className="my-2">
@@ -109,65 +127,102 @@ console.log("🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~
                               ? "Cañete"
                               : "Ica"}
                           </p>
-                         
-                        <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
-                        <p className="font-bold mt-1">¿ Cuantos quieres ?</p>
-                        <div
-                        //   className="w-4/12"
-                          className="flex justify-center "
-                        >
-                          <button
-                            type="button"
-                            onClick={() => {
-                              cantPresentacionOferta > 0
-                                ? setCantPresentacionOferta(
-                                    cantPresentacionOferta - 1,
-                                  )
-                                : setCantPresentacionOferta(0);
-                            }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-7 w-7 text-red-600"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                          <input
-                            readOnly
-                            type="text"
-                            className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
-                            value={cantPresentacionOferta}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCantPresentacionOferta(
-                                cantPresentacionOferta + 1,
-                              );
-                            }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-7 w-7 text-red-600"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
+
+                          {offer.presentation.local_availability ||
+                          offer.presentation.web_availability === true ? (
+                            <div className="flex px-2 py-1">
+                              {dispSoloWeb === true && (
+                                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
+                                  W
+                                </p>
+                              )}
+                              {dispSoloLocal === true && (
+                                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded">
+                                  L
+                                </p>
+                              )}
+                            </div>
+                          ) : null}
+
+                          <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
+                            <p className="font-bold mt-1">
+                              ¿ Cuantos quieres ?
+                            </p>
+
+                            {offer.presentation.local_availability &&
+                            offer.presentation.web_availability === true ? (
+                              <div className="flex px-2 py-1">
+                                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
+                                  W
+                                </p>
+
+                                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded">
+                                  L
+                                </p>
+                              </div>
+                            ) : null}
+
+                            {dispSoloLocal === true ? (
+                              <p className="text-xs">Solo consumo en local </p>
+                            ) : (
+                              <div className="w-4/12 flex justify-center ">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    cantPresentacionOferta > 0
+                                      ? setCantPresentacionOferta(
+                                          cantPresentacionOferta - 1,
+                                        )
+                                      : setCantPresentacionOferta(0);
+                                  }}
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-7 w-7 text-red-600"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                </button>
+                                <input
+                                  readOnly
+                                  type="text"
+                                  className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
+                                  value={cantPresentacionOferta}
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setCantPresentacionOferta(
+                                      cantPresentacionOferta + 1,
+                                    );
+                                    // addDataProducto({
+                                    //   id: presentacion.presentacion_id,
+                                    //   cantidad: cantPresentacion,
+                                    // });
+                                  }}
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-7 w-7 text-red-600"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>

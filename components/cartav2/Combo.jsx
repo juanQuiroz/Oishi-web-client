@@ -15,8 +15,8 @@ const Combo = ({combo}) => {
       >
         <div>
           <img
-            src="https://images.pexels.com/photos/248444/pexels-photo-248444.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-            alt="imagen de producto oishisushibar"
+          src={combo.image.url}
+            alt="imagen de combo oishisushibar"
             className="rounded-t-2xl sm:rounded-t-3xl"
           />
         </div>
