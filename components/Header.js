@@ -16,14 +16,18 @@ const Header = () => {
     setConfirmarpedido,
     cliente,
     addCustomer,
+    addCustomerToken,
   } = pedidosContext;
   console.log("🚀 ~ file: Header.js ~ line 19 ~ Header ~ cliente", cliente);
 
   React.useEffect(() => {
     const local = JSON.parse(localStorage.getItem("local"));
     const customer = JSON.parse(localStorage.getItem("customer"));
+    const customer_token = JSON.parse(localStorage.getItem("customer_token"));
+
     selectLocal(local);
     addCustomer(customer);
+    addCustomerToken(customer_token);
     console.log("local useEffect header: ", local);
   }, []);
 

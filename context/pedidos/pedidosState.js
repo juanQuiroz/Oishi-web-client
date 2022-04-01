@@ -16,6 +16,7 @@ import {
   SELECCIONAR_LOCAL,
   SET_CONFIRMARPEDIDO,
   AGREGAR_CLIENTE,
+  AGREGAR_CLIENTE_TOKEN,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
@@ -31,6 +32,7 @@ const PedidosState = ({ children }) => {
     localSeleccionado: "",
     confirmarPedido: false,
     cliente: null,
+    customerToken: null,
   };
 
   const [state, dispatch] = useReducer(pedidosReducer, initialState);
@@ -38,11 +40,17 @@ const PedidosState = ({ children }) => {
   // Funciones
 
   // Agregar informacion del cliente al stateContext
-
   const addCustomer = customer => {
     dispatch({
       type: AGREGAR_CLIENTE,
       payload: customer,
+    });
+  };
+  // agregar token del cliente
+  const addCustomerToken = customer_token => {
+    dispatch({
+      type: AGREGAR_CLIENTE_TOKEN,
+      payload: customer_token,
     });
   };
 
@@ -142,6 +150,8 @@ const PedidosState = ({ children }) => {
         totalPedidos: state.pedido.totalPedidos,
         confirmarPedido: state.confirmarPedido,
         cliente: state.cliente,
+        customerToken: state.customerToken,
+        addCustomerToken,
         setConfirmarpedido,
         addDataProducto,
         addPresentacion,

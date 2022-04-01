@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import Layout from "../Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -6,10 +6,17 @@ import { apitest } from "../../config/axios";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
+import Notificacion from "../ui/Notificacion";
 
 const Login = () => {
   const pedidosContext = useContext(PedidosContext);
   const { addCustomer } = pedidosContext;
+
+  const [dataResponseApi, setDataResponseApi] = useState({
+    reqDone: false,
+    typeResponse: "",
+    serverResponse: "",
+  });
 
   const router = useRouter();
 
@@ -19,7 +26,9 @@ const Login = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Correo obligatorio"),
+      email: Yup.string()
+        .email("Correo incorrecto")
+        .required("Es necesario un correo"),
       password: Yup.string().required("Contraseña obligatoria"),
     }),
 
@@ -44,14 +53,41 @@ const Login = () => {
           "customer",
           JSON.stringify(res.data.data.customer),
         );
+        localStorage.setItem(
+          "customer_token",
+          JSON.stringify(`bearer ${res.data.data.access_token}`),
+        );
 
-        addCustomer(res.data.data.customer);
-        // router.push("/carta")
+        setDataResponseApi({
+          reqDone: true,
+          typeResponse: "success",
+          serverResponse: "Bienvenido a Oishi",
+        });
+        setTimeout(() => {
+          setDataResponseApi({
+            reqDone: false,
+            typeResponse: "",
+            serverResponse: "",
+          });
+          resetForm();
+          addCustomer(res.data.data.customer);
+        }, 2000);
       } catch (e) {
         console.log(e);
-      }
+        setDataResponseApi({
+          reqDone: true,
+          typeResponse: "error",
+          serverResponse: "Correo o contraseña incorrectos",
+        });
 
-      resetForm();
+        setTimeout(() => {
+          setDataResponseApi({
+            reqDone: false,
+            typeResponse: "",
+            serverResponse: "",
+          });
+        }, 3000);
+      }
     },
   });
 
@@ -84,6 +120,13 @@ const Login = () => {
             </h3>
           </div>
           <form className="sm:w-7/12" onSubmit={formik.handleSubmit}>
+            {dataResponseApi.reqDone && (
+              <Notificacion
+                typeResponse={dataResponseApi.typeResponse}
+                serverResponse={dataResponseApi.serverResponse}
+              />
+            )}
+
             <div className="mb-3">
               <p className="text-oishiAzul3 font-Andika font-bold text-md">
                 Correo:
@@ -121,7 +164,10 @@ const Login = () => {
               ) : null}
             </div>
 
-            <button className="w-full bg-oishiAzul text-white font-bold text-lg shadow-oishiShadow2 rounded-xl py-2">
+            <button
+              type="submit"
+              className="w-full bg-oishiAzul text-white font-bold text-lg shadow-oishiShadow2 rounded-xl py-2"
+            >
               Iniciar Sesión
             </button>
           </form>

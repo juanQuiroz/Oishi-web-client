@@ -10,9 +10,40 @@ const Notificacion = ({ typeResponse, serverResponse }) => {
 
   return (
     <div
-      className={`animate-bounce w-full bg-${color}-500 p-1 shadow-lg rounded-lg my-4 text-center text-xl text-white`}
+      className={`flex items-center justify-center animate-bounce w-full bg-${color}-500 p-1 shadow-lg rounded-lg my-3 text-center text-md text-white`}
     >
-      {serverResponse}
+      {typeResponse === "success" ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      )}
+      <p className="ml-1">{serverResponse}</p>
     </div>
   );
 };

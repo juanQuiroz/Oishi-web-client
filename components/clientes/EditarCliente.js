@@ -7,10 +7,13 @@ import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const EditarCliente = ({ setEditarCliente, cliente }) => {
-  const pedidosContext = useContext(PedidosContext);
-  const { addCustomer } = pedidosContext;
+  const [newPassword, setNewPassword] = React.useState({
+    password: "",
+    password_confirmation: "",
+  });
 
-  const router = useRouter();
+  const pedidosContext = useContext(PedidosContext);
+  const { addCustomer, customerToken } = pedidosContext;
 
   const formik = useFormik({
     initialValues: {
@@ -20,6 +23,7 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
       phone: cliente.phone,
       email: cliente.email,
     },
+    enableReinitialize: true, // para refrescar initial values
     validationSchema: Yup.object({
       name: Yup.string().required(" obligatorio"),
       last_name: Yup.string().required("Contraseña obligatoria"),
@@ -29,29 +33,27 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
     }),
 
     onSubmit: async (values, { resetForm }) => {
-      // PARA WEB SOCKET - API PHP
       try {
-        const res = await apitest.post(
-          "/api/v2/auth/customers/login",
+        const res = await apitest.patch(
+          `/api/v2/auth/customers/${cliente.id}`,
           {
             email: values.email,
-            password: values.password,
+            name: values.name,
+            last_name: values.last_name,
+            dni: values.dni,
+            phone: values.phone,
           },
           {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
+              Authorization: customerToken,
             },
           },
         );
 
-        localStorage.setItem(
-          "customer",
-          JSON.stringify(res.data.data.customer),
-        );
-
-        addCustomer(res.data.data.customer);
-        router.push("/carta");
+        addCustomer(res.data.data.product);
+        localStorage.setItem("customer", JSON.stringify(res.data.data.product));
       } catch (e) {
         console.log(e);
       }
@@ -59,9 +61,40 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
       resetForm();
     },
   });
+
+  const onSubmitChangePass = async e => {
+    e.preventDefault;
+
+    try {
+      const res = await apitest.patch(
+        `/api/v2/auth/customers/${cliente.id}`,
+        {
+          password: newPassword.password,
+          password_confirmation: newPassword.password_confirmation,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: customerToken,
+          },
+        },
+      );
+
+      setTimeout(() => {
+        console.log(
+          "🚀 ~ file: EditarCliente.js ~ line 86 ~ EditarCliente ~ res",
+          res,
+        );
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col sm:flex-row sm:w-full sm:justify-center sm:-mt-10">
-      <div className="sm:w-9/12 sm:flex sm:justify-evenly sm:items-center bg-gradient-to-b from-blueGray-100  to-blueGray-200  my-6 mx-3 p-4 rounded-xl">
+      <div className="sm:w-11/12 sm:flex sm:justify-evenly sm:items-center bg-gradient-to-b from-blueGray-100  to-blueGray-200  my-6 mx-3 p-4 rounded-xl">
         <div className="sm:w-5/12">
           <div className="w-full flex items-center">
             <svg
@@ -182,8 +215,71 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
             >
               Cancelar
             </button>
-            <button className="ml-1 w-full bg-oishiAzul text-white font-bold text-lg shadow-oishiShadow2 rounded-xl py-2">
+            <button
+              type="submit"
+              className="ml-1 w-full bg-oishiAzul text-white font-bold text-lg shadow-oishiShadow2 rounded-xl py-2"
+            >
               Actualizar datos
+            </button>
+          </div>
+        </form>
+
+        <form
+          className="sm:h-full sm:flex sm:flex-col sm:justify-between  sm:w-7/12 mt-12 sm:px-10 sm:pb-6 sm:pt-3 "
+          onSubmit={onSubmitChangePass}
+        >
+          <div>
+            <h2 className="text-2xl font-Andika font-bold">
+              Cambiar contraseña
+            </h2>
+            <h3 className="leading-4 text-lg text-red-600 mb-4">
+              Crea una nueva contraseña para tu usuario
+            </h3>
+          </div>
+
+          <div>
+            <div className="mb-2">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+                Nueva contraseña:
+              </p>
+              <input
+                onChange={e =>
+                  setNewPassword({ ...newPassword, password: e.target.value })
+                }
+                className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
+                type="password"
+                name="password"
+              />
+            </div>
+            <div className=" mb-2">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+                Repetir contraseña:
+              </p>
+              <input
+                onChange={e =>
+                  setNewPassword({
+                    ...newPassword,
+                    password_confirmation: e.target.value,
+                  })
+                }
+                className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
+                type="password"
+                name="password_confirmation"
+              />
+            </div>
+          </div>
+          <div className="flex mt-8">
+            <button
+              className="mr-1 border-2 border-oishiAzul2 font-bold text-lg w-full text-oishiAzul3 shadow-oishiShadow2 rounded-xl py-2"
+              onClick={() => setEditarCliente(false)}
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              className="ml-1 w-full bg-oishiAzul text-white font-bold text-lg shadow-oishiShadow2 rounded-xl py-2"
+            >
+              Actualizar
             </button>
           </div>
         </form>

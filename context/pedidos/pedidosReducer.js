@@ -12,6 +12,7 @@ import {
   SELECCIONAR_LOCAL,
   SET_CONFIRMARPEDIDO,
   AGREGAR_CLIENTE,
+  AGREGAR_CLIENTE_TOKEN,
 } from "../../types";
 
 export default (state, action) => {
@@ -20,6 +21,12 @@ export default (state, action) => {
       return {
         ...state,
         cliente: action.payload,
+      };
+
+    case AGREGAR_CLIENTE_TOKEN:
+      return {
+        ...state,
+        customerToken: action.payload,
       };
 
     case SET_CONFIRMARPEDIDO:
