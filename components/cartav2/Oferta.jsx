@@ -2,6 +2,7 @@ import React from 'react'
 import ModalDetalleOferta from './ModalDetalleOferta';
 
 const Oferta = ({oferta}) => {
+console.log("🚀 ~ file: Oferta.jsx ~ line 5 ~ Oferta ~ oferta", oferta)
     const [offer, setOffer] = React.useState()
     const [isOpen, setIsOpen] = React.useState(false);
 

@@ -84,7 +84,7 @@ const cartaOishi = () => {
   };
   const getOfertas = async () => {
     const res = await apitest.get(
-      `/api/v2/offers?include=presentation.presentationable&offer_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&product_presentatioanble_is_active=1`,
+      `/api/v2/offers?include=image,presentation.presentationable&offer_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&product_presentatioanble_is_active=1`,
       {
         headers: {
           "Content-Type": "application/json",
