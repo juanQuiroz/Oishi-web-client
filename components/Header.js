@@ -55,6 +55,7 @@ const Header = () => {
         {cliente && cliente.name}
       </p>
 
+      {/* Menu desplegable */}
       <div className="flex justify-between sm:hidden">
         <button type="button" onClick={handleClick}>
           <svg
@@ -214,7 +215,7 @@ const Header = () => {
           </div>
         </ul>
       </div>
-
+      {/* Menu  */}
       <div className={`flex ${isOpen ? "block" : "hidden"} `}>
         <ul className="font-Andika text-2xl">
           <li className="mx-2 my-2 sm:mx-6 px-2">

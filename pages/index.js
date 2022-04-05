@@ -4,7 +4,7 @@ import Categorias from "../components/Inicio/Categorias";
 import PrincipalesProductos from "../components/Inicio/PrincipalesProductos";
 import Layout from "../components/Layout";
 import ModalIndex from "../components/ModalIndex";
-import axios from "axios";
+import { apitest } from "../config/axios";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -22,26 +22,23 @@ export default function Home() {
   const [imgURL, setImgURL] = React.useState();
 
   const getImgUrls = async () => {
-    const imgCarrusel = await axios.get(
-      "https://api-oishi.weboishibackend.com/api/v1/carrusel",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+    const imgCarrusel = await apitest.get("/api/v1/carrusel", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-    );
+    });
     setImgURL(imgCarrusel.data.data);
   };
 
-  // React.useEffect(() => {
-  //   getImgUrls();
-  // }, []);
+  React.useEffect(() => {
+    getImgUrls();
+  }, []);
 
   return (
     <Layout>
       <ModalIndex isOpen={isOpen} setIsOpen={setIsOpen} />
-      {/* <Carrusel /> */}
+    
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

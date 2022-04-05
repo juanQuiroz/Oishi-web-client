@@ -42,10 +42,12 @@ console.log("🚀 ~ file: ModalDetalleCombo.jsx ~ line 9 ~ ModalDetalleCombo ~ c
   // }, [cantPresentacionOferta]);
 
 
+  let dispSoloLocal = false;
+  let dispSoloWeb = false;
 if (combo){
     // * WEB Y LOCAL
   // comprobar los productos cuya disponibilidad sea SOLO LOCAL
-  let dispSoloLocal = false;
+  
   if (
     combo.presentations[0].local_availability === true &&
     combo.presentations[0].web_availability === false
@@ -54,7 +56,7 @@ if (combo){
   }
 
   // comprobar los productos cuya disponibilidad sea SOLO WEB
-  let dispSoloWeb = false;
+  
   if (
     combo.presentations[0].local_availability === false &&
     combo.presentations[0].web_availability === true
@@ -128,8 +130,10 @@ if (combo){
                           Combo_price
                         </p>
                       </div>
+                      
                       <div className="my-4">
                         <div className="my-2">
+                       
                           <p className="-mb-1">
                             {combo.presentations[0].local_id == 1
                               ? "Cañete"
@@ -216,21 +220,7 @@ if (combo){
                             )}           
                       */}
 
-                          {combo.presentations[0].local_availability ||
-                          combo.presentations[0].web_availability === true ? (
-                            <div className="flex px-2 py-1">
-                              {dispSoloWeb === true && (
-                                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded mr-2">
-                                  W
-                                </p>
-                              )}
-                              {dispSoloLocal === true && (
-                                <p className="w-5 h-5 bg-red-500 text-center text-md text-white font-bold rounded">
-                                  L
-                                </p>
-                              )}
-                            </div>
-                          ) : null}
+                         
 
 
                       <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">

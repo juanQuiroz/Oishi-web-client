@@ -55,7 +55,7 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md  my-8 overflow-hidden text-left align-middle transition-all transform bg-gray-100 shadow-2xl rounded-2xl">
+              <div className="inline-block w-full max-w-lg  my-8 overflow-hidden text-left align-middle transition-all transform bg-gray-100 shadow-2xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
                   className="p-4 text-center font-bold leading-6 text-oishiNegro font-Andika text-3xl"
@@ -63,7 +63,7 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                   Elige un local
                 </Dialog.Title>
 
-                <div className="my-4 mx-4 flex justify-evenly">
+                <div className="my-4 mx-4 flex justify-between ">
                   <div
                     className="cursor-pointer bg-transparent flex-col items-center p-2"
                     onClick={() => {
@@ -83,6 +83,27 @@ export default function ModalIndex({ isOpen, setIsOpen }) {
                       Oishi Cañete
                     </p>
                   </div>
+
+                  {/* OIshi Chincha */}
+                  <div
+                    className="cursor-pointer bg-transparent flex-col items-center p-2"
+                    onClick={() => {
+                      vaciarCesta();
+                      selectLocal(3);
+                      addLocalLocalStorage(3);
+                      closeModal();
+                    }}
+                  >
+                    <img
+                      src="/oishiIca.jpeg"
+                      alt=""
+                      className="w-32 rounded-xl"
+                    />
+                    <p className="text-lg font-Andika text-center">
+                      Oishi Chincha
+                    </p>
+                  </div>
+
                   <div
                     className="cursor-pointer bg-transparent flex-col items-center p-2"
                     onClick={() => {

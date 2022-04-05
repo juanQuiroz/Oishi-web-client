@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { apitest } from "../../config/axios";
 
 import styled from "styled-components";
 
@@ -7,23 +8,18 @@ const Carrusel = () => {
   const [imgURL, setImgURL] = React.useState();
 
   const getImgUrls = async () => {
-    const imgCarrusel = await axios.get(
-      "https://api-oishi.weboishibackend.com/api/v1/carrusel",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+    const imgCarrusel = await apitest.get("/api/v1/carrusel", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-    );
+    });
     setImgURL(imgCarrusel.data.data);
   };
 
   React.useEffect(() => {
     getImgUrls();
   }, []);
-
-  return hola;
 
   //  <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
   {
