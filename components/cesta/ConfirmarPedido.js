@@ -44,8 +44,8 @@ const ConfirmarPedido = () => {
   return (
     <div className="min-h-[29rem] flex flex-col justify-start">
       <Subtitulo>Detalle del pedido</Subtitulo>
-      <div className=" bg-blueGray-200 rounded-md p-2 sm:p-3">
-        <div className=" grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-3">
+      <div className=" bg-blueGray-200 rounded-md p-2 sm:p-3 sm:mx-8">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3">
           {pedidosFiltrados &&
             pedidosFiltrados.map(p => (
               <ProductoPedido key={p.id} presentacionPedido={p} />
@@ -60,7 +60,7 @@ const ConfirmarPedido = () => {
             ))}
         </div>
         {pedido && (
-          <div className=" flex justify-between mt-2 mx-1">
+          <div className=" flex justify-between mt-4 mx-2 ">
             <p className="text-xl font-medium text-right text-gray-700">
               Total Pedido:
             </p>

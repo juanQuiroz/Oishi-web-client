@@ -5,6 +5,7 @@ import User from "../assets/icons/user.svg";
 import PedidosContext from "../context/pedidos/pedidosContex";
 import Canete from "../assets/localosihi/canete.svg";
 import Ica from "../assets/localosihi/ica.svg";
+import Chincha from "../assets/localosihi/chincha.svg";
 
 const Header = () => {
   const pedidosContext = useContext(PedidosContext);
@@ -49,7 +50,12 @@ const Header = () => {
         <Logo className="w-48 text-center" />
       </div>
       <p className="font-Andika text-center text-lg text-gray-600">
-        Te encuentras en {localSeleccionado == 1 ? "Oishi Cañete" : "Oishi Ica"}
+        Te encuentras en{" "}
+        {localSeleccionado == 1
+          ? "Oishi Cañete"
+          : localSeleccionado == 2
+          ? "Oishi Ica"
+          : "Oishi Chincha"}
       </p>
       <p className="font-Andika font-bold text-center text-lg text-oishiAzul3">
         {cliente && cliente.name}
@@ -84,16 +90,20 @@ const Header = () => {
               onClick={() => {
                 vaciarCesta();
                 setConfirmarpedido(false);
-                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
+                localSeleccionado == 1
+                  ? cambiarLocal(2)
+                  : localSeleccionado == 2
+                  ? cambiarLocal(3)
+                  : cambiarLocal(1);
               }}
               className="cursor-pointer mr-2 ml-1 transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
               {localSeleccionado == 1 ? (
                 <Canete className="w-8 h-8" />
-              ) : (
-                // <img src="./canete.png" alt="." className="w-7 h-7" />
+              ) : localSeleccionado == 2 ? (
                 <Ica className="w-8 h-8" />
-                // <img src="./ica.png" alt="." className="w-7 h-7" />
+              ) : (
+                <Chincha className="w-8 h-8" />
               )}
             </a>
 
@@ -166,16 +176,20 @@ const Header = () => {
               onClick={() => {
                 vaciarCesta();
                 setConfirmarpedido(false);
-                localSeleccionado == 1 ? cambiarLocal(2) : cambiarLocal(1);
+                localSeleccionado == 1
+                  ? cambiarLocal(2)
+                  : localSeleccionado == 2
+                  ? cambiarLocal(3)
+                  : cambiarLocal(1);
               }}
               className="cursor-pointer ml-1 mr-2"
             >
               {localSeleccionado == 1 ? (
                 <Canete className="w-8 h-8" />
-              ) : (
-                // <img src="./canete.png" alt="." className="w-8 h-8" />
+              ) : localSeleccionado == 2 ? (
                 <Ica className="w-8 h-8" />
-                // <img src="./ica.png" alt="." className="w-8 h-8" />
+              ) : (
+                <Chincha className="w-8 h-8" />
               )}
             </a>
             <Link href="/cesta/cesta">

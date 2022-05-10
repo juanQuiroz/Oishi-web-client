@@ -11,10 +11,6 @@ import MensajeDisponibilidad from "../components/ui/MensajeDisponibilidad";
 const cartaOishi = () => {
   const pedidosContext = React.useContext(PedidosContext);
   const { localSeleccionado } = pedidosContext;
-  console.log(
-    "🚀 ~ file: cartaOishi.js ~ line 14 ~ cartaOishi ~ localSeleccionado",
-    localSeleccionado,
-  );
 
   // Categoria Seleccionada
   const [selectedCategory, setSelectedCategory] = React.useState(1);
@@ -68,10 +64,12 @@ const cartaOishi = () => {
     },
   ];
 
-  // productos activos, presentaciones activas, sin ofertas, activo para carta y del local seleccionado
+  // productos activos, presentaciones activas, sin ofertas, activo para cartza y del local seleccionado
   const getProducts = async () => {
     const res = await apitest.get(
-      `/api/v2/products?include=product_category,product_type,image,presentations,presentations.offer&product_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&offer_is_active=0&is_active_carta=1`,
+      `/api/v2/products?product_is_active=1&presentation_is_active=1&local_id=${localSeleccionado}&is_active_carta=1&include=product_category,product_type,image,presentations.admin_offer&presentations_only_carta=1`,
+      // `/api/v2/products?include=product_category,product_type,image,presentations,&presentation_is_active=1&local_id=${localSeleccionado}&offer_is_active=0&is_active_carta=1`,
+      // `/api/v2/products?include=product_category,product_type,image,presentations,presentations.offer&presentation_is_active=1&local_id=${localSeleccionado}&offer_is_active=0&is_active_carta=1`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -97,13 +95,17 @@ const cartaOishi = () => {
   };
   const getCombos = async () => {
     const res = await apitest.get(
-      `/api/v2/combos?include=presentations.toppings,image&combo_is_active=1&local_id=${localSeleccionado}&topping_is_active=1`,
+      `/api/v2/combos?combo_is_active=1&local_id=${localSeleccionado}&presentation_is_active=1&include=image,presentations.admin_toppings`,
       {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
       },
+    );
+    console.log(
+      "🚀 ~ file: cartaOishi.js ~ line 106 ~ getCombos ~ res",
+      res.data.data,
     );
 
     setCombos(res.data.data);

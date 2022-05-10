@@ -6,8 +6,11 @@ import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 export default function ModalDetalleOferta({ isOpen, setIsOpen, offer }) {
-console.log("🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~ offer", offer)
- 
+  console.log(
+    "🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~ offer",
+    offer,
+  );
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -48,7 +51,7 @@ console.log("🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~
       return;
     }
     addOferta({
-      producto_nombre:  offer.presentation.presentationable.name,
+      producto_nombre: offer.presentation.presentationable.name,
       cantidad: cantPresentacionOferta,
       oferta_id: offer.id,
       descripcion_presentacion: offer.presentation.presentation,
@@ -100,32 +103,34 @@ console.log("🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~
                   <div className="">
                     <img
                       // *img oferta aqui
-                      src={offer.image[0].url}
+                      src={offer.image.url}
                       alt="imagen de producto"
                       className="w-full"
                     />
                     <div className="m-3">
-                      <p className="text-2xl leading-5 text-gray-800 font-bold font-Andika">
+                      <p className="text-2xl leading-5 text-gray-800 font-Andika">
                         {offer.presentation.presentationable.name}
                       </p>
                       <p className="mt-2 text-xl leading-5 text-oishiAzul font-semibold">
                         {offer.presentation.presentation}
                       </p>
                       <div className="flex mt-5">
-                        <p className="mt-2 text-xl leading-5 text-gray-500  line-through">
+                        <p className="text-xl leading-5 text-gray-500  line-through">
                           S/{" "}
                           {Number(offer.presentation.default_price).toFixed(2)}
                         </p>
-                        <p className="ml-6 mt-2 text-2xl leading-5 text-oishiRojo font-semibold">
+                        <p className="ml-6 text-2xl leading-5 text-oishiRojo font-semibold">
                           S/ {Number(offer.offer_price).toFixed(2)}
                         </p>
                       </div>
                       <div className="my-4">
-                        <div className="my-2">
-                          <p className="-mb-1">
+                        <div>
+                          <p>
                             {offer.presentation.local_id == 1
                               ? "Cañete"
-                              : "Ica"}
+                              : offer.presentation.local_id == 2
+                              ? "Ica"
+                              : "Chincha"}
                           </p>
 
                           {offer.presentation.local_availability ||
@@ -144,7 +149,7 @@ console.log("🚀 ~ file: ModalDetalleOferta.jsx ~ line 9 ~ ModalDetalleOferta ~
                             </div>
                           ) : null}
 
-                          <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
+                          <div className="flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
                             <p className="font-bold mt-1">
                               ¿ Cuantos quieres ?
                             </p>

@@ -17,15 +17,20 @@ const ProductoPedido = ({ presentacionPedido }) => {
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
       <div className="w-full flex justify-between items-center">
-        <h2 className="w-5/12 font-semibold">
-          {presentacionPedido.producto_nombre}
-        </h2>
-        <h3 className="w-4/12 ">
-          {presentacionPedido.presentacion} x {presentacionPedido.cantidad}
-        </h3>
-        <h2 className="w-2/12 font-semibold">S/ {subtotal.toFixed(2)}</h2>
+        <div className="w-10/12">
+          <h2 className=" font-semibold -mb-1">
+            {presentacionPedido.producto_nombre}
+          </h2>
+          <h3>
+            {presentacionPedido.presentacion}{" "}
+            <span className="font-bold text-red-600">
+              x {presentacionPedido.cantidad}
+            </span>
+          </h3>
+        </div>
+        <h2 className="w-2/12  font-semibold">S/ {subtotal.toFixed(2)}</h2>
         <button
-          className="w-1/12 flex text-red-500 bg-transparent hover:bg-transparent rounded-full"
+          className="w-1/12 flex flex-row-reverse text-red-500 bg-transparent hover:bg-transparent rounded-full"
           onClick={() => {
             deletePresentacion(presentacionPedido.id);
             addTotalPedidos();

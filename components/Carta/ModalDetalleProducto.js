@@ -72,9 +72,15 @@ export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
                       <div className="my-4">
                         <div className="my-2">
                           <p className="-mb-1">
+                            {/* {product.presentations[0].local_id == 1
+                              ? "Cañete"
+                              : "Ica"} */}
+
                             {product.presentations[0].local_id == 1
                               ? "Cañete"
-                              : "Ica"}
+                              : product.presentations[0].local_id == 2
+                              ? "Ica"
+                              : "Chincha"}
                           </p>
                           {product.presentations.map(presentacion =>
                             presentacion.disponibilidadLocal === false &&
