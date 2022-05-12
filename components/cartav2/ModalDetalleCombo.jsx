@@ -4,6 +4,7 @@ import { Fragment, useState } from "react";
 // import Presentacion from "./Presentacion";
 import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
+import ToppingsCombos from "./ToppingsCombos";
 
 export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
   console.log(
@@ -18,7 +19,7 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
   const pedidosContext = React.useContext(PedidosContext);
   const { localSeleccionado } = pedidosContext;
 
-  const [cantPresentacionOferta, setCantPresentacionOferta] = React.useState(0);
+  const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(0);
 
   // CONTEXT
   // -> para agregar productos
@@ -112,13 +113,13 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
                       className="w-full"
                     />
                     <div className="m-3">
-                      <p className="text-2xl leading-5 text-oishiAzul font-bold font-Andika">
+                      <p className="text-2xl leading-4 text-oishiAzul font-bold font-Andika">
                         {combo.name}
                       </p>
-                      <p className="mt-2 text-md leading-5 text-gray-800 ">
+                      <p className="mt-2 text-md leading-4 text-gray-800 ">
                         {combo.description}
                       </p>
-                      <div className="flex mt-5">
+                      <div className="flex mt-3">
                         <p className=" text-xl leading-5 text-gray-500  line-through">
                           S/{" "}
                           {Number(combo.presentations[0].default_price).toFixed(
@@ -133,9 +134,9 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
                         </p>
                       </div>
 
-                      <div className="my-4">
+                      <div className="my-2">
                         <div className="my-2">
-                          <p className="-mb-1">
+                          <p className="ml-1">
                             {combo.presentations[0].local_id == 1
                               ? "Cañete"
                               : combo.presentations[0].local_id == 2
@@ -222,66 +223,69 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
                             )}           
                       */}
 
-                          <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
-                            <p className="font-bold mt-1">
-                              ¿ Cuantos quieres ?
-                            </p>
-                            <div
-                              //   className="w-4/12"
-                              className="flex justify-center "
-                            >
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  cantPresentacionOferta > 0
-                                    ? setCantPresentacionOferta(
-                                        cantPresentacionOferta - 1,
-                                      )
-                                    : setCantPresentacionOferta(0);
-                                }}
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-7 w-7 text-red-600"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
+                          {combo.presentations[0].toppings.length > 0 ? (
+                            <ToppingsCombos
+                              toppings={combo.presentations[0].toppings}
+                            />
+                          ) : (
+                            <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
+                              <p className="font-bold mt-1">
+                                ¿ Cuantos quieres ?
+                              </p>
+                              <div className="flex justify-center ">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    cantPresentacionCombo > 0
+                                      ? setCantPresentacionCombo(
+                                          cantPresentacionCombo - 1,
+                                        )
+                                      : setCantPresentacionCombo(0);
+                                  }}
                                 >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </button>
-                              <input
-                                readOnly
-                                type="text"
-                                className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
-                                value={cantPresentacionOferta}
-                              />
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setCantPresentacionOferta(
-                                    cantPresentacionOferta + 1,
-                                  );
-                                }}
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-7 w-7 text-red-600"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-7 w-7 text-red-600"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                </button>
+                                <input
+                                  readOnly
+                                  type="text"
+                                  className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
+                                  value={cantPresentacionCombo}
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setCantPresentacionCombo(
+                                      cantPresentacionCombo + 1,
+                                    );
+                                  }}
                                 >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </button>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-7 w-7 text-red-600"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </div>
                     </div>
