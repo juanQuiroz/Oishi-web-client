@@ -12,7 +12,10 @@ const ToppingCombo = ({ topping }) => {
   );
 
   return (
-    <div className="bg-oishiCeleste2 px-2 py-1 rounded-lg" key={topping.id}>
+    <div
+      className="bg-oishiCeleste2 px-2 py-1 rounded-lg mb-2"
+      key={topping.id}
+    >
       <h2 className="text-xs text-black font-bold mb-1">
         {topping.description}
       </h2>
@@ -29,8 +32,16 @@ const ToppingCombo = ({ topping }) => {
           }}
         />
       ))}
-      <div className="flex">
-        <h2 className="text-oishiNegro font-bold">
+      <div className="flex justify-between mt-2 mb-1 items-center">
+        <div>
+          <button className="shadow-sm p-1 rounded-md mr-2 border border-blue-600 text-blue-800 font-bold">
+            Restablecer
+          </button>
+          <button className="shadow-sm p-1 rounded-md border border-emerald-600 text-emerald-600 font-bold">
+            Añadir a cesta
+          </button>
+        </div>
+        <h2 className="text-oishiNegro font-bold mr-4">
           Total:{" "}
           <span>
             {toppingSetup
