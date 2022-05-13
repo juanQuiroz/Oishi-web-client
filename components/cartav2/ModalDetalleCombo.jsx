@@ -7,11 +7,6 @@ import PedidosContext from "../../context/pedidos/pedidosContex";
 import ToppingsCombos from "./ToppingsCombos";
 
 export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
-  console.log(
-    "🚀 ~ file: ModalDetalleCombo.jsx ~ line 9 ~ ModalDetalleCombo ~ combo",
-    combo,
-  );
-
   function closeModal() {
     setIsOpen(false);
   }

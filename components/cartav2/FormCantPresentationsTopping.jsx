@@ -8,10 +8,6 @@ const FormCantPresentationsTopping = ({
   setToppingSetup,
   toppingRules,
 }) => {
-  console.log(
-    "🚀 ~ file: FormCantPresentationsTopping.jsx ~ line 11 ~ toppingRules",
-    toppingRules,
-  );
   const [cantPresentations, setCantPresentations] = React.useState(
     Number(toppingRules.min),
   );
@@ -82,37 +78,6 @@ const FormCantPresentationsTopping = ({
             cantPresentations > Number(toppingRules.min)
               ? setCantPresentations(cantPresentations - 1)
               : setCantPresentations(Number(toppingRules.min));
-
-            // setToppingSetup(
-            //   toppingSetup.length == 0
-            //     ? [
-            //         {
-            //           id: presentation.presentation_id,
-            //           cantidad: cantPresentations,
-            //           label: presentation.label,
-            //         },
-            //       ]
-            //     : toppingSetup.some(
-            //         presentationInSetup =>
-            //           presentationInSetup.id == presentation.presentation_id,
-            //       )
-            //     ? toppingSetup.map(presentationInSetup =>
-            //         presentationInSetup.id == presentation.presentation_id
-            //           ? {
-            //               ...presentationInSetup,
-            //               cantidad: cantPresentations,
-            //             }
-            //           : presentationInSetup,
-            //       )
-            //     : [
-            //         ...toppingSetup,
-            //         {
-            //           id: presentation.presentation_id,
-            //           cantidad: cantPresentations,
-            //           label: presentation.label,
-            //         },
-            //       ],
-            // );
           }}
         >
           <svg
@@ -137,38 +102,12 @@ const FormCantPresentationsTopping = ({
         <button
           type="button"
           onClick={() => {
-            setCantPresentations(cantPresentations + 1);
-
-            // setToppingSetup(
-            //   toppingSetup.length == 0
-            //     ? [
-            //         {
-            //           id: presentation.presentation_id,
-            //           cantidad: cantPresentations,
-            //           label: presentation.label,
-            //         },
-            //       ]
-            //     : toppingSetup.some(
-            //         presentationInSetup =>
-            //           presentationInSetup.id == presentation.presentation_id,
-            //       )
-            //     ? toppingSetup.map(presentationInSetup =>
-            //         presentationInSetup.id == presentation.presentation_id
-            //           ? {
-            //               ...presentationInSetup,
-            //               cantidad: cantPresentations,
-            //             }
-            //           : presentationInSetup,
-            //       )
-            //     : [
-            //         ...toppingSetup,
-            //         {
-            //           id: presentation.presentation_id,
-            //           cantidad: cantPresentations,
-            //           label: presentation.label,
-            //         },
-            //       ],
-            // );
+            cantPresentations < Number(toppingRules.max) &&
+              toppingSetup
+                .map(pre => pre.cantidad)
+                .reduce((prev, curr) => prev + curr, 0) <
+                Number(toppingRules.total) &&
+              setCantPresentations(cantPresentations + 1);
           }}
         >
           <svg
