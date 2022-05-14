@@ -17,11 +17,18 @@ const OfertaPedido = ({ ofertaPedido }) => {
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
       <div className="w-full flex justify-between items-center">
-        <h2 className="w-5/12 font-semibold">{ofertaPedido.producto_nombre}</h2>
-        <h3 className="w-4/12 ">
-          {ofertaPedido.descripcion_presentacion} x {ofertaPedido.cantidad}
-        </h3>
-        <h2 className="w-2/12 font-semibold text-center">
+        <div className="w-8/12">
+          <h2 className=" font-semibold leading-3">
+            {ofertaPedido.producto_nombre}
+          </h2>
+          <h3 className=" ">
+            {ofertaPedido.descripcion_presentacion} {""}
+            <span className="font-bold text-red-600 ">
+              x{ofertaPedido.cantidad}
+            </span>
+          </h3>
+        </div>
+        <h2 className="w-3/12 font-semibold text-right mr-2">
           S/ {subtotal.toFixed(2)}
         </h2>
         <button

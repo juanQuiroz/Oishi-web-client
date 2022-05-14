@@ -17,9 +17,14 @@ const ComboPedido = ({ comboPedido }) => {
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
       <div className="w-full flex justify-between items-center">
-        <h2 className="w-6/12 font-semibold">{comboPedido.nombre}</h2>
-        <h3 className="w-2/12 text-center">x {comboPedido.cantidad}</h3>
-        <h2 className="w-3/12 font-semibold text-center">
+        <h2 className="w-8/12 font-semibold">
+          {comboPedido.nombre}{" "}
+          <span className="font-bold text-red-600">
+            x{comboPedido.cantidad}
+          </span>
+        </h2>
+
+        <h2 className="w-3/12 font-semibold text-right mr-2">
           S/ {subtotal.toFixed(2)}
         </h2>
         <button

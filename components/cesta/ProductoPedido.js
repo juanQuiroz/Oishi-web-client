@@ -17,18 +17,20 @@ const ProductoPedido = ({ presentacionPedido }) => {
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
       <div className="w-full flex justify-between items-center">
-        <div className="w-10/12">
-          <h2 className=" font-semibold -mb-1">
+        <div className="w-8/12">
+          <h2 className=" font-semibold leading-3">
             {presentacionPedido.producto_nombre}
           </h2>
           <h3>
             {presentacionPedido.presentacion}{" "}
             <span className="font-bold text-red-600">
-              x {presentacionPedido.cantidad}
+              x{presentacionPedido.cantidad}
             </span>
           </h3>
         </div>
-        <h2 className="w-2/12  font-semibold">S/ {subtotal.toFixed(2)}</h2>
+        <h2 className="w-3/12  font-semibold text-right mr-2">
+          S/ {subtotal.toFixed(2)}
+        </h2>
         <button
           className="w-1/12 flex flex-row-reverse text-red-500 bg-transparent hover:bg-transparent rounded-full"
           onClick={() => {

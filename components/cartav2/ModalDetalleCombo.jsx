@@ -3,41 +3,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 // import Presentacion from "./Presentacion";
 import Link from "next/link";
-import PedidosContext from "../../context/pedidos/pedidosContex";
+
 import ToppingsCombos from "./ToppingsCombos";
+import ComboToppingLess from "./ComboToppingLess";
 
 export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
   function closeModal() {
     setIsOpen(false);
   }
-
-  const pedidosContext = React.useContext(PedidosContext);
-  const { localSeleccionado } = pedidosContext;
-
-  const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(0);
-
-  // CONTEXT
-  // -> para agregar productos
-
-  const { addOferta, addTotalPedidos } = pedidosContext;
-
-  const cuentaRenderizado = React.useRef(0);
-
-  // React.useEffect(() => {
-  //   if (cuentaRenderizado.current === 0) {
-  //     cuentaRenderizado.current = cuentaRenderizado.current + 1;
-  //     return;
-  //   }
-  //   addOferta({
-  //     producto_nombre:  offer.presentation.presentationable.name,
-  //     cantidad: cantPresentacionOferta,
-  //     oferta_id: offer.id,
-  //     descripcion_presentacion: offer.presentation.presentation,
-  //     precio_oferta: offer.offer_price,
-  //   });
-
-  //   addTotalPedidos();
-  // }, [cantPresentacionOferta]);
 
   let dispSoloLocal = false;
   let dispSoloWeb = false;
@@ -101,7 +74,7 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
             >
               <div className="inline-block w-full max-w-md  my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl">
                 {combo && (
-                  <div className="">
+                  <div>
                     <img
                       src={combo.image.url}
                       alt="imagen de producto"
@@ -223,63 +196,7 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
                               toppings={combo.presentations[0].toppings}
                             />
                           ) : (
-                            <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
-                              <p className="font-bold mt-1">
-                                ¿ Cuantos quieres ?
-                              </p>
-                              <div className="flex justify-center ">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    cantPresentacionCombo > 0
-                                      ? setCantPresentacionCombo(
-                                          cantPresentacionCombo - 1,
-                                        )
-                                      : setCantPresentacionCombo(0);
-                                  }}
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-7 w-7 text-red-600"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </button>
-                                <input
-                                  readOnly
-                                  type="text"
-                                  className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
-                                  value={cantPresentacionCombo}
-                                />
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setCantPresentacionCombo(
-                                      cantPresentacionCombo + 1,
-                                    );
-                                  }}
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-7 w-7 text-red-600"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </button>
-                              </div>
-                            </div>
+                            <ComboToppingLess combo={combo} />
                           )}
                         </div>
                       </div>

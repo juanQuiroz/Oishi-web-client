@@ -119,7 +119,7 @@ export default function ModalComprarCombo({
                     </div>
                     <div className=" mx-3 flex justify-between">
                       <p>¿ Cuantos quieres ?</p>
-                      <div className="w-4/12" className="flex justify-center ">
+                      <div className="flex justify-center ">
                         <button
                           type="button"
                           onClick={() => {
