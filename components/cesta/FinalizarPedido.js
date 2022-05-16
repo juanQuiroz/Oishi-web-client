@@ -260,7 +260,7 @@ const FinalizarPedido = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.telefono}
                   className="w-full bg-blueGray-50 rounded-lg px-1"
-                  type="text"
+                  type="number"
                   name="telefono"
                 />
                 {formik.touched.telefono && formik.errors.telefono ? (
@@ -279,7 +279,7 @@ const FinalizarPedido = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.metEntrega}
-                      value="1"
+                      // value="1"
                       defaultChecked
                       type="radio"
                       className="form-radio"
@@ -293,7 +293,7 @@ const FinalizarPedido = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.metEntrega}
-                      value="2"
+                      // value="2"
                       type="radio"
                       className="form-radio"
                       name="metEntrega"
@@ -392,7 +392,7 @@ const FinalizarPedido = () => {
                       type="radio"
                       className="form-radio"
                       name="tipoComprobante"
-                      value="1"
+                      // value="1"
                     />
 
                     <span className="ml-2">Factura</span>
@@ -405,7 +405,7 @@ const FinalizarPedido = () => {
                       type="radio"
                       className="form-radio"
                       name="tipoComprobante"
-                      value="2"
+                      // value="2"
                     />
 
                     <span className="ml-2">Boleta</span>
@@ -442,7 +442,7 @@ const FinalizarPedido = () => {
                       type="radio"
                       className="form-radio"
                       name="metodoPago"
-                      value="1"
+                      // value="1"
                       onClick={() => setEfectivo(false)}
                     />
                     <span className="ml-2">POS</span>
@@ -455,7 +455,7 @@ const FinalizarPedido = () => {
                       type="radio"
                       className="form-radio"
                       name="metodoPago"
-                      value="2"
+                      // value="2"
                       onClick={() => setEfectivo(true)}
                     />
                     <span className="ml-2">Efectivo</span>
@@ -469,7 +469,7 @@ const FinalizarPedido = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.cantidad_efectivo}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
-                      type="text"
+                      type="number"
                       placeholder="S/ Monto con el que paga"
                       name="cantidad_efectivo"
                     />{" "}

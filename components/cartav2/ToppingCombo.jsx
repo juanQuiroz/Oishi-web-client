@@ -1,7 +1,13 @@
 import React from "react";
 import FormCantPresentationsTopping from "./FormCantPresentationsTopping";
+import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const ToppingCombo = ({ topping }) => {
+  // CONTEXT
+  // -> para agregar Combos
+  const pedidosContext = React.useContext(PedidosContext);
+  const { addCombo, addTotalPedidos } = pedidosContext;
+
   // State para almacenar las configuracion elegida por el usuairo en este topping
   const [toppingSetup, setToppingSetup] = React.useState(
     topping.product_presentations.map(presentation => ({
@@ -10,6 +16,26 @@ const ToppingCombo = ({ topping }) => {
       cantidad: Number(topping.min_quantity_product_presentations),
     })),
   );
+
+  const cuentaRenderizado = React.useRef(0);
+
+  React.useEffect(() => {
+    if (cuentaRenderizado.current === 0) {
+      cuentaRenderizado.current = cuentaRenderizado.current + 1;
+      return;
+    }
+    addCombo({
+      nombre: combo.name,
+      description: combo.description,
+      cantidad: cantPresentacionCombo,
+      id: combo.id,
+      sauce_quantity: combo.sauce_quantity,
+      precio: combo.presentations[0].combo_price, // Precio del combo
+      default_price: combo.presentations[0].default_price,
+    });
+
+    addTotalPedidos();
+  }, [cantPresentacionCombo]);
 
   return (
     <div

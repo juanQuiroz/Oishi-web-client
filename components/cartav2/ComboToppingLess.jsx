@@ -2,10 +2,6 @@ import React from "react";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const AddComboToppingLess = ({ combo }) => {
-  console.log(
-    "🚀 ~ file: AddComboToppingLess.jsx ~ line 5 ~ AddComboToppingLess ~ combo",
-    combo,
-  );
   // CONTEXT
   // -> para agregar Combos
   const pedidosContext = React.useContext(PedidosContext);
