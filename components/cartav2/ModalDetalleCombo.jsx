@@ -194,6 +194,7 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
                           {combo.presentations[0].toppings.length > 0 ? (
                             <ToppingsCombos
                               toppings={combo.presentations[0].toppings}
+                              combo={combo}
                             />
                           ) : (
                             <ComboToppingLess combo={combo} />

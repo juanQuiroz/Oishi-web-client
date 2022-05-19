@@ -27,6 +27,7 @@ const AddComboToppingLess = ({ combo }) => {
 
     addTotalPedidos();
   }, [cantPresentacionCombo]);
+
   return (
     <div className="my-2 flex justify-between bg-oishiCeleste2 p-2 rounded-xl">
       <p className="font-bold mt-1">¿ Cuantos quieres ?</p>

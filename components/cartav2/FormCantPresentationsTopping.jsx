@@ -7,32 +7,16 @@ const FormCantPresentationsTopping = ({
   toppingSetup,
   setToppingSetup,
   toppingRules,
+  toppingSetupwithId,
+  setToppingSetupwithId,
 }) => {
+  console.log(
+    "🚀 ~ file: FormCantPresentationsTopping.jsx ~ line 11 ~ presentation",
+    presentation,
+  );
   const [cantPresentations, setCantPresentations] = React.useState(
     Number(toppingRules.min),
   );
-
-  //   const formik = useFormik({
-
-  //     initialValues: {
-  //       cantidadSeleccionada: 0,
-  //     },
-  //     validationSchema: Yup.object({
-  //       cantidadSeleccionada: Yup.number(),
-  //     //   cantidad_efectivo: Yup.number()
-  //     //     .typeError("Ingrese solo numeros")
-  //     //     .when("efectivo", {
-  //     //       is: true,
-  //     //       then: Yup.number()
-  //     //         .typeError("Ingrese solo numeros")
-  //     //         .required("Cantidad de efectivo obligatorio"),
-  //     //     }),
-  //     }),
-
-  //     onSubmit: async (values, { resetForm }) => {
-
-  //     },
-  //   });
 
   React.useEffect(() => {
     setToppingSetup(
@@ -66,6 +50,13 @@ const FormCantPresentationsTopping = ({
           ],
     );
   }, [cantPresentations]);
+
+  React.useEffect(() => {
+    setToppingSetupwithId({
+      id: presentation.topping_id,
+      presentations: toppingSetup,
+    });
+  }, [toppingSetup]);
 
   return (
     <div className="flex justify-between flex-wrap bg-white rounded-md p-1 mb-1">
