@@ -17,12 +17,22 @@ const ComboPedido = ({ comboPedido }) => {
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
       <div className="w-full flex justify-between items-center">
-        <h2 className="w-8/12 font-semibold">
-          {comboPedido.nombre}{" "}
-          <span className="font-bold text-red-600">
-            x{comboPedido.cantidad}
-          </span>
-        </h2>
+        <div className="w-8/12">
+          <h2 className=" font-semibold">
+            {comboPedido.nombre}{" "}
+            <span className="font-bold text-red-600">
+              x{comboPedido.cantidad}
+            </span>
+          </h2>
+          <div>
+            {comboPedido.globalToppingSetup.map((gts, index) => (
+              <p className="font-light leading-4 text-xs" key={index}>
+                {gts.label}{" "}
+                <span className="ml-1 text-red-600">x{gts.cantidad}</span>
+              </p>
+            ))}
+          </div>
+        </div>
 
         <h2 className="w-3/12 font-semibold text-right mr-2">
           S/ {subtotal.toFixed(2)}
