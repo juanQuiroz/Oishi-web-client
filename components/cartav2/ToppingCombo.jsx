@@ -30,7 +30,10 @@ const ToppingCombo = ({
     setGlobalToppingSetup(
       globalToppingSetup.map(gts =>
         gts.id == toppingSetupwithId.id
-          ? { ...gts, presentations: toppingSetup }
+          ? {
+              ...gts,
+              presentations: toppingSetup,
+            }
           : gts,
       ),
     );

@@ -19,7 +19,6 @@ const Header = () => {
     addCustomer,
     addCustomerToken,
   } = pedidosContext;
-  console.log("🚀 ~ file: Header.js ~ line 19 ~ Header ~ cliente", cliente);
 
   React.useEffect(() => {
     const local = JSON.parse(localStorage.getItem("local"));

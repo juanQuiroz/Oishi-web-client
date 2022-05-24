@@ -10,10 +10,6 @@ const FormCantPresentationsTopping = ({
   toppingSetupwithId,
   setToppingSetupwithId,
 }) => {
-  console.table(
-    "🚀 ~ file: FormCantPresentationsTopping.jsx ~ line 11 ~ toppingRules",
-    toppingRules,
-  );
   const [cantPresentations, setCantPresentations] = React.useState(
     Number(toppingRules.min),
   );

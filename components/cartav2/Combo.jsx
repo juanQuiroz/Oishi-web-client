@@ -2,7 +2,6 @@ import React from "react";
 import ModalDetalleCombo from "./ModalDetalleCombo";
 
 const Combo = ({ combo }) => {
-  console.log("🚀 ~ file: Combo.jsx ~ line 5 ~ Combo ~ combo", combo);
   const [comboo, setCombo] = React.useState();
   const [isOpen, setIsOpen] = React.useState(false);
 

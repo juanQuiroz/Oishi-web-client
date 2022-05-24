@@ -5,6 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const ToppingsCombos = ({ toppings, combo }) => {
+  // Cantidad de combos elegidos
+  const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(0);
+
   // CONTEXT
   // -> para agregar Combos
   const pedidosContext = React.useContext(PedidosContext);
@@ -14,6 +17,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
   // * props: combo -> trae el combo
   const [globalToppingSetup, setGlobalToppingSetup] = React.useState(
     toppings.map(topping => ({
+      type: topping.topping_type.id,
       id: topping.id,
       presentations: topping.product_presentations,
     })),
@@ -24,15 +28,25 @@ const ToppingsCombos = ({ toppings, combo }) => {
 
   React.useEffect(() => {
     const sumaCantidadSeleccionada = globalToppingSetup
-      .map(gts =>
-        gts.presentations
-          .map(pre => pre.cantidad)
-          .reduce((prev, curr) => prev + curr, 0),
+      .map(
+        gts =>
+          gts.type == 1 &&
+          gts.presentations
+            .map(pre => pre.cantidad)
+            .reduce((prev, curr) => prev + curr, 0),
       )
       .reduce((prev, curr) => prev + curr, 0);
+    console.log(
+      "🚀 ~ file: ToppingsCombos.jsx ~ line 36 ~ React.useEffect ~ globalToppingSetup",
+      globalToppingSetup,
+    );
 
     const sumaTotales = toppings
-      .map(gts => Number(gts.total_quantity_product_presentations))
+      .map(
+        gts =>
+          gts.topping_type_id == "1" &&
+          Number(gts.total_quantity_product_presentations),
+      )
       .reduce((prev, curr) => prev + curr, 0);
 
     if (sumaCantidadSeleccionada == sumaTotales) {
@@ -48,7 +62,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
       addCombo({
         nombre: combo.name,
         description: combo.description,
-        cantidad: 1,
+        cantidad: cantPresentacionCombo,
         id: combo.id,
         sauce_quantity: combo.sauce_quantity,
         precio: combo.presentations[0].combo_price, // Precio del combo
@@ -64,7 +78,6 @@ const ToppingsCombos = ({ toppings, combo }) => {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
         draggable: true,
         progress: undefined,
       });
@@ -93,37 +106,89 @@ const ToppingsCombos = ({ toppings, combo }) => {
       <div className="px-8 mx-4">
         <ToastContainer />
       </div>
-      <div>
+      <div
+        className={` w-full ${
+          isCompletedQuantityTopppings ? "" : " opacity-20 pointer-events-none"
+        } `}
+      >
         <div className="flex justify-between items-center bg-oishiCeleste2  rounded-md px-2 py-2 ">
-          <div>
-            <p className="font-bold mr-1">Completa el combo</p>
-          </div>
-          <div className=" ">
-            <button
-              onClick={() => addCombotoPedido()}
-              className={`flex items-center w-max ${
-                isCompletedQuantityTopppings
-                  ? "bg-emerald-500 text-white"
-                  : "bg-emerald-500 text-white opacity-20 pointer-events-none"
-              } font-bold p-1 rounded-md`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 "
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
+          <div className="flex items-center">
+            <p className="font-bold mr-3">Cantidad:</p>
+
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={() => {
+                  cantPresentacionCombo > 0
+                    ? setCantPresentacionCombo(cantPresentacionCombo - 1)
+                    : setCantPresentacionCombo(0);
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              Añadir a la cesta
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-7 w-7 text-red-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <input
+                readOnly
+                type="text"
+                className="w-10 mx-1 rounded-md bg-white shadow-md text-center"
+                value={cantPresentacionCombo}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setCantPresentacionCombo(cantPresentacionCombo + 1);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-7 w-7 text-red-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
+
+          <button
+            onClick={() => addCombotoPedido()}
+            className={`flex items-center w-max ${
+              isCompletedQuantityTopppings
+                ? "bg-emerald-500 text-white"
+                : "bg-emerald-500 text-white opacity-20 pointer-events-none"
+            } font-bold p-1 rounded-md`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 "
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+            Añadir a la cesta
+          </button>
         </div>
       </div>
     </div>
