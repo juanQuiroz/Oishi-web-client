@@ -8,6 +8,8 @@ import ToppingsCombos from "./ToppingsCombos";
 import ComboToppingLess from "./ComboToppingLess";
 
 export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
+  const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(0);
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -96,9 +98,14 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
                         </p>
                         <p className="ml-6 text-2xl leading-5 text-oishiRojo font-semibold">
                           S/{" "}
-                          {Number(combo.presentations[0].combo_price).toFixed(
-                            2,
-                          )}
+                          {cantPresentacionCombo > 0
+                            ? (
+                                Number(combo.presentations[0].combo_price) *
+                                cantPresentacionCombo
+                              ).toFixed(2)
+                            : Number(
+                                combo.presentations[0].combo_price,
+                              ).toFixed(2)}
                         </p>
                       </div>
 
@@ -197,7 +204,13 @@ export default function ModalDetalleCombo({ isOpen, setIsOpen, combo }) {
                               combo={combo}
                             />
                           ) : (
-                            <ComboToppingLess combo={combo} />
+                            <ComboToppingLess
+                              combo={combo}
+                              cantPresentacionCombo={cantPresentacionCombo}
+                              setCantPresentacionCombo={
+                                setCantPresentacionCombo
+                              }
+                            />
                           )}
                         </div>
                       </div>

@@ -17,6 +17,7 @@ import {
   SET_CONFIRMARPEDIDO,
   AGREGAR_CLIENTE,
   AGREGAR_CLIENTE_TOKEN,
+  AGREGAR_COMBO_TOPPING,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
@@ -124,6 +125,12 @@ const PedidosState = ({ children }) => {
       payload: combo,
     });
   };
+  const addComboWithTopping = combo => {
+    dispatch({
+      type: "AGREGAR_COMBO_TOPPING",
+      payload: combo,
+    });
+  };
 
   const deleteOferta = idOferta => {
     dispatch({
@@ -162,6 +169,7 @@ const PedidosState = ({ children }) => {
         addOferta,
         deleteOferta,
         addCombo,
+        addComboWithTopping,
         deleteCombo,
         selectLocal,
         addCustomer,

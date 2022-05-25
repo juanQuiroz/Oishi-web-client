@@ -1,13 +1,16 @@
 import React from "react";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
-const AddComboToppingLess = ({ combo }) => {
+const AddComboToppingLess = ({
+  combo,
+  cantPresentacionCombo,
+  setCantPresentacionCombo,
+}) => {
   // CONTEXT
   // -> para agregar Combos
   const pedidosContext = React.useContext(PedidosContext);
   const { addCombo, addTotalPedidos } = pedidosContext;
 
-  const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(0);
   const cuentaRenderizado = React.useRef(0);
 
   React.useEffect(() => {

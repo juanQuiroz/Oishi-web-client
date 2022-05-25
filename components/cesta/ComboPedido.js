@@ -2,8 +2,6 @@ import React from "react";
 import pedidosContext from "../../context/pedidos/pedidosContex";
 
 const ComboPedido = ({ comboPedido }) => {
-  console.log("comboPedido", comboPedido);
-
   const PedidosContext = React.useContext(pedidosContext);
   const { addTotalPedidos, deleteCombo } = PedidosContext;
 
@@ -24,14 +22,24 @@ const ComboPedido = ({ comboPedido }) => {
               x{comboPedido.cantidad}
             </span>
           </h2>
-          <div>
-            {comboPedido.globalToppingSetup.map((gts, index) => (
-              <p className="font-light leading-4 text-xs" key={index}>
-                {gts.label}{" "}
-                <span className="ml-1 text-red-600">x{gts.cantidad}</span>
-              </p>
-            ))}
-          </div>
+
+          <p className="font-light leading-4 text-xs">
+            {comboPedido.description}
+          </p>
+
+          {comboPedido.globalToppingSetup && (
+            <div>
+              {comboPedido.globalToppingSetup.map(
+                (gts, index) =>
+                  gts.cantidad > 0 && (
+                    <p className="font-light leading-4 text-xs" key={index}>
+                      {gts.label}{" "}
+                      <span className="ml-1 text-red-600">x{gts.cantidad}</span>
+                    </p>
+                  ),
+              )}
+            </div>
+          )}
         </div>
 
         <h2 className="w-3/12 font-semibold text-right mr-2">

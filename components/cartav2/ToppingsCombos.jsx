@@ -6,12 +6,12 @@ import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const ToppingsCombos = ({ toppings, combo }) => {
   // Cantidad de combos elegidos
-  const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(0);
+  const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(1);
 
   // CONTEXT
   // -> para agregar Combos
   const pedidosContext = React.useContext(PedidosContext);
-  const { addCombo, addTotalPedidos } = pedidosContext;
+  const { addComboWithTopping, addTotalPedidos } = pedidosContext;
 
   // * props: toppings -> trae el array de toppings que tenga el combo
   // * props: combo -> trae el combo
@@ -36,10 +36,6 @@ const ToppingsCombos = ({ toppings, combo }) => {
             .reduce((prev, curr) => prev + curr, 0),
       )
       .reduce((prev, curr) => prev + curr, 0);
-    console.log(
-      "🚀 ~ file: ToppingsCombos.jsx ~ line 36 ~ React.useEffect ~ globalToppingSetup",
-      globalToppingSetup,
-    );
 
     const sumaTotales = toppings
       .map(
@@ -59,7 +55,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
 
   const addCombotoPedido = () => {
     if (isCompletedQuantityTopppings) {
-      addCombo({
+      addComboWithTopping({
         nombre: combo.name,
         description: combo.description,
         cantidad: cantPresentacionCombo,

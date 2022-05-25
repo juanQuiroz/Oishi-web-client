@@ -13,6 +13,7 @@ import {
   SET_CONFIRMARPEDIDO,
   AGREGAR_CLIENTE,
   AGREGAR_CLIENTE_TOKEN,
+  AGREGAR_COMBO_TOPPING,
 } from "../../types";
 
 export default (state, action) => {
@@ -156,6 +157,20 @@ export default (state, action) => {
           ),
         };
       }
+      return {
+        ...state,
+        combosSeleccionados: [...state.combosSeleccionados, action.payload],
+      };
+
+    case AGREGAR_COMBO_TOPPING:
+      // if (state.combosSeleccionados.some(c => c.id === action.payload.id)) {
+      //   return {
+      //     ...state,
+      //     combosSeleccionados: state.combosSeleccionados.map(c =>
+      //       c.id === action.payload.id ? (c = action.payload) : c,
+      //     ),
+      //   };
+      // }
       return {
         ...state,
         combosSeleccionados: [...state.combosSeleccionados, action.payload],
