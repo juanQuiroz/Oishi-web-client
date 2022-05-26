@@ -32,6 +32,7 @@ const Presentacion = ({ presentacionData, product }) => {
     addPresentacion({
       id: presentacionData.id,
       presentacion: presentacionData.presentation,
+      sauce_quantity: presentacionData.sauce_quantity,
       precio: parseFloat(presentacionData.default_price),
       producto_id: product.id,
       producto_nombre: product.name,

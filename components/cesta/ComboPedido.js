@@ -2,6 +2,10 @@ import React from "react";
 import pedidosContext from "../../context/pedidos/pedidosContex";
 
 const ComboPedido = ({ comboPedido }) => {
+  console.log(
+    "🚀 ~ file: ComboPedido.js ~ line 5 ~ ComboPedido ~ comboPedido",
+    comboPedido,
+  );
   const PedidosContext = React.useContext(pedidosContext);
   const { addTotalPedidos, deleteCombo } = PedidosContext;
 

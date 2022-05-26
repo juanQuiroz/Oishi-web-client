@@ -103,10 +103,6 @@ const cartaOishi = () => {
         },
       },
     );
-    console.log(
-      "🚀 ~ file: cartaOishi.js ~ line 106 ~ getCombos ~ res",
-      res.data.data,
-    );
 
     setCombos(res.data.data);
   };

@@ -6,10 +6,6 @@ import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 export default function ModalDetalleProducto({ isOpen, setIsOpen, product }) {
-  console.log(
-    "🚀 ~ file: ModalDetalleProducto.js ~ line 9 ~ ModalDetalleProducto ~ product",
-    product,
-  );
   function closeModal() {
     setIsOpen(false);
   }

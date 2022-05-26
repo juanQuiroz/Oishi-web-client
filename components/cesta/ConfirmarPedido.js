@@ -6,6 +6,7 @@ import OfertaPedido from "./OfertaPedido";
 import ComboPedido from "./ComboPedido";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
+import SeleccionarSalsas from "./SeleccionarSalsas";
 
 const ConfirmarPedido = () => {
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
@@ -20,6 +21,10 @@ const ConfirmarPedido = () => {
     setConfirmarpedido,
     localSeleccionado,
   } = PedidosContext;
+  console.log(
+    "🚀 ~ file: ConfirmarPedido.js ~ line 24 ~ ConfirmarPedido ~ presentacion",
+    presentacion,
+  );
 
   dayjs.extend(isBetween);
 
@@ -38,7 +43,6 @@ const ConfirmarPedido = () => {
   // filtrar pedidos
   if (presentacion.length > 0) {
     var pedidosFiltrados = presentacion.filter(p => p.cantidad > 0);
-    console.log("pedidosfiltrado:", pedidosFiltrados);
   }
 
   return (
@@ -60,6 +64,11 @@ const ConfirmarPedido = () => {
             combosSeleccionados.map(c => (
               <ComboPedido key={c.id} comboPedido={c} />
             ))}
+        </div>
+
+        <div className="mt-6">
+          {" "}
+          <SeleccionarSalsas />
         </div>
         {pedido && (
           <div className=" flex justify-between mt-4 mx-2 ">

@@ -2,17 +2,15 @@ import React from "react";
 import pedidosContext from "../../context/pedidos/pedidosContex";
 
 const ProductoPedido = ({ presentacionPedido }) => {
-  console.log("PresentacionPedido", presentacionPedido);
-
   const PedidosContext = React.useContext(pedidosContext);
   const { addTotalPedidos, deletePresentacion } = PedidosContext;
 
   const subtotal = presentacionPedido.precio * presentacionPedido.cantidad;
 
-  // // Agrega el subtotal para sumarlo
-  // React.useEffect(() => {
-  //   addTotalPedidos(subtotal);
-  // }, [subtotal]);
+  // // // Agrega el subtotal para sumarlo
+  // // React.useEffect(() => {
+  // //   addTotalPedidos(subtotal);
+  // // }, [subtotal]);
 
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
