@@ -6,11 +6,18 @@ const SalsaCounter = ({
   totalSalsasSeleccionadas,
   setTotalSalsasSeleccioanda,
 }) => {
-  console.log("🚀 ~ file: SalsaCounter.jsx ~ line 9 ~ cantSalsas", cantSalsas);
   const [cantSalsa, setCantSalsa] = React.useState(0);
 
   React.useEffect(() => {
-    setTotalSalsasSeleccioanda(totalSalsasSeleccionadas + cantSalsa);
+    setTotalSalsasSeleccioanda(
+      totalSalsasSeleccionadas.length == 0
+        ? [{ ...salsa, cantSalsa: cantSalsa }]
+        : totalSalsasSeleccionadas.some(tss => tss.id == salsa.id)
+        ? totalSalsasSeleccionadas.map(tss =>
+            tss.id == salsa.id ? { ...tss, cantSalsa: cantSalsa } : tss,
+          )
+        : [...totalSalsasSeleccionadas, { ...salsa, cantSalsa: cantSalsa }],
+    );
   }, [cantSalsa]);
 
   return (
@@ -45,9 +52,10 @@ const SalsaCounter = ({
         <button
           type="button"
           onClick={() => {
-            // cantSalsa < cantSalsas &&
-            // setCantSalsa(cantSalsa + 1);
-            totalSalsasSeleccionadas < cantSalsas &&
+            totalSalsasSeleccionadas.length > 0 &&
+              totalSalsasSeleccionadas
+                .map(tss => tss.cantSalsa)
+                .reduce((prev, curr) => prev + curr, 0) < cantSalsas &&
               setCantSalsa(cantSalsa + 1);
           }}
         >

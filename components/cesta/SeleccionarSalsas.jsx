@@ -14,6 +14,10 @@ const SeleccionarSalsas = () => {
     setConfirmarpedido,
     localSeleccionado,
   } = PedidosContext;
+  console.log(
+    "🚀 ~ file: SeleccionarSalsas.jsx ~ line 17 ~ SeleccionarSalsas ~ combosSeleccionados",
+    combosSeleccionados,
+  );
 
   const [salsas, setSalsas] = React.useState([]);
   const [cantSalsas, setCantSalsas] = React.useState(null);
@@ -29,21 +33,37 @@ const SeleccionarSalsas = () => {
     setSalsas(res.data.data);
   };
 
-  const sumarSalsas = () => {
-    const salsasProductos = presentacion
-      .map(p => Number(p.sauce_quantity) * Number(p.cantidad))
-      .reduce((prev, curr) => prev + curr, 0);
-    console.log(
-      "🚀 ~ file: SeleccionarSalsas.jsx ~ line 34 ~ sumarSalsas ~ salsasProductos",
-      salsasProductos,
-    );
-    setCantSalsas(salsasProductos);
-  };
+  // const sumarSalsas = () => {
+  //   const salsasProductos = presentacion
+  //     .map(p => Number(p.sauce_quantity) * Number(p.cantidad))
+  //     .reduce((prev, curr) => prev + curr, 0);
+  //   const salsasOfertas = ofertasSeleccionada
+  //     .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
+  //     .reduce((prev, curr) => prev + curr, 0);
+  //   const salsasCombos = combosSeleccionados
+  //     .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
+  //     .reduce((prev, curr) => prev + curr, 0);
+
+  //   setCantSalsas(salsasProductos + salsasOfertas + salsasCombos);
+  // };
 
   React.useEffect(() => {
     getCombos();
-    sumarSalsas();
   }, []);
+
+  React.useEffect(() => {
+    const salsasProductos = presentacion
+      .map(p => Number(p.sauce_quantity) * Number(p.cantidad))
+      .reduce((prev, curr) => prev + curr, 0);
+    const salsasOfertas = ofertasSeleccionada
+      .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
+      .reduce((prev, curr) => prev + curr, 0);
+    const salsasCombos = combosSeleccionados
+      .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
+      .reduce((prev, curr) => prev + curr, 0);
+
+    setCantSalsas(salsasProductos + salsasOfertas + salsasCombos);
+  }, [presentacion, ofertasSeleccionada, combosSeleccionados]);
 
   return (
     <div>

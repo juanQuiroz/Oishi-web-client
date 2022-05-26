@@ -55,6 +55,7 @@ export default function ModalDetalleOferta({ isOpen, setIsOpen, offer }) {
       cantidad: cantPresentacionOferta,
       oferta_id: offer.id,
       descripcion_presentacion: offer.presentation.presentation,
+      sauce_quantity: offer.presentation.sauce_quantity,
       precio_oferta: offer.offer_price,
     });
 

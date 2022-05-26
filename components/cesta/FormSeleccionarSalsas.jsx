@@ -2,8 +2,9 @@ import React from "react";
 import SalsaCounter from "./SalsaCounter";
 
 const FormSeleccionarSalsas = ({ cantSalsas, salsas }) => {
-  const [totalSalsasSeleccionadas, setTotalSalsasSeleccioanda] =
-    React.useState(0);
+  const [totalSalsasSeleccionadas, setTotalSalsasSeleccioanda] = React.useState(
+    [],
+  );
 
   return (
     <div className="mt-2">
