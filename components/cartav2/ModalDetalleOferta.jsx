@@ -50,6 +50,7 @@ export default function ModalDetalleOferta({ isOpen, setIsOpen, offer }) {
       cuentaRenderizado.current = cuentaRenderizado.current + 1;
       return;
     }
+
     addOferta({
       producto_nombre: offer.presentation.presentationable.name,
       cantidad: cantPresentacionOferta,

@@ -9,8 +9,6 @@ const cesta = () => {
   const pedidosContext = React.useContext(PedidosContext);
   const { confirmarPedido } = pedidosContext;
 
-  console.log("confirmarPedido:", confirmarPedido);
-
   return (
     <Layout>
       <div className="mx-2 my-4 sm:mx-4 sm:my-4">

@@ -575,7 +575,7 @@ const FinalizarPedido = () => {
           </form>
         </div>
       ) : (
-        <div className="px-4">
+        <div className="px-4 sm:px-14 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-alert-circle"

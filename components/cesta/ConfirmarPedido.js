@@ -21,10 +21,6 @@ const ConfirmarPedido = () => {
     setConfirmarpedido,
     localSeleccionado,
   } = PedidosContext;
-  console.log(
-    "🚀 ~ file: ConfirmarPedido.js ~ line 24 ~ ConfirmarPedido ~ presentacion",
-    presentacion,
-  );
 
   dayjs.extend(isBetween);
 
@@ -51,25 +47,40 @@ const ConfirmarPedido = () => {
         <Subtitulo>Detalle del pedido</Subtitulo>
       </div>
       <div className=" bg-blueGray-200 rounded-md p-2 sm:p-3 sm:mx-8">
-        <div className=" grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3">
-          {pedidosFiltrados &&
-            pedidosFiltrados.map(p => (
-              <ProductoPedido key={p.id} presentacionPedido={p} />
-            ))}
-          {ofertasSeleccionada &&
-            ofertasSeleccionada.map(o => (
-              <OfertaPedido key={o.oferta_id} ofertaPedido={o} />
-            ))}
-          {combosSeleccionados &&
-            combosSeleccionados.map(c => (
-              <ComboPedido key={c.id} comboPedido={c} />
-            ))}
-        </div>
+        {presentacion.length > 0 ||
+        ofertasSeleccionada.length > 0 ||
+        combosSeleccionados.length > 0 ? (
+          <div>
+            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3">
+              {pedidosFiltrados &&
+                pedidosFiltrados.map(p => (
+                  <ProductoPedido key={p.id} presentacionPedido={p} />
+                ))}
+              {ofertasSeleccionada &&
+                ofertasSeleccionada.map(o => (
+                  <OfertaPedido key={o.oferta_id} ofertaPedido={o} />
+                ))}
+              {combosSeleccionados &&
+                combosSeleccionados.map(c => (
+                  <ComboPedido key={c.id} comboPedido={c} />
+                ))}
+            </div>
+            <div className="mt-6">
+              <SeleccionarSalsas />
+            </div>
+          </div>
+        ) : (
+          <div className="mx-2">
+            <h1 className="font-Andika font-bold text-lg">
+              Nos añadido pedidos en tu cesta 😕
+            </h1>
+            <h2 className="font-Andika">
+              Añade pedidos a la cesta para qu disfrutes del sabor unico de
+              Oishi SB
+            </h2>
+          </div>
+        )}
 
-        <div className="mt-6">
-          {" "}
-          <SeleccionarSalsas />
-        </div>
         {pedido && (
           <div className=" flex justify-between mt-4 mx-2 ">
             <p className="text-xl font-medium text-right text-gray-700">
