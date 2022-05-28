@@ -17,7 +17,7 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: cliente.name,
+      first_name: cliente.name,
       last_name: cliente.last_name,
       dni: cliente.dni,
       phone: cliente.phone,
@@ -25,7 +25,7 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
     },
     enableReinitialize: true, // para refrescar initial values
     validationSchema: Yup.object({
-      name: Yup.string().required(" obligatorio"),
+      first_name: Yup.string().required(" obligatorio"),
       last_name: Yup.string().required("Contraseña obligatoria"),
       dni: Yup.string().required("Correo obligatorio"),
       phone: Yup.string().required("Contraseña obligatoria"),
@@ -38,7 +38,7 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
           `/api/v2/auth/customers/${cliente.id}`,
           {
             email: values.email,
-            name: values.name,
+            first_name: values.name,
             last_name: values.last_name,
             dni: values.dni,
             phone: values.phone,
@@ -131,13 +131,15 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
             <input
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.name}
+              value={formik.values.first_name}
               className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
               type="text"
-              name="name"
+              name="first_name"
             />
-            {formik.touched.name && formik.errors.name ? (
-              <p className="mt-0 mb-4 text-red-500">*{formik.errors.name}</p>
+            {formik.touched.first_name && formik.errors.first_name ? (
+              <p className="mt-0 mb-4 text-red-500">
+                *{formik.errors.first_name}
+              </p>
             ) : null}
           </div>
           <div className=" mb-2">

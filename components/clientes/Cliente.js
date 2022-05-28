@@ -46,7 +46,7 @@ const Cliente = () => {
               <div className="mb-1 ">
                 <h3 className="text-xs text-oishiAzul2">Nombres:</h3>
                 <h2 className="text-md font-Andika font-bold -mt-1.5">
-                  {cliente.name}
+                  {cliente.first_name}
                 </h2>
               </div>
               <div className="mb-1 ">

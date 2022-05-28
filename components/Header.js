@@ -57,7 +57,7 @@ const Header = () => {
           : "Oishi Chincha"}
       </p>
       <p className="font-Andika font-bold text-center text-lg text-oishiAzul3">
-        {cliente && cliente.name}
+        {cliente && cliente.first_name}
       </p>
 
       {/* Menu desplegable */}

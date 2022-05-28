@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 import Layout from "../../components/Layout";
+import Swal from "sweetalert2";
 
 const signup = ({ setEditarCliente, cliente }) => {
   const pedidosContext = useContext(PedidosContext);
@@ -15,7 +16,7 @@ const signup = ({ setEditarCliente, cliente }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      first_name: "",
       last_name: "",
       dni: "",
       phone: "",
@@ -25,7 +26,7 @@ const signup = ({ setEditarCliente, cliente }) => {
       is_active: true,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Nombres obligatorios"),
+      first_name: Yup.string().required("Nombres obligatorios"),
       last_name: Yup.string().required("Apellidos Obligatorios"),
       dni: Yup.string().required("DNI Obligatorio"),
       phone: Yup.string().required("Telefono Obligatorio"),
@@ -48,6 +49,15 @@ const signup = ({ setEditarCliente, cliente }) => {
           },
         );
         console.log("🚀 ~ file: signup.js ~ line 49 ~ onSubmit: ~ res", res);
+        // SWALHERE
+        Swal.fire({
+          title: "Usuario creado satisfactoriamente",
+          text: " 🥰Gracias por unirte a la familia Oishi",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+
+          allowOutsideClick: () => !Swal.isLoading(),
+        });
         router.push("/users/clientes");
       } catch (e) {
         console.log(e);
@@ -92,24 +102,26 @@ const signup = ({ setEditarCliente, cliente }) => {
             onSubmit={formik.handleSubmit}
           >
             <div className="mb-2">
-              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md ml-1">
                 Nombres:
               </p>
               <input
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.name}
+                value={formik.values.first_name}
                 className="w-full bg-white rounded-md px-1 py-1 shadow-oishiShadow1 appearance-none"
                 type="text"
-                name="name"
+                name="first_name"
                 placeholder="Ingresa tus nombres"
               />
-              {formik.touched.name && formik.errors.name ? (
-                <p className="mt-0 mb-4 text-red-500">*{formik.errors.name}</p>
+              {formik.touched.first_name && formik.errors.first_name ? (
+                <p className="mt-0 mb-4 text-red-500">
+                  *{formik.errors.first_name}
+                </p>
               ) : null}
             </div>
             <div className=" mb-2">
-              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md ml-1">
                 Apellidos:
               </p>
               <input
@@ -129,7 +141,7 @@ const signup = ({ setEditarCliente, cliente }) => {
             </div>
 
             <div className=" mb-2">
-              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md ml-1">
                 DNI:
               </p>
               <input
@@ -146,7 +158,7 @@ const signup = ({ setEditarCliente, cliente }) => {
               ) : null}
             </div>
             <div className=" mb-2">
-              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md ml-1">
                 Teléfono:
               </p>
               <input
@@ -181,7 +193,7 @@ const signup = ({ setEditarCliente, cliente }) => {
               ) : null}
             </div>
             <div className=" mb-2">
-              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md ml-1">
                 Contraseña:
               </p>
               <input
@@ -200,7 +212,7 @@ const signup = ({ setEditarCliente, cliente }) => {
               ) : null}
             </div>
             <div className=" mb-8">
-              <p className="text-oishiAzul3 font-Andika font-bold text-md">
+              <p className="text-oishiAzul3 font-Andika font-bold text-md ml-1">
                 Confirmar Contraseña:
               </p>
               <input
@@ -221,7 +233,10 @@ const signup = ({ setEditarCliente, cliente }) => {
             </div>
 
             <div className="flex">
-              <button className="ml-1 w-full bg-oishiAzul text-white font-bold text-lg shadow-oishiShadow2 rounded-xl py-2">
+              <button
+                type="submit"
+                className="ml-1 w-full bg-oishiAzul text-white font-bold text-lg shadow-oishiShadow2 rounded-xl py-2"
+              >
                 Crear cuenta en Oishi
               </button>
             </div>
