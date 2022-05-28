@@ -6,6 +6,10 @@ const SalsaCounter = ({
   totalSalsasSeleccionadas,
   setTotalSalsasSeleccioanda,
 }) => {
+  console.log(
+    "🚀 ~ file: SalsaCounter.jsx ~ line 9 ~ totalSalsasSeleccionadas",
+    totalSalsasSeleccionadas,
+  );
   const [cantSalsa, setCantSalsa] = React.useState(0);
 
   React.useEffect(() => {
