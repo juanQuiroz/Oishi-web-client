@@ -34,6 +34,7 @@ const FinalizarPedido = () => {
 
   dayjs.extend(isBetween);
 
+  // Horarios de trabajo
   React.useEffect(() => {
     if (localSeleccionado == 1) {
       var startHour = dayjs().hour(12).minute(15);
@@ -61,40 +62,41 @@ const FinalizarPedido = () => {
       paraComprobanteDePago: "", // Valor por defecto (Checked)
       dedicatoria: "", // De momento cremas y salsas
     },
-    validationSchema: Yup.object({
-      nombre_razon_social: Yup.string().required("Nombre obligatorio"),
-      dni_ruc: Yup.number()
-        .integer("Ingrese solo numeros")
-        .typeError("Ingrese solo numeros")
-        .required("DNI_RUC requerido"),
-      telefono: Yup.number()
-        .integer("Ingrese solo numeros")
-        .typeError("Ingrese solo numeros")
-        .required("telefono requerido"),
-      metEntrega: Yup.string().required("ingrese metodo de entrega"),
-      direccion_entrega: Yup.string().when("entregaDelivery", {
-        is: true,
-        then: Yup.string().required("Direccion obligatoria"),
-      }),
-      referencia: Yup.string().when("entregaDelivery", {
-        is: true,
-        then: Yup.string().required("Referencia obligatoria"),
-      }),
-      recoge_pedido: Yup.string().required("Nombre obligatorio"), // campo se repite en DELIVERY Y REC TIENDA
-      // tipoComprobante: Yup.string().required("obligatorio"), //
-      metodoPago: Yup.string().required("Metodo de pago obligatorio"),
-      cantidad_efectivo: Yup.number()
-        .typeError("Ingrese solo numeros")
-        .when("efectivo", {
-          is: true,
-          then: Yup.number()
-            .typeError("Ingrese solo numeros")
-            .required("Cantidad de efectivo obligatorio"),
-        }),
-      // dedicatoria: Yup.string().required("Campo obligatorio"),
-    }),
+    // validationSchema: Yup.object({
+    //   nombre_razon_social: Yup.string().required("Nombre obligatorio"),
+    //   dni_ruc: Yup.number()
+    //     .integer("Ingrese solo numeros")
+    //     .typeError("Ingrese solo numeros")
+    //     .required("DNI_RUC requerido"),
+    //   telefono: Yup.number()
+    //     .integer("Ingrese solo numeros")
+    //     .typeError("Ingrese solo numeros")
+    //     .required("telefono requerido"),
+    //   metEntrega: Yup.string().required("ingrese metodo de entrega"),
+    //   direccion_entrega: Yup.string().when("entregaDelivery", {
+    //     is: true,
+    //     then: Yup.string().required("Direccion obligatoria"),
+    //   }),
+    //   referencia: Yup.string().when("entregaDelivery", {
+    //     is: true,
+    //     then: Yup.string().required("Referencia obligatoria"),
+    //   }),
+    //   recoge_pedido: Yup.string().required("Nombre obligatorio"), // campo se repite en DELIVERY Y REC TIENDA
+    //   // tipoComprobante: Yup.string().required("obligatorio"), //
+    //   metodoPago: Yup.string().required("Metodo de pago obligatorio"),
+    //   cantidad_efectivo: Yup.number()
+    //     .typeError("Ingrese solo numeros")
+    //     .when("efectivo", {
+    //       is: true,
+    //       then: Yup.number()
+    //         .typeError("Ingrese solo numeros")
+    //         .required("Cantidad de efectivo obligatorio"),
+    //     }),
+    //   // dedicatoria: Yup.string().required("Campo obligatorio"),
+    // }),
 
     onSubmit: async (values, { resetForm }) => {
+      console.log("SUBMITED !!");
       // Enviar datos al Context state
 
       // Estraer solo cantidad y id de la presentacion
@@ -110,11 +112,7 @@ const FinalizarPedido = () => {
         return { id: p.presentacion_id, cantidad: p.cantidad };
       });
 
-      console.log("presentaciones_combos", pedidocombosSeleccionados);
-      console.log("presentaciones_productos: ", pedidoPresentaciones);
-      console.log("OFERTAS", pedidofertasSeleccionada);
-
-      // PARA WEB SOCKET - API PHP
+      // PARA WEBSOCKET - API PHP
       try {
         const res = await axios.post(
           "http://weboishibackend.com/weboishi/crearpedido",
@@ -132,9 +130,9 @@ const FinalizarPedido = () => {
             comprobante_pago_id: values.tipoComprobante,
             telefono: values.telefono,
             persona_asignada: values.recoge_pedido,
-            presentaciones_productos: pedidoPresentaciones,
-            presentaciones_combos: pedidocombosSeleccionados,
-            ofertas: pedidofertasSeleccionada,
+            presentaciones_productos: ["pedidoPresentaciones"],
+            presentaciones_combos: ["pedidocombosSeleccionados"],
+            ofertas: ["pedidofertasSeleccionada"],
           },
           {
             headers: {
@@ -143,6 +141,7 @@ const FinalizarPedido = () => {
             },
           },
         );
+
         console.log("Socket Res: ", res);
         // SWALHERE
         Swal.fire({
@@ -173,6 +172,7 @@ const FinalizarPedido = () => {
             });
           }
         });
+
         vaciarCesta();
         router.push("/carta");
       } catch (e) {
@@ -182,7 +182,8 @@ const FinalizarPedido = () => {
       // Para NOTIFICACION PUSH
       try {
         const res = await axios.post(
-          "http://weboishibackend.com/weboishi/nuevopedido",
+          "http://weboishibackend.com/weboishi/crearpedido",
+          // "http://weboishibackend.com/weboishi/nuevopedido",
           {
             local_id: localSeleccionado,
             dni_ruc: values.dni_ruc,
@@ -547,7 +548,7 @@ const FinalizarPedido = () => {
                   </p>
                 )}
               </div>
-              <div className="flex justify-between mt-4">
+              <div className="flex justify-between mt-4 mx-1">
                 <p className="text-oishiNegro text-lg">Total:</p>
                 <p className="text-oishiNegro text-xl font-semibold">
                   S/ {totalPedidos.toFixed(2)}
@@ -568,7 +569,7 @@ const FinalizarPedido = () => {
                   type="submit"
                   className="font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
                 >
-                  Confirmar Pedido
+                  Hacer Pedido
                 </button>
               </div>
             </div>
@@ -582,7 +583,7 @@ const FinalizarPedido = () => {
             width={54}
             height={54}
             viewBox="0 0 24 24"
-            stroke-width={2}
+            strokeWidth={2}
             stroke="#ff2820"
             fill="none"
             strokeLinecap="round"

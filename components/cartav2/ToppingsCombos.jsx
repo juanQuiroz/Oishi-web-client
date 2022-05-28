@@ -22,9 +22,16 @@ const ToppingsCombos = ({ toppings, combo }) => {
       presentations: topping.product_presentations,
     })),
   );
+  console.log(
+    "🚀 ~ file: ToppingsCombos.jsx ~ line 25 ~ ToppingsCombos ~ globalToppingSetup",
+    globalToppingSetup,
+  );
 
   const [isCompletedQuantityTopppings, setIsCompletedQuantityTopppings] =
     React.useState(false);
+
+  // precio final -> precio del combo + precio de los toppings adicionales
+  const [precioTotalCombo, setPrecioTotalCombo] = React.useState(0);
 
   React.useEffect(() => {
     const sumaCantidadSeleccionada = globalToppingSetup
@@ -51,6 +58,26 @@ const ToppingsCombos = ({ toppings, combo }) => {
     if (sumaCantidadSeleccionada != sumaTotales) {
       setIsCompletedQuantityTopppings(false);
     }
+
+    // *** Sumar los toppings adcionales al precio total ***
+    const sumaToppingsAdicionales = globalToppingSetup
+      .map(
+        gts =>
+          gts.type == 2 &&
+          gts.presentations
+            .map(pre => pre.cantidad * pre.precio)
+            .reduce((prev, curr) => prev + curr, 0),
+      )
+      .reduce((prev, curr) => prev + curr, 0);
+    console.log(
+      "🚀 ~ file: ToppingsCombos.jsx ~ line 65 ~ React.useEffect ~ sumaToppingsAdicionales",
+      sumaToppingsAdicionales,
+    );
+
+    setPrecioTotalCombo(
+      cantPresentacionCombo * combo.presentations[0].combo_price +
+        sumaToppingsAdicionales,
+    );
   }, [globalToppingSetup]);
 
   const addCombotoPedido = () => {
@@ -61,7 +88,8 @@ const ToppingsCombos = ({ toppings, combo }) => {
         cantidad: cantPresentacionCombo,
         id: combo.id,
         sauce_quantity: combo.sauce_quantity,
-        precio: combo.presentations[0].combo_price, // Precio del combo
+        precio: precioTotalCombo, // Precio del combo + mas toppings adicionales
+        // precio: combo.presentations[0].combo_price,
         default_price: combo.presentations[0].default_price,
         globalToppingSetup: globalToppingSetup
           .map(gts => gts.presentations)
