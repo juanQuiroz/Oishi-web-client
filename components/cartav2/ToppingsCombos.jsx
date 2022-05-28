@@ -135,10 +135,9 @@ const ToppingsCombos = ({ toppings, combo }) => {
           isCompletedQuantityTopppings ? "" : " opacity-20 pointer-events-none"
         } `}
       >
+        {/* <p className="font-bold mr-3">Cantidad:</p> */}
         <div className="flex justify-between items-center bg-oishiCeleste2  rounded-md px-2 py-2 ">
           <div className="flex items-center">
-            <p className="font-bold mr-3">Cantidad:</p>
-
             <div className="flex justify-center">
               <button
                 type="button"
@@ -195,7 +194,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
               isCompletedQuantityTopppings
                 ? "bg-emerald-500 text-white"
                 : "bg-emerald-500 text-white opacity-20 pointer-events-none"
-            } font-bold p-1 rounded-md`}
+            } font-bold p-1 rounded-md shadow-greenPlus`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

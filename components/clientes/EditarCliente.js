@@ -17,7 +17,7 @@ const EditarCliente = ({ setEditarCliente, cliente }) => {
 
   const formik = useFormik({
     initialValues: {
-      first_name: cliente.name,
+      first_name: cliente.first_name,
       last_name: cliente.last_name,
       dni: cliente.dni,
       phone: cliente.phone,
