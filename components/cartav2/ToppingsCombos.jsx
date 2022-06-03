@@ -5,6 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const ToppingsCombos = ({ toppings, combo }) => {
+  console.log(
+    "🚀 ~ file: ToppingsCombos.jsx ~ line 8 ~ ToppingsCombos ~ toppings",
+    toppings,
+  );
   // Cantidad de combos elegidos
   const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(1);
 
@@ -17,15 +21,16 @@ const ToppingsCombos = ({ toppings, combo }) => {
   // * props: combo -> trae el combo
   const [globalToppingSetup, setGlobalToppingSetup] = React.useState(
     toppings.map(topping => ({
+      name: topping.name,
       type: topping.topping_type.id,
       id: topping.id,
       presentations: topping.product_presentations,
     })),
   );
-  console.log(
-    "🚀 ~ file: ToppingsCombos.jsx ~ line 25 ~ ToppingsCombos ~ globalToppingSetup",
-    globalToppingSetup,
-  );
+  // console.log(
+  //   "🚀 ~ file: ToppingsCombos.jsx ~ line 25 ~ ToppingsCombos ~ globalToppingSetup",
+  //   globalToppingSetup,
+  // );
 
   const [isCompletedQuantityTopppings, setIsCompletedQuantityTopppings] =
     React.useState(false);
@@ -35,19 +40,24 @@ const ToppingsCombos = ({ toppings, combo }) => {
 
   React.useEffect(() => {
     const sumaCantidadSeleccionada = globalToppingSetup
-      .map(
-        gts =>
-          gts.type == 1 &&
-          gts.presentations
-            .map(pre => pre.cantidad)
-            .reduce((prev, curr) => prev + curr, 0),
+      .map(gts =>
+        gts.type == 1
+          ? gts.presentations
+              .map(pre => pre.cantidad)
+              .reduce((prev, curr) => prev + curr, 0)
+          : gts.type == 2 &&
+            gts.name.includes("***") &&
+            gts.presentations
+              .map(pre => pre.cantidad)
+              .reduce((prev, curr) => prev + curr, 0),
       )
       .reduce((prev, curr) => prev + curr, 0);
 
     const sumaTotales = toppings
       .map(
         gts =>
-          gts.topping_type_id == "1" &&
+          (gts.topping_type_id == "1" ||
+            (gts.topping_type_id == "2" && gts.name.includes("***"))) &&
           Number(gts.total_quantity_product_presentations),
       )
       .reduce((prev, curr) => prev + curr, 0);
@@ -69,10 +79,10 @@ const ToppingsCombos = ({ toppings, combo }) => {
             .reduce((prev, curr) => prev + curr, 0),
       )
       .reduce((prev, curr) => prev + curr, 0);
-    console.log(
-      "🚀 ~ file: ToppingsCombos.jsx ~ line 65 ~ React.useEffect ~ sumaToppingsAdicionales",
-      sumaToppingsAdicionales,
-    );
+    // console.log(
+    //   "🚀 ~ file: ToppingsCombos.jsx ~ line 65 ~ React.useEffect ~ sumaToppingsAdicionales",
+    //   sumaToppingsAdicionales,
+    // );
 
     setPrecioTotalCombo(
       cantPresentacionCombo * combo.presentations[0].combo_price +
@@ -99,7 +109,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
       addTotalPedidos();
       toast.success("Combo añadido a la cesta!", {
         position: "bottom-center",
-        autoClose: 5000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,

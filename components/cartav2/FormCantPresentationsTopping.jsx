@@ -10,6 +10,10 @@ const FormCantPresentationsTopping = ({
   toppingSetupwithId,
   setToppingSetupwithId,
 }) => {
+  console.log(
+    "🚀 ~ file: FormCantPresentationsTopping.jsx ~ line 13 ~ presentation",
+    presentation,
+  );
   const [cantPresentations, setCantPresentations] = React.useState(
     Number(toppingRules.min),
   );
@@ -55,10 +59,17 @@ const FormCantPresentationsTopping = ({
   }, [toppingSetup]);
 
   return (
-    <div className="flex justify-between flex-wrap bg-white rounded-md p-1 mb-1">
-      <p>{presentation.label}</p>
+    <div className="flex items-center justify-between flex-wrap bg-white rounded-md p-1 mb-1">
+      <div>
+        <p className="-mb-1">{presentation.label}</p>
+        <p className=" text-xs font-semibold text-oishiAzul3">
+          {presentation.topping_presentation_price > 0 &&
+            "+ S/ " +
+              Number(presentation.topping_presentation_price).toFixed(2)}
+        </p>
+      </div>
 
-      <div className="flex justify-center ">
+      <div className=" flex justify-center ">
         <button
           type="button"
           onClick={() => {

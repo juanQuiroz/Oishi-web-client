@@ -10,6 +10,7 @@ import isBetween from "dayjs/plugin/isBetween";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { privateEncrypt } from "crypto";
 
 const FinalizarPedido = () => {
   const router = useRouter();
@@ -49,42 +50,44 @@ const FinalizarPedido = () => {
 
   const formik = useFormik({
     initialValues: {
-      nombre_razon_social: "",
+      dedication: "",
+      total_price: totalPedidos,
+      customer_name: "",
       dni_ruc: "",
-      telefono: "",
+      phone: "",
       metEntrega: "1", // Valor por defecto (Checked)
-      direccion_entrega: "",
-      referencia: "",
-      recoge_pedido: "",
+      delivery_address: "",
+      reference: "",
+      assigned_person: "",
       tipoComprobante: "",
       metodoPago: "",
-      cantidad_efectivo: "",
+      cash: "",
       paraComprobanteDePago: "", // Valor por defecto (Checked)
-      dedicatoria: "", // De momento cremas y salsas
+      // dedicatoria: "", // De momento cremas y salsas
     },
     // validationSchema: Yup.object({
-    //   nombre_razon_social: Yup.string().required("Nombre obligatorio"),
+    //   customer_name: Yup.string().required("Nombre obligatorio"),
     //   dni_ruc: Yup.number()
     //     .integer("Ingrese solo numeros")
     //     .typeError("Ingrese solo numeros")
     //     .required("DNI_RUC requerido"),
-    //   telefono: Yup.number()
+    //   phone: Yup.number()
     //     .integer("Ingrese solo numeros")
     //     .typeError("Ingrese solo numeros")
     //     .required("telefono requerido"),
     //   metEntrega: Yup.string().required("ingrese metodo de entrega"),
-    //   direccion_entrega: Yup.string().when("entregaDelivery", {
+    //   delivery_address: Yup.string().when("entregaDelivery", {
     //     is: true,
     //     then: Yup.string().required("Direccion obligatoria"),
     //   }),
-    //   referencia: Yup.string().when("entregaDelivery", {
+    //   reference: Yup.string().when("entregaDelivery", {
     //     is: true,
     //     then: Yup.string().required("Referencia obligatoria"),
     //   }),
-    //   recoge_pedido: Yup.string().required("Nombre obligatorio"), // campo se repite en DELIVERY Y REC TIENDA
+    //   assigned_person: Yup.string().required("Nombre obligatorio"), // campo se repite en DELIVERY Y REC TIENDA
     //   // tipoComprobante: Yup.string().required("obligatorio"), //
     //   metodoPago: Yup.string().required("Metodo de pago obligatorio"),
-    //   cantidad_efectivo: Yup.number()
+    //   cash: Yup.number()
     //     .typeError("Ingrese solo numeros")
     //     .when("efectivo", {
     //       is: true,
@@ -97,8 +100,6 @@ const FinalizarPedido = () => {
 
     onSubmit: async (values, { resetForm }) => {
       console.log("SUBMITED !!");
-      // Enviar datos al Context state
-
       // Estraer solo cantidad y id de la presentacion
       const pedidoPresentaciones = presentacion.map(p => {
         return { id: p.id, cantidad: p.cantidad };
@@ -115,24 +116,65 @@ const FinalizarPedido = () => {
       // PARA WEBSOCKET - API PHP
       try {
         const res = await axios.post(
-          "http://weboishibackend.com/weboishi/crearpedido",
+          "http://localhost:4000/crearpedido",
           {
             local_id: localSeleccionado,
             paraComprobantePago: values.paraComprobanteDePago,
+            total_price: values.total_price,
             dni_ruc: values.dni_ruc,
-            nombre_razon_social: values.nombre_razon_social,
-            dedicatoria: values.dedicatoria,
-            metodo_entrega_id: values.metEntrega,
-            direccion_entrega: values.direccion_entrega,
-            referencia: values.referencia,
-            metodo_pago_id: values.metodoPago,
-            cantidad_efectivo: values.cantidad_efectivo,
-            comprobante_pago_id: values.tipoComprobante,
-            telefono: values.telefono,
-            persona_asignada: values.recoge_pedido,
-            presentaciones_productos: ["pedidoPresentaciones"],
-            presentaciones_combos: ["pedidocombosSeleccionados"],
-            ofertas: ["pedidofertasSeleccionada"],
+            customer_name: values.customer_name,
+            // dedicatoria: values.dedicatoria,
+            delivery_method_id: values.metEntrega,
+            delivery_address: values.delivery_address,
+            reference: values.reference,
+            payment_method_id: values.metodoPago,
+            cash: values.cash,
+            dedication: values.dedication,
+            payment_proof_id: values.tipoComprobante,
+            phone: values.phone,
+            assigned_person: values.assigned_person,
+            content: {
+              products_presentations: [
+                {
+                  id: 5,
+                  quantity: 10,
+                },
+                {
+                  id: 2,
+                  quantity: 8,
+                },
+              ],
+              offer_presentations: [
+                {
+                  id: 5,
+                  quantity: 10,
+                },
+                {
+                  id: 2,
+                  quantity: 8,
+                },
+              ],
+              Combos_presentations: [
+                {
+                  id: 5,
+                  quantity: 10,
+                },
+                {
+                  id: 2,
+                  quantity: 8,
+                },
+              ],
+            },
+            sauces: [
+              {
+                id: 1,
+                quantity: 2,
+              },
+              {
+                id: 2,
+                quantity: 3,
+              },
+            ],
           },
           {
             headers: {
@@ -143,77 +185,80 @@ const FinalizarPedido = () => {
         );
 
         console.log("Socket Res: ", res);
-        // SWALHERE
-        Swal.fire({
-          title: "Pedido realizado",
-          text: "Gracias por pedir en Oishi",
-          icon: "success",
-          confirmButtonText: "Aceptar",
 
-          allowOutsideClick: () => !Swal.isLoading(),
-        }).then(() => {
-          if (entregaDelivery) {
-            Swal.fire({
-              confirmButtonText: "Aceptar",
-              imageUrl:
-                "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/delivery_xuwobo.jpg",
-              imageWidth: 450,
-              imageHeight: 426,
-              imageAlt: "Oishi message",
-            });
-          } else {
-            Swal.fire({
-              confirmButtonText: "Aceptar",
-              imageUrl:
-                "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/recojo_hhids9.jpg",
-              imageWidth: 450,
-              imageHeight: 426,
-              imageAlt: "Oishi message",
-            });
-          }
-        });
+        // ! descomentar luego ...
 
-        vaciarCesta();
-        router.push("/carta");
+        // // SWALHERE
+        // Swal.fire({
+        //   title: "Pedido realizado",
+        //   text: "Gracias por pedir en Oishi",
+        //   icon: "success",
+        //   confirmButtonText: "Aceptar",
+
+        //   allowOutsideClick: () => !Swal.isLoading(),
+        // }).then(() => {
+        //   if (entregaDelivery) {
+        //     Swal.fire({
+        //       confirmButtonText: "Aceptar",
+        //       imageUrl:
+        //         "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/delivery_xuwobo.jpg",
+        //       imageWidth: 450,
+        //       imageHeight: 426,
+        //       imageAlt: "Oishi message",
+        //     });
+        //   } else {
+        //     Swal.fire({
+        //       confirmButtonText: "Aceptar",
+        //       imageUrl:
+        //         "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/recojo_hhids9.jpg",
+        //       imageWidth: 450,
+        //       imageHeight: 426,
+        //       imageAlt: "Oishi message",
+        //     });
+        //   }
+        // });
+
+        // vaciarCesta();
+        // router.push("/carta");
       } catch (e) {
         console.log(e);
       }
 
-      // Para NOTIFICACION PUSH
-      try {
-        const res = await axios.post(
-          "http://weboishibackend.com/weboishi/crearpedido",
-          // "http://weboishibackend.com/weboishi/nuevopedido",
-          {
-            local_id: localSeleccionado,
-            dni_ruc: values.dni_ruc,
-            nombre_razon_social: values.nombre_razon_social,
-            dedicatoria: values.dedicatoria,
-            metodo_entrega_id: values.metEntrega,
-            direccion_entrega: values.direccion_entrega,
-            referencia: values.referencia,
-            metodo_pago_id: values.metodoPago,
-            cantidad_efectivo: values.cantidad_efectivo,
-            comprobante_pago_id: values.tipoComprobante,
-            telefono: values.telefono,
-            persona_asignada: values.recoge_pedido,
-            presentaciones_productos: pedidoPresentaciones,
-            presentaciones_combos: pedidocombosSeleccionados,
-            ofertas: pedidofertasSeleccionada,
-            paraComprobantePago: values.paraComprobanteDePago,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          },
-        );
-        console.log("Push Res: ", res);
-      } catch (e) {
-        console.log(e);
-      }
-      resetForm();
+      // // Para NOTIFICACION PUSH
+      // try {
+      //   const res = await axios.post(
+      //     "http://localhost:4000/weboishi/nuevopedido",
+      //     {
+      //       local_id: localSeleccionado,
+      //       dni_ruc: values.dni_ruc,
+      //       nombre_razon_social: values.nombre_razon_social,
+      //       // dedicatoria: values.dedicatoria,
+      //       metodo_entrega_id: values.metEntrega,
+      //       direccion_entrega: values.direccion_entrega,
+      //       referencia: values.referencia,
+      //       metodo_pago_id: values.metodoPago,
+      //       cantidad_efectivo: values.cantidad_efectivo,
+      //       comprobante_pago_id: values.tipoComprobante,
+      //       telefono: values.telefono,
+      //       persona_asignada: values.recoge_pedido,
+      //       presentaciones_productos: pedidoPresentaciones,
+      //       presentaciones_combos: pedidocombosSeleccionados,
+      //       ofertas: pedidofertasSeleccionada,
+      //       paraComprobantePago: values.paraComprobanteDePago,
+      //     },
+      //     {
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Accept: "application/json",
+      //       },
+      //     },
+      //   );
+      //   console.log("Push Res: ", res);
+      // } catch (e) {
+      //   console.log(e);
+      // }
+
+      // resetForm();
     },
   });
 
@@ -229,16 +274,15 @@ const FinalizarPedido = () => {
                 <input
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.nombre_razon_social}
+                  value={formik.values.customer_name}
                   className="w-full bg-blueGray-50 rounded-lg px-1"
                   type="text"
-                  name="nombre_razon_social"
+                  name="customer_name"
                   placeholder="Nombres y apellidos o razon social"
                 />
-                {formik.touched.nombre_razon_social &&
-                formik.errors.nombre_razon_social ? (
+                {formik.touched.customer_name && formik.errors.customer_name ? (
                   <p className="mt-0 mb-4 text-red-500">
-                    *{formik.errors.nombre_razon_social}
+                    *{formik.errors.customer_name}
                   </p>
                 ) : null}
                 <p className="text-black text-md mt-2">DNI / RUC:</p>
@@ -259,14 +303,14 @@ const FinalizarPedido = () => {
                 <input
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.telefono}
+                  value={formik.values.phone}
                   className="w-full bg-blueGray-50 rounded-lg px-1"
                   type="number"
-                  name="telefono"
+                  name="phone"
                 />
-                {formik.touched.telefono && formik.errors.telefono ? (
+                {formik.touched.telefono && formik.errors.phone ? (
                   <p className="mt-0 mb-4 text-red-500">
-                    *{formik.errors.telefono}
+                    *{formik.errors.phone}
                   </p>
                 ) : null}
               </div>
@@ -314,15 +358,15 @@ const FinalizarPedido = () => {
                     <input
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.direccion_entrega}
+                      value={formik.values.delivery_address}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
                       type="text"
-                      name="direccion_entrega"
+                      name="delivery_address"
                     />
-                    {formik.touched.direccion_entrega &&
-                    formik.errors.direccion_entrega ? (
+                    {formik.touched.delivery_address &&
+                    formik.errors.delivery_address ? (
                       <p className="mt-0 mb-4 text-red-500">
-                        *{formik.errors.direccion_entrega}
+                        *{formik.errors.delivery_address}
                       </p>
                     ) : null}
 
@@ -330,14 +374,14 @@ const FinalizarPedido = () => {
                     <input
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.referencia}
+                      value={formik.values.reference}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
                       type="text"
-                      name="referencia"
+                      name="reference"
                     />
-                    {formik.touched.referencia && formik.errors.referencia ? (
+                    {formik.touched.reference && formik.errors.reference ? (
                       <p className="mt-0 mb-4 text-red-500">
-                        *{formik.errors.referencia}
+                        *{formik.errors.reference}
                       </p>
                     ) : null}
 
@@ -345,15 +389,15 @@ const FinalizarPedido = () => {
                     <input
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.recoge_pedido}
+                      value={formik.values.assigned_person}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
                       type="text"
                       name="recoge_pedido"
                     />
-                    {formik.touched.recoge_pedido &&
-                    formik.errors.recoge_pedido ? (
+                    {formik.touched.assigned_person &&
+                    formik.errors.assigned_person ? (
                       <p className="mt-0 mb-4 text-red-500">
-                        *{formik.errors.recoge_pedido}
+                        *{formik.errors.assigned_person}
                       </p>
                     ) : null}
                   </div>
@@ -368,15 +412,15 @@ const FinalizarPedido = () => {
                     <input
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.recoge_pedido}
+                      value={formik.values.assigned_person}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
                       type="text"
                       name="recoge_pedido"
                     />
-                    {formik.touched.recoge_pedido &&
-                    formik.errors.recoge_pedido ? (
+                    {formik.touched.assigned_person &&
+                    formik.errors.assigned_person ? (
                       <p className="mt-0 mb-4 text-red-500">
-                        *{formik.errors.recoge_pedido}
+                        *{formik.errors.assigned_person}
                       </p>
                     ) : null}
                   </div>
@@ -468,32 +512,23 @@ const FinalizarPedido = () => {
                     <input
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.cantidad_efectivo}
+                      value={formik.values.cash}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
                       type="number"
                       placeholder="S/ Monto con el que paga"
-                      name="cantidad_efectivo"
+                      name="cash"
                     />{" "}
-                    {formik.touched.cantidad_efectivo &&
-                    formik.errors.cantidad_efectivo ? (
+                    {formik.touched.cash && formik.errors.cash ? (
                       <p className="mt-0 mb-4 text-red-500">
-                        *{formik.errors.cantidad_efectivo}
+                        *{formik.errors.cash}
                       </p>
                     ) : null}
                   </div>
                 ) : null}
               </div>
-              <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
+              {/* <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
                 <p className="text-black text-md mb-1">
-                  {/* <span className="font-semibold">
-                    Que salsa desea para su pedido?
-                  </span>{" "}
-                  <br />
-                  <span className="font-semibold">Nota:</span> Recuerde que la
-                  cantidad depende de la presentación a comprar acevichado,
-                  <span className="font-semibold">
-                    maracuya, anguila, tiradito, aji oishi:
-                  </span> */}
+                
                   <span className="font-semibold">
                     Elige tus salsas favoritas: acevichado, maracuya, anguila,
                     tiradito, aji oishi.
@@ -525,7 +560,7 @@ const FinalizarPedido = () => {
                     *{formik.errors.dedicatoria}
                   </p>
                 ) : null}
-              </div>
+              </div> */}
 
               <div className="px-1">
                 {entregaDelivery && (

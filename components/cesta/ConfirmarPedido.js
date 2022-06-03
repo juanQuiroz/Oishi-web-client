@@ -72,11 +72,11 @@ const ConfirmarPedido = () => {
         ) : (
           <div className="mx-2">
             <h1 className="font-Andika font-bold text-lg">
-              Nos añadido pedidos en tu cesta 😕
+              No has añadido pedidos en tu cesta 😕
             </h1>
             <h2 className="font-Andika">
-              Añade pedidos a la cesta para qu disfrutes del sabor unico de
-              Oishi SB
+              Añade pedidos a la cesta para que disfrutes del sabor único de
+              Oishi Sushi Bar
             </h2>
           </div>
         )}

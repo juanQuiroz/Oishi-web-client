@@ -13,7 +13,6 @@ const ToppingCombo = ({
   // toppingSetupwithId,
   // setToppingSetupwithId,
 }) => {
-  console.log("🚀 ~ file: ToppingCombo.jsx ~ line 16 ~ topping", topping);
   // State para almacenar las configuracion elegida por el usuairo en este topping
   const [toppingSetup, setToppingSetup] = React.useState(
     topping.product_presentations.map(presentation => ({
