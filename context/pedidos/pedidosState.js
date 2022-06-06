@@ -34,6 +34,7 @@ const PedidosState = ({ children }) => {
     confirmarPedido: false,
     cliente: null,
     customerToken: null,
+    salsasConfig: [],
   };
 
   const [state, dispatch] = useReducer(pedidosReducer, initialState);
@@ -112,6 +113,13 @@ const PedidosState = ({ children }) => {
     });
   };
 
+  const addSalsasConfig = salsas => {
+    dispatch({
+      type: "AGREGAR_SALSAS_CONFIG",
+      payload: salsas,
+    });
+  };
+
   const addOferta = oferta => {
     dispatch({
       type: "AGREGAR_OFERTA",
@@ -158,6 +166,7 @@ const PedidosState = ({ children }) => {
         confirmarPedido: state.confirmarPedido,
         cliente: state.cliente,
         customerToken: state.customerToken,
+        salsasConfig: state.salsasConfig,
         addCustomerToken,
         setConfirmarpedido,
         addDataProducto,
@@ -173,6 +182,7 @@ const PedidosState = ({ children }) => {
         deleteCombo,
         selectLocal,
         addCustomer,
+        addSalsasConfig,
       }}
     >
       {children}

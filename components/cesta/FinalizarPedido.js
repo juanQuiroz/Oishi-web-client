@@ -19,6 +19,9 @@ const FinalizarPedido = () => {
   // por defecto el metodo de entrega es mediante delivery
   const [entregaDelivery, setEntregaDelivery] = React.useState(true);
   const [efectivo, setEfectivo] = React.useState(false);
+  const [metodoDePago, setMetodoDePago] = React.useState(null);
+  const [metodoDeDelivery, setMetodoDeDelivery] = React.useState(null);
+  const [comprobantePago, setComprobantePago] = React.useState(null);
 
   const pcontext = React.useContext(PedidosContext);
   const {
@@ -31,6 +34,7 @@ const FinalizarPedido = () => {
     localSeleccionado,
     setConfirmarpedido,
     vaciarCesta,
+    salsasConfig,
   } = pcontext;
 
   dayjs.extend(isBetween);
@@ -100,17 +104,28 @@ const FinalizarPedido = () => {
 
     onSubmit: async (values, { resetForm }) => {
       console.log("SUBMITED !!");
-      // Estraer solo cantidad y id de la presentacion
+
       const pedidoPresentaciones = presentacion.map(p => {
-        return { id: p.id, cantidad: p.cantidad };
+        return { id: p.id, quantity: p.cantidad };
       });
-      // Estraer solo cantidad y id de  ofertasSeleccionada
+
       const pedidofertasSeleccionada = ofertasSeleccionada.map(p => {
-        return { id: p.oferta_id, cantidad: p.cantidad };
+        return { id: p.oferta_id, quantity: p.cantidad };
       });
-      // Estraer solo cantidad y id de combosSeleccionados
+
       const pedidocombosSeleccionados = combosSeleccionados.map(p => {
-        return { id: p.presentacion_id, cantidad: p.cantidad };
+        return {
+          id: p.id,
+          quantity: p.cantidad,
+          globalToppingSetup: globalToppingSetup,
+        };
+      });
+
+      const pedidoSalsasSeleccionadas = salsasConfig.map(s => {
+        return {
+          id: s.id,
+          quantity: s.cantSalsa,
+        };
       });
 
       // PARA WEBSOCKET - API PHP
@@ -124,57 +139,21 @@ const FinalizarPedido = () => {
             dni_ruc: values.dni_ruc,
             customer_name: values.customer_name,
             // dedicatoria: values.dedicatoria,
-            delivery_method_id: values.metEntrega,
+            delivery_method_id: metodoDeDelivery,
             delivery_address: values.delivery_address,
             reference: values.reference,
-            payment_method_id: values.metodoPago,
+            payment_method_id: metodoDePago,
             cash: values.cash,
             dedication: values.dedication,
-            payment_proof_id: values.tipoComprobante,
+            payment_proof_id: comprobantePago,
             phone: values.phone,
             assigned_person: values.assigned_person,
             content: {
-              products_presentations: [
-                {
-                  id: 5,
-                  quantity: 10,
-                },
-                {
-                  id: 2,
-                  quantity: 8,
-                },
-              ],
-              offer_presentations: [
-                {
-                  id: 5,
-                  quantity: 10,
-                },
-                {
-                  id: 2,
-                  quantity: 8,
-                },
-              ],
-              Combos_presentations: [
-                {
-                  id: 5,
-                  quantity: 10,
-                },
-                {
-                  id: 2,
-                  quantity: 8,
-                },
-              ],
+              pedidoPresentaciones: pedidoPresentaciones,
+              pedidofertasSeleccionada: pedidofertasSeleccionada,
+              pedidocombosSeleccionados: pedidocombosSeleccionados,
             },
-            sauces: [
-              {
-                id: 1,
-                quantity: 2,
-              },
-              {
-                id: 2,
-                quantity: 3,
-              },
-            ],
+            sauces: pedidoSalsasSeleccionadas,
           },
           {
             headers: {
@@ -264,8 +243,8 @@ const FinalizarPedido = () => {
 
   return (
     <>
-      {horarioLaboral == true ? (
-        <div>
+      {horarioLaboral == false ? (
+        <div className="sm:mx-12">
           <Subtitulo>Continuar con el pedido</Subtitulo>
           <form onSubmit={formik.handleSubmit} className="font-Andika">
             <div className="rounded-md p-1 sm:p-3">
@@ -305,7 +284,7 @@ const FinalizarPedido = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
                   className="w-full bg-blueGray-50 rounded-lg px-1"
-                  type="number"
+                  type="text"
                   name="phone"
                 />
                 {formik.touched.telefono && formik.errors.phone ? (
@@ -325,11 +304,14 @@ const FinalizarPedido = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.metEntrega}
                       // value="1"
-                      defaultChecked
+                      // defaultChecked
                       type="radio"
                       className="form-radio"
                       name="metEntrega"
-                      onClick={() => setEntregaDelivery(true)}
+                      onClick={() => {
+                        setEntregaDelivery(true);
+                        setMetodoDeDelivery("1");
+                      }}
                     />
                     <span className="ml-2">Delivery</span>
                   </label>
@@ -342,7 +324,10 @@ const FinalizarPedido = () => {
                       type="radio"
                       className="form-radio"
                       name="metEntrega"
-                      onClick={() => setEntregaDelivery(false)}
+                      onClick={() => {
+                        setEntregaDelivery(false);
+                        setMetodoDeDelivery("2");
+                      }}
                     />
                     <span className="ml-2">Recojo en tienda</span>
                   </label>
@@ -392,7 +377,7 @@ const FinalizarPedido = () => {
                       value={formik.values.assigned_person}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
                       type="text"
-                      name="recoge_pedido"
+                      name="assigned_person"
                     />
                     {formik.touched.assigned_person &&
                     formik.errors.assigned_person ? (
@@ -415,7 +400,7 @@ const FinalizarPedido = () => {
                       value={formik.values.assigned_person}
                       className="w-full bg-blueGray-50 rounded-lg px-1"
                       type="text"
-                      name="recoge_pedido"
+                      name="assigned_person"
                     />
                     {formik.touched.assigned_person &&
                     formik.errors.assigned_person ? (
@@ -438,9 +423,10 @@ const FinalizarPedido = () => {
                       className="form-radio"
                       name="tipoComprobante"
                       // value="1"
+                      onClick={() => setComprobantePago(1)}
                     />
 
-                    <span className="ml-2">Factura</span>
+                    <span className="ml-2">Boleta</span>
                   </label>
                   <label className="inline-flex items-center ml-6">
                     <input
@@ -451,9 +437,10 @@ const FinalizarPedido = () => {
                       className="form-radio"
                       name="tipoComprobante"
                       // value="2"
+                      onClick={() => setComprobantePago(2)}
                     />
 
-                    <span className="ml-2">Boleta</span>
+                    <span className="ml-2">Fatura</span>
                   </label>
                 </div>
                 <p className="text-black text-sm mt-2">
@@ -488,7 +475,10 @@ const FinalizarPedido = () => {
                       className="form-radio"
                       name="metodoPago"
                       // value="1"
-                      onClick={() => setEfectivo(false)}
+                      onClick={() => {
+                        setEfectivo(false);
+                        setMetodoDePago(1);
+                      }}
                     />
                     <span className="ml-2">POS</span>
                   </label>
@@ -501,7 +491,10 @@ const FinalizarPedido = () => {
                       className="form-radio"
                       name="metodoPago"
                       // value="2"
-                      onClick={() => setEfectivo(true)}
+                      onClick={() => {
+                        setEfectivo(true);
+                        setMetodoDePago(2);
+                      }}
                     />
                     <span className="ml-2">Efectivo</span>
                   </label>

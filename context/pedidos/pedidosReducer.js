@@ -14,6 +14,7 @@ import {
   AGREGAR_CLIENTE,
   AGREGAR_CLIENTE_TOKEN,
   AGREGAR_COMBO_TOPPING,
+  AGREGAR_SALSAS_CONFIG,
 } from "../../types";
 
 export default (state, action) => {
@@ -126,6 +127,12 @@ export default (state, action) => {
         combosSeleccionados: state.combosSeleccionados.filter(
           comb => comb.id !== action.payload,
         ),
+      };
+
+    case AGREGAR_SALSAS_CONFIG:
+      return {
+        ...state,
+        salsasConfig: action.payload,
       };
 
     case AGREGAR_OFERTA:

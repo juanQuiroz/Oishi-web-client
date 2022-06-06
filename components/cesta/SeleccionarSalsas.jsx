@@ -13,16 +13,16 @@ const SeleccionarSalsas = () => {
     pedido,
     setConfirmarpedido,
     localSeleccionado,
+    addSalsasConfig,
+    salsasConfig,
   } = PedidosContext;
-  console.log(
-    "🚀 ~ file: SeleccionarSalsas.jsx ~ line 17 ~ SeleccionarSalsas ~ combosSeleccionados",
-    combosSeleccionados,
-  );
 
   const [salsas, setSalsas] = React.useState([]);
-  const [cantSalsas, setCantSalsas] = React.useState(null);
 
-  const getCombos = async () => {
+  const [cantSalsas, setCantSalsas] = React.useState(null);
+  const [salsasSeleccionadas, SetSalsasSeleccionadas] = React.useState([]);
+
+  const getSalsas = async () => {
     const res = await apitest.get(`/api/v2/sauces`, {
       headers: {
         "Content-Type": "application/json",
@@ -33,37 +33,35 @@ const SeleccionarSalsas = () => {
     setSalsas(res.data.data);
   };
 
-  // const sumarSalsas = () => {
-  //   const salsasProductos = presentacion
-  //     .map(p => Number(p.sauce_quantity) * Number(p.cantidad))
-  //     .reduce((prev, curr) => prev + curr, 0);
-  //   const salsasOfertas = ofertasSeleccionada
-  //     .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
-  //     .reduce((prev, curr) => prev + curr, 0);
-  //   const salsasCombos = combosSeleccionados
-  //     .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
-  //     .reduce((prev, curr) => prev + curr, 0);
-
-  //   setCantSalsas(salsasProductos + salsasOfertas + salsasCombos);
-  // };
-
   React.useEffect(() => {
-    getCombos();
+    getSalsas();
   }, []);
 
   React.useEffect(() => {
-    const salsasProductos = presentacion
+    const salsasProductosCant = presentacion
       .map(p => Number(p.sauce_quantity) * Number(p.cantidad))
       .reduce((prev, curr) => prev + curr, 0);
-    const salsasOfertas = ofertasSeleccionada
+    const salsasOfertasCant = ofertasSeleccionada
       .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
       .reduce((prev, curr) => prev + curr, 0);
-    const salsasCombos = combosSeleccionados
+    const salsasCombosCant = combosSeleccionados
       .map(s => Number(s.sauce_quantity) * Number(s.cantidad))
       .reduce((prev, curr) => prev + curr, 0);
 
-    setCantSalsas(salsasProductos + salsasOfertas + salsasCombos);
-  }, [presentacion, ofertasSeleccionada, combosSeleccionados]);
+    setCantSalsas(salsasProductosCant + salsasOfertasCant + salsasCombosCant);
+  }, [presentacion, ofertasSeleccionada, combosSeleccionados, ,]);
+
+  React.useEffect(() => {
+    const salsasSeleccionadasCantMayCero = salsasSeleccionadas.filter(
+      se => se.cantSalsa > 0,
+    );
+    addSalsasConfig(salsasSeleccionadasCantMayCero);
+  }, [salsasSeleccionadas]);
+
+  // * Para testear  salsasConfig en contex
+  // React.useEffect(() => {
+  //   console.log("*****Salsas salsasConfig", salsasConfig);
+  // }, [salsasConfig]);
 
   return (
     <div>
@@ -75,7 +73,12 @@ const SeleccionarSalsas = () => {
         de salsas
       </h2>
       {cantSalsas && (
-        <FormSeleccionarSalsas cantSalsas={cantSalsas} salsas={salsas} />
+        <FormSeleccionarSalsas
+          cantSalsas={cantSalsas}
+          salsas={salsas}
+          salsasSeleccionadas={salsasSeleccionadas}
+          SetSalsasSeleccionadas={SetSalsasSeleccionadas}
+        />
       )}
     </div>
   );

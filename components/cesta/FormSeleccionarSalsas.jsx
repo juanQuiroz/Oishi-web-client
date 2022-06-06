@@ -1,7 +1,12 @@
 import React from "react";
 import SalsaCounter from "./SalsaCounter";
 
-const FormSeleccionarSalsas = ({ cantSalsas, salsas }) => {
+const FormSeleccionarSalsas = ({
+  cantSalsas,
+  salsas,
+  salsasSeleccionadas,
+  SetSalsasSeleccionadas,
+}) => {
   const [totalSalsasSeleccionadas, setTotalSalsasSeleccioanda] = React.useState(
     [],
   );
@@ -15,6 +20,8 @@ const FormSeleccionarSalsas = ({ cantSalsas, salsas }) => {
           cantSalsas={cantSalsas}
           totalSalsasSeleccionadas={totalSalsasSeleccionadas}
           setTotalSalsasSeleccioanda={setTotalSalsasSeleccioanda}
+          salsasSeleccionadas={salsasSeleccionadas}
+          SetSalsasSeleccionadas={SetSalsasSeleccionadas}
         />
       ))}
     </div>

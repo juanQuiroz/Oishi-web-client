@@ -2,8 +2,6 @@ import React from "react";
 import pedidosContext from "../../context/pedidos/pedidosContex";
 
 const OfertaPedido = ({ ofertaPedido }) => {
-  console.log("ofertaPedido", ofertaPedido);
-
   const PedidosContext = React.useContext(pedidosContext);
   const { addTotalPedidos, deleteOferta } = PedidosContext;
 

@@ -39,6 +39,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
   const [precioTotalCombo, setPrecioTotalCombo] = React.useState(0);
 
   React.useEffect(() => {
+    // topping adicional obligatorio  usando operador  ternario
     const sumaCantidadSeleccionada = globalToppingSetup
       .map(gts =>
         gts.type == 1
@@ -53,6 +54,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
       )
       .reduce((prev, curr) => prev + curr, 0);
 
+    // topping adicional obligatorio  usando operador ||
     const sumaTotales = toppings
       .map(
         gts =>
