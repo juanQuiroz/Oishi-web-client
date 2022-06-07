@@ -149,9 +149,9 @@ const FinalizarPedido = () => {
             phone: values.phone,
             assigned_person: values.assigned_person,
             content: {
-              pedidoPresentaciones: pedidoPresentaciones,
-              pedidofertasSeleccionada: pedidofertasSeleccionada,
-              pedidocombosSeleccionados: pedidocombosSeleccionados,
+              products_presentations: pedidoPresentaciones,
+              offer_presentations: pedidofertasSeleccionada,
+              combos_presentations: pedidocombosSeleccionados,
             },
             sauces: pedidoSalsasSeleccionadas,
           },
@@ -162,8 +162,10 @@ const FinalizarPedido = () => {
             },
           },
         );
-
-        console.log("Socket Res: ", res);
+        console.log(
+          "🚀 ~ file: FinalizarPedido.js ~ line 165 ~ onSubmit: ~ res",
+          res,
+        );
 
         // ! descomentar luego ...
 
