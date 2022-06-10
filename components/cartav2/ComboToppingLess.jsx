@@ -6,6 +6,7 @@ const AddComboToppingLess = ({
   cantPresentacionCombo,
   setCantPresentacionCombo,
 }) => {
+  console.log("🚀 ~ file: ComboToppingLess.jsx ~ line 9 ~ combo", combo);
   // CONTEXT
   // -> para agregar Combos
   const pedidosContext = React.useContext(PedidosContext);
@@ -22,7 +23,7 @@ const AddComboToppingLess = ({
       nombre: combo.name,
       description: combo.description,
       cantidad: cantPresentacionCombo,
-      id: combo.id,
+      id: combo.presentations[0].id,
       sauce_quantity: combo.sauce_quantity,
       precio: combo.presentations[0].combo_price, // Precio del combo
       default_price: combo.presentations[0].default_price,

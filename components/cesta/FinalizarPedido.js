@@ -117,9 +117,13 @@ const FinalizarPedido = () => {
         return {
           id: p.id,
           quantity: p.cantidad,
-          globalToppingSetup: globalToppingSetup,
+          globalToppingSetup: p.globalToppingSetup,
         };
       });
+      console.log(
+        "🚀 ~ file: FinalizarPedido.js ~ line 123 ~ onSubmit: ~ combosSeleccionados",
+        combosSeleccionados,
+      );
 
       const pedidoSalsasSeleccionadas = salsasConfig.map(s => {
         return {
@@ -128,13 +132,37 @@ const FinalizarPedido = () => {
         };
       });
 
+      console.log("Enviado al backend ", {
+        local_id: localSeleccionado,
+        to_payment_proof: values.paraComprobanteDePago,
+        total_price: values.total_price,
+        dni_ruc: values.dni_ruc,
+        customer_name: values.customer_name,
+        // dedicatoria: values.dedicatoria,
+        delivery_method_id: metodoDeDelivery,
+        delivery_address: values.delivery_address,
+        reference: values.reference,
+        payment_method_id: metodoDePago,
+        cash: values.cash,
+        dedication: values.dedication,
+        payment_proof_id: comprobantePago,
+        phone: values.phone,
+        assigned_person: values.assigned_person,
+        content: {
+          products_presentations: pedidoPresentaciones,
+          offers: pedidofertasSeleccionada,
+          combos_presentations: pedidocombosSeleccionados,
+          sauces: pedidoSalsasSeleccionadas,
+        },
+      });
+
       // PARA WEBSOCKET - API PHP
       try {
         const res = await axios.post(
           "http://localhost:4000/crearpedido",
           {
             local_id: localSeleccionado,
-            paraComprobantePago: values.paraComprobanteDePago,
+            to_payment_proof: values.paraComprobanteDePago,
             total_price: values.total_price,
             dni_ruc: values.dni_ruc,
             customer_name: values.customer_name,
@@ -152,8 +180,8 @@ const FinalizarPedido = () => {
               products_presentations: pedidoPresentaciones,
               offer_presentations: pedidofertasSeleccionada,
               combos_presentations: pedidocombosSeleccionados,
+              sauces: pedidoSalsasSeleccionadas,
             },
-            sauces: pedidoSalsasSeleccionadas,
           },
           {
             headers: {
@@ -164,7 +192,7 @@ const FinalizarPedido = () => {
         );
         console.log(
           "🚀 ~ file: FinalizarPedido.js ~ line 165 ~ onSubmit: ~ res",
-          res,
+          res.data,
         );
 
         // ! descomentar luego ...
@@ -205,7 +233,6 @@ const FinalizarPedido = () => {
         console.log(e);
       }
 
-      // // Para NOTIFICACION PUSH
       // try {
       //   const res = await axios.post(
       //     "http://localhost:4000/weboishi/nuevopedido",
@@ -245,7 +272,7 @@ const FinalizarPedido = () => {
 
   return (
     <>
-      {horarioLaboral == false ? (
+      {horarioLaboral == true ? (
         <div className="sm:mx-12">
           <Subtitulo>Continuar con el pedido</Subtitulo>
           <form onSubmit={formik.handleSubmit} className="font-Andika">

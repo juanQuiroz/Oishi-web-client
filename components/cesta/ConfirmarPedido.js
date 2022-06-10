@@ -96,7 +96,7 @@ const ConfirmarPedido = () => {
           ofertasSeleccionada.length > 0 ||
           combosSeleccionados.length > 0) && (
           <div className="flex justify-center">
-            {horarioLaboral == false ? (
+            {horarioLaboral == true ? (
               <div className="w-full flex mt-6 mb-4 justify-evenly">
                 <button
                   className="font-semibold text-white bg-red-500 px-3 py-2 rounded-full shadow-red hover:shadow-redPlus min-h-10 hover:bg-red-600"

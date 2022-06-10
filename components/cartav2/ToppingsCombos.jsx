@@ -98,7 +98,7 @@ const ToppingsCombos = ({ toppings, combo }) => {
         nombre: combo.name,
         description: combo.description,
         cantidad: cantPresentacionCombo,
-        id: combo.id,
+        id: combo.presentations[0].id,
         sauce_quantity: combo.sauce_quantity,
         precio: precioTotalCombo, // Precio del combo + mas toppings adicionales
         // precio: combo.presentations[0].combo_price,

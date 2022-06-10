@@ -2,20 +2,16 @@ import React from "react";
 import pedidosContext from "../../context/pedidos/pedidosContex";
 
 const ComboPedido = ({ comboPedido }) => {
-  console.log(
-    "🚀 ~ file: ComboPedido.js ~ line 5 ~ comboPedido.globalToppingSetup ~ comboPedido.globalToppingSetup",
-    comboPedido.globalToppingSetup,
-  );
   const PedidosContext = React.useContext(pedidosContext);
   const { addTotalPedidos, deleteCombo } = PedidosContext;
 
-  // const subtotal = comboPedido.precio * comboPedido.cantidad;
-  // Ahora comboPedido.precio ya trae todo calculado
+  const subtotal = comboPedido.precio * comboPedido.cantidad;
+  // // // Ahora comboPedido.precio ya trae todo calculadok
 
   // Agrega el subtotal para sumarlo
-  // React.useEffect(() => {
-  //   addTotalPedidos(subtotal);
-  // }, []);
+  React.useEffect(() => {
+    addTotalPedidos(subtotal);
+  }, []);
 
   return (
     <div className="w-full bg-gray-50 rounded-md px-2 py-1 sm:p-2">
@@ -48,7 +44,7 @@ const ComboPedido = ({ comboPedido }) => {
         </div>
 
         <h2 className="w-3/12 font-semibold text-right mr-2">
-          S/ {comboPedido.precio.toFixed(2)}
+          S/ {Number(subtotal).toFixed(2)}
         </h2>
         <button
           className="w-1/12 flex text-red-500 text-center bg-transparent hover:bg-transparent rounded-full"
