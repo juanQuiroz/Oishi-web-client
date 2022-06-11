@@ -178,7 +178,7 @@ const FinalizarPedido = () => {
             assigned_person: values.assigned_person,
             content: {
               products_presentations: pedidoPresentaciones,
-              offer_presentations: pedidofertasSeleccionada,
+              offers: pedidofertasSeleccionada,
               combos_presentations: pedidocombosSeleccionados,
               sauces: pedidoSalsasSeleccionadas,
             },
