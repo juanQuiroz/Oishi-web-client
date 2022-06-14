@@ -114,16 +114,23 @@ const FinalizarPedido = () => {
       });
 
       const pedidocombosSeleccionados = combosSeleccionados.map(p => {
+        const globalToppingSetupEnglish = p.globalToppingSetup
+          ?.filter(gts => gts.cantidad > 0)
+          .map(gts => {
+            return {
+              id: gts.id,
+              label: gts.label,
+              price: gts.precio,
+              quantity: gts.cantidad,
+            };
+          });
+
         return {
           id: p.id,
           quantity: p.cantidad,
-          globalToppingSetup: p.globalToppingSetup,
+          global_topping_setup: globalToppingSetupEnglish,
         };
       });
-      console.log(
-        "🚀 ~ file: FinalizarPedido.js ~ line 123 ~ onSubmit: ~ combosSeleccionados",
-        combosSeleccionados,
-      );
 
       const pedidoSalsasSeleccionadas = salsasConfig.map(s => {
         return {
@@ -191,8 +198,8 @@ const FinalizarPedido = () => {
           },
         );
         console.log(
-          "🚀 ~ file: FinalizarPedido.js ~ line 165 ~ onSubmit: ~ res",
-          res.data,
+          "🚀 ~ file: FinalizarPedido.js ~ line 200 ~ onSubmit: ~ res",
+          res,
         );
 
         // ! descomentar luego ...

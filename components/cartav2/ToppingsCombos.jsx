@@ -5,10 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const ToppingsCombos = ({ toppings, combo }) => {
-  console.log(
-    "🚀 ~ file: ToppingsCombos.jsx ~ line 8 ~ ToppingsCombos ~ toppings",
-    toppings,
-  );
   // Cantidad de combos elegidos
   const [cantPresentacionCombo, setCantPresentacionCombo] = React.useState(1);
 
@@ -27,10 +23,6 @@ const ToppingsCombos = ({ toppings, combo }) => {
       presentations: topping.product_presentations,
     })),
   );
-  // console.log(
-  //   "🚀 ~ file: ToppingsCombos.jsx ~ line 25 ~ ToppingsCombos ~ globalToppingSetup",
-  //   globalToppingSetup,
-  // );
 
   const [isCompletedQuantityTopppings, setIsCompletedQuantityTopppings] =
     React.useState(false);
