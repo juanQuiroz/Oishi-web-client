@@ -15,10 +15,17 @@ import {
   AGREGAR_CLIENTE_TOKEN,
   AGREGAR_COMBO_TOPPING,
   AGREGAR_SALSAS_CONFIG,
+  AÑADIR_PRECIO_DELIVERY,
 } from "../../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case AÑADIR_PRECIO_DELIVERY:
+      return {
+        ...state,
+        deliveryPrice: action.payload,
+      };
+
     case AGREGAR_CLIENTE:
       return {
         ...state,
@@ -44,16 +51,16 @@ export default (state, action) => {
       };
 
     case ACTUALIAZAR_CANTPRESENTACION:
-      if (state.presentacion.some(p => p.id === action.payload.id)) {
+      if (state.presentacion.some((p) => p.id === action.payload.id)) {
         return {
           ...state,
-          presentacion: state.presentacion.map(pre =>
-            pre.id === action.payload.id ? (pre = action.payload) : pre,
+          presentacion: state.presentacion.map((pre) =>
+            pre.id === action.payload.id ? (pre = action.payload) : pre
           ),
           pedido: {
             ...state.pedido,
             totalPedidos: state.presentacion
-              .map(pre => pre.cantidad * pre.precio)
+              .map((pre) => pre.cantidad * pre.precio)
               .reduce((prev, curr) => prev + curr, 0),
           },
         };
@@ -64,7 +71,7 @@ export default (state, action) => {
         pedido: {
           ...state.pedido,
           totalPedidos: state.presentacion
-            .map(pre => pre.cantidad * pre.precio)
+            .map((pre) => pre.cantidad * pre.precio)
             .reduce((prev, curr) => prev + curr, 0),
         },
       };
@@ -76,13 +83,13 @@ export default (state, action) => {
           ...state.pedido,
           totalPedidos:
             state.presentacion
-              .map(pre => pre.cantidad * pre.precio)
+              .map((pre) => pre.cantidad * pre.precio)
               .reduce((prev, curr) => prev + curr, 0) +
             state.ofertasSeleccionada
-              .map(ofe => ofe.precio_oferta * ofe.cantidad)
+              .map((ofe) => ofe.precio_oferta * ofe.cantidad)
               .reduce((prev, curr) => prev + curr, 0) +
             state.combosSeleccionados
-              .map(comb => comb.precio * comb.cantidad)
+              .map((comb) => comb.precio * comb.cantidad)
               .reduce((prev, curr) => prev + curr, 0),
         },
       };
@@ -109,7 +116,7 @@ export default (state, action) => {
       return {
         ...state,
         presentacion: state.presentacion.filter(
-          pre => pre.id !== action.payload,
+          (pre) => pre.id !== action.payload
         ),
       };
 
@@ -117,7 +124,7 @@ export default (state, action) => {
       return {
         ...state,
         ofertasSeleccionada: state.ofertasSeleccionada.filter(
-          ofe => ofe.oferta_id !== action.payload,
+          (ofe) => ofe.oferta_id !== action.payload
         ),
       };
 
@@ -125,7 +132,7 @@ export default (state, action) => {
       return {
         ...state,
         combosSeleccionados: state.combosSeleccionados.filter(
-          comb => comb.id !== action.payload,
+          (comb) => comb.id !== action.payload
         ),
       };
 
@@ -138,15 +145,15 @@ export default (state, action) => {
     case AGREGAR_OFERTA:
       if (
         state.ofertasSeleccionada.some(
-          o => o.oferta_id === action.payload.oferta_id,
+          (o) => o.oferta_id === action.payload.oferta_id
         )
       ) {
         return {
           ...state,
-          ofertasSeleccionada: state.ofertasSeleccionada.map(ofer =>
+          ofertasSeleccionada: state.ofertasSeleccionada.map((ofer) =>
             ofer.oferta_id === action.payload.oferta_id
               ? (ofer = action.payload)
-              : ofer,
+              : ofer
           ),
         };
       }
@@ -156,11 +163,11 @@ export default (state, action) => {
       };
 
     case AGREGAR_COMBO:
-      if (state.combosSeleccionados.some(c => c.id === action.payload.id)) {
+      if (state.combosSeleccionados.some((c) => c.id === action.payload.id)) {
         return {
           ...state,
-          combosSeleccionados: state.combosSeleccionados.map(c =>
-            c.id === action.payload.id ? (c = action.payload) : c,
+          combosSeleccionados: state.combosSeleccionados.map((c) =>
+            c.id === action.payload.id ? (c = action.payload) : c
           ),
         };
       }

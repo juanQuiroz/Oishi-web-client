@@ -6,7 +6,7 @@ import PedidosContext from "../../context/pedidos/pedidosContex";
 import axios from "axios";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
-
+import MapComponent from "../map/MapComponent";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -35,6 +35,7 @@ const FinalizarPedido = () => {
     setConfirmarpedido,
     vaciarCesta,
     salsasConfig,
+    deliveryPrice,
   } = pcontext;
 
   dayjs.extend(isBetween);
@@ -45,6 +46,9 @@ const FinalizarPedido = () => {
       var startHour = dayjs().hour(12).minute(15);
       var endHour = dayjs().hour(21).minute(45);
     } else if (localSeleccionado == 2) {
+      var startHour = dayjs().hour(12).minute(15);
+      var endHour = dayjs().hour(20).minute(45);
+    } else if (localSeleccionado == 3) {
       var startHour = dayjs().hour(12).minute(15);
       var endHour = dayjs().hour(20).minute(45);
     }
@@ -59,7 +63,7 @@ const FinalizarPedido = () => {
       customer_name: "",
       dni_ruc: "",
       phone: "",
-      metEntrega: "1", // Valor por defecto (Checked)
+      metEntrega: 1, // Valor por defecto (Checked)
       delivery_address: "",
       reference: "",
       assigned_person: "",
@@ -105,18 +109,18 @@ const FinalizarPedido = () => {
     onSubmit: async (values, { resetForm }) => {
       console.log("SUBMITED !!");
 
-      const pedidoPresentaciones = presentacion.map(p => {
+      const pedidoPresentaciones = presentacion.map((p) => {
         return { id: p.id, quantity: p.cantidad };
       });
 
-      const pedidofertasSeleccionada = ofertasSeleccionada.map(p => {
+      const pedidofertasSeleccionada = ofertasSeleccionada.map((p) => {
         return { id: p.oferta_id, quantity: p.cantidad };
       });
 
-      const pedidocombosSeleccionados = combosSeleccionados.map(p => {
+      const pedidocombosSeleccionados = combosSeleccionados.map((p) => {
         const globalToppingSetupEnglish = p.globalToppingSetup
-          ?.filter(gts => gts.cantidad > 0)
-          .map(gts => {
+          ?.filter((gts) => gts.cantidad > 0)
+          .map((gts) => {
             return {
               id: gts.id,
               label: gts.label,
@@ -132,7 +136,7 @@ const FinalizarPedido = () => {
         };
       });
 
-      const pedidoSalsasSeleccionadas = salsasConfig.map(s => {
+      const pedidoSalsasSeleccionadas = salsasConfig.map((s) => {
         return {
           id: s.id,
           quantity: s.cantSalsa,
@@ -148,6 +152,7 @@ const FinalizarPedido = () => {
         // dedicatoria: values.dedicatoria,
         delivery_method_id: metodoDeDelivery,
         delivery_address: values.delivery_address,
+        delivery_price: deliveryPrice,
         reference: values.reference,
         payment_method_id: metodoDePago,
         cash: values.cash,
@@ -176,6 +181,7 @@ const FinalizarPedido = () => {
             // dedicatoria: values.dedicatoria,
             delivery_method_id: metodoDeDelivery,
             delivery_address: values.delivery_address,
+            delivery_price: deliveryPrice,
             reference: values.reference,
             payment_method_id: metodoDePago,
             cash: values.cash,
@@ -195,11 +201,11 @@ const FinalizarPedido = () => {
               "Content-Type": "application/json",
               Accept: "application/json",
             },
-          },
+          }
         );
         console.log(
           "🚀 ~ file: FinalizarPedido.js ~ line 200 ~ onSubmit: ~ res",
-          res,
+          res
         );
 
         // ! descomentar luego ...
@@ -279,7 +285,7 @@ const FinalizarPedido = () => {
 
   return (
     <>
-      {horarioLaboral == false ? (
+      {horarioLaboral == true ? (
         <div className="sm:mx-12">
           <Subtitulo>Continuar con el pedido</Subtitulo>
           <form onSubmit={formik.handleSubmit} className="font-Andika">
@@ -373,38 +379,40 @@ const FinalizarPedido = () => {
                     <p className="text-black text-md">
                       ¿A donde te llevamos tu pedido?
                     </p>
-                    <p className="text-black text-sm mt-2">
-                      Direccion de entrega
-                    </p>
-                    <input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.delivery_address}
-                      className="w-full bg-blueGray-50 rounded-lg px-1"
-                      type="text"
-                      name="delivery_address"
-                    />
-                    {formik.touched.delivery_address &&
-                    formik.errors.delivery_address ? (
-                      <p className="mt-0 mb-4 text-red-500">
-                        *{formik.errors.delivery_address}
-                      </p>
-                    ) : null}
+                    <MapComponent local={localSeleccionado} />
 
-                    <p className="text-black text-sm mt-2">Referencia</p>
-                    <input
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.reference}
-                      className="w-full bg-blueGray-50 rounded-lg px-1"
-                      type="text"
-                      name="reference"
-                    />
-                    {formik.touched.reference && formik.errors.reference ? (
-                      <p className="mt-0 mb-4 text-red-500">
-                        *{formik.errors.reference}
+                    {/* <p className="text-black text-sm mt-2">
+                        Direccion de entrega
                       </p>
-                    ) : null}
+                      <input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.delivery_address}
+                        className="w-full bg-blueGray-50 rounded-lg px-1"
+                        type="text"
+                        name="delivery_address"
+                      />
+                      {formik.touched.delivery_address &&
+                      formik.errors.delivery_address ? (
+                        <p className="mt-0 mb-4 text-red-500">
+                          *{formik.errors.delivery_address}
+                        </p>
+                      ) : null}
+
+                      <p className="text-black text-sm mt-2">Referencia</p>
+                      <input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.reference}
+                        className="w-full bg-blueGray-50 rounded-lg px-1"
+                        type="text"
+                        name="reference"
+                      />
+                      {formik.touched.reference && formik.errors.reference ? (
+                        <p className="mt-0 mb-4 text-red-500">
+                          *{formik.errors.reference}
+                        </p>
+                      ) : null} */}
 
                     <p className="text-black text-sm mt-2">Recibe el pedido:</p>
                     <input
@@ -591,7 +599,7 @@ const FinalizarPedido = () => {
                 ) : null}
               </div> */}
 
-              <div className="px-1">
+              {/* <div className="px-1">
                 {entregaDelivery && (
                   <p className="text-sm text-gray-700 leading-4">
                     * Si seleccionó la modalidad{" "}
@@ -611,13 +619,21 @@ const FinalizarPedido = () => {
                     </span>
                   </p>
                 )}
-              </div>
+              </div> */}
               <div className="flex justify-between mt-4 mx-1">
-                <p className="text-oishiNegro text-lg">Total:</p>
-                <p className="text-oishiNegro text-xl font-semibold">
+                <p className="text-gray-800  text-lg">Total:</p>
+                <p className="text-gray-800  text-xl font-semibold">
                   S/ {totalPedidos.toFixed(2)}
                 </p>
               </div>
+              {entregaDelivery && (
+                <div className="flex justify-between mx-1">
+                  <p className="text-gray-800 text-lg">Delivery:</p>
+                  <p className="text-gray-800 text-xl font-semibold">
+                    +S/ {deliveryPrice && Number(deliveryPrice).toFixed(2)}
+                  </p>
+                </div>
+              )}
 
               <div className="flex mt-6 mb-4 justify-evenly">
                 <button

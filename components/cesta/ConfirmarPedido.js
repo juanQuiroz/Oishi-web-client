@@ -31,6 +31,9 @@ const ConfirmarPedido = () => {
     } else if (localSeleccionado == 2) {
       var startHour = dayjs().hour(12).minute(15);
       var endHour = dayjs().hour(20).minute(45);
+    } else if (localSeleccionado == 3) {
+      var startHour = dayjs().hour(12).minute(15);
+      var endHour = dayjs().hour(20).minute(45);
     }
 
     setHorarioLaboral(dayjs().isBetween(startHour, endHour));
@@ -38,7 +41,7 @@ const ConfirmarPedido = () => {
 
   // filtrar pedidos
   if (presentacion.length > 0) {
-    var pedidosFiltrados = presentacion.filter(p => p.cantidad > 0);
+    var pedidosFiltrados = presentacion.filter((p) => p.cantidad > 0);
   }
 
   return (
@@ -53,15 +56,15 @@ const ConfirmarPedido = () => {
           <div>
             <div className=" grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3">
               {pedidosFiltrados &&
-                pedidosFiltrados.map(p => (
+                pedidosFiltrados.map((p) => (
                   <ProductoPedido key={p.id} presentacionPedido={p} />
                 ))}
               {ofertasSeleccionada &&
-                ofertasSeleccionada.map(o => (
+                ofertasSeleccionada.map((o) => (
                   <OfertaPedido key={o.oferta_id} ofertaPedido={o} />
                 ))}
               {combosSeleccionados &&
-                combosSeleccionados.map(c => (
+                combosSeleccionados.map((c) => (
                   <ComboPedido key={c.id} comboPedido={c} />
                 ))}
             </div>
@@ -96,7 +99,7 @@ const ConfirmarPedido = () => {
           ofertasSeleccionada.length > 0 ||
           combosSeleccionados.length > 0) && (
           <div className="flex justify-center">
-            {horarioLaboral == false ? (
+            {horarioLaboral == true ? (
               <div className="w-full flex mt-6 mb-4 justify-evenly">
                 <button
                   className="font-semibold text-white bg-red-500 px-3 py-2 rounded-full shadow-red hover:shadow-redPlus min-h-10 hover:bg-red-600"

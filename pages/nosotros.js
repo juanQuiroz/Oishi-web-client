@@ -1,11 +1,14 @@
 import React from "react";
 import Layout from "../components/Layout";
+import MapComponent from "../components/map/MapComponent";
 
 import LineaTiempo from "../components/nosotros/LineaTiempo";
 
 const nosotros = () => {
   return (
     <Layout>
+      <div className="p-8"></div>
+
       <div className="my-3 mx-5 ">
         <h1 className=" font-Andika text-5xl font-semibold text-oishiAzul">
           Oishi

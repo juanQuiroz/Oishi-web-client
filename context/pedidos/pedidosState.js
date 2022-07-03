@@ -18,6 +18,7 @@ import {
   AGREGAR_CLIENTE,
   AGREGAR_CLIENTE_TOKEN,
   AGREGAR_COMBO_TOPPING,
+  AÑADIR_PRECIO_DELIVERY,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
@@ -35,6 +36,7 @@ const PedidosState = ({ children }) => {
     cliente: null,
     customerToken: null,
     salsasConfig: [],
+    deliveryPrice: null,
   };
 
   const [state, dispatch] = useReducer(pedidosReducer, initialState);
@@ -42,42 +44,42 @@ const PedidosState = ({ children }) => {
   // Funciones
 
   // Agregar informacion del cliente al stateContext
-  const addCustomer = customer => {
+  const addCustomer = (customer) => {
     dispatch({
       type: AGREGAR_CLIENTE,
       payload: customer,
     });
   };
   // agregar token del cliente
-  const addCustomerToken = customer_token => {
+  const addCustomerToken = (customer_token) => {
     dispatch({
       type: AGREGAR_CLIENTE_TOKEN,
       payload: customer_token,
     });
   };
 
-  const setConfirmarpedido = data => {
+  const setConfirmarpedido = (data) => {
     dispatch({
       type: SET_CONFIRMARPEDIDO,
       payload: data,
     });
   };
 
-  const selectLocal = local => {
+  const selectLocal = (local) => {
     dispatch({
       type: SELECCIONAR_LOCAL,
       payload: local,
     });
   };
 
-  const addDataProducto = producto => {
+  const addDataProducto = (producto) => {
     dispatch({
       type: AGREGAR_PRODUCTOS,
       payload: producto,
     });
   };
 
-  const addPresentacion = dataPresentacion => {
+  const addPresentacion = (dataPresentacion) => {
     dispatch({
       type: ACTUALIAZAR_CANTPRESENTACION,
       payload: dataPresentacion,
@@ -106,51 +108,58 @@ const PedidosState = ({ children }) => {
   };
 
   // elimina una presentacion del array presentacion del initialState -> presentacion:[]
-  const deletePresentacion = idPedido => {
+  const deletePresentacion = (idPedido) => {
     dispatch({
       type: ELIMINAR_PRESENTACION,
       payload: idPedido,
     });
   };
 
-  const addSalsasConfig = salsas => {
+  const addSalsasConfig = (salsas) => {
     dispatch({
       type: "AGREGAR_SALSAS_CONFIG",
       payload: salsas,
     });
   };
 
-  const addOferta = oferta => {
+  const addOferta = (oferta) => {
     dispatch({
       type: "AGREGAR_OFERTA",
       payload: oferta,
     });
   };
 
-  const addCombo = combo => {
+  const addCombo = (combo) => {
     dispatch({
       type: "AGREGAR_COMBO",
       payload: combo,
     });
   };
-  const addComboWithTopping = combo => {
+  const addComboWithTopping = (combo) => {
     dispatch({
       type: "AGREGAR_COMBO_TOPPING",
       payload: combo,
     });
   };
 
-  const deleteOferta = idOferta => {
+  const deleteOferta = (idOferta) => {
     dispatch({
       type: "ELIMINAR_OFERTA",
       payload: idOferta,
     });
   };
 
-  const deleteCombo = combo => {
+  const deleteCombo = (combo) => {
     dispatch({
       type: "ELIMINAR_COMBO",
       payload: combo,
+    });
+  };
+
+  const setDeliveryPrice = (price) => {
+    dispatch({
+      type: "AÑADIR_PRECIO_DELIVERY",
+      payload: price,
     });
   };
 
@@ -167,6 +176,7 @@ const PedidosState = ({ children }) => {
         cliente: state.cliente,
         customerToken: state.customerToken,
         salsasConfig: state.salsasConfig,
+        deliveryPrice: state.deliveryPrice,
         addCustomerToken,
         setConfirmarpedido,
         addDataProducto,
@@ -183,6 +193,7 @@ const PedidosState = ({ children }) => {
         selectLocal,
         addCustomer,
         addSalsasConfig,
+        setDeliveryPrice,
       }}
     >
       {children}
