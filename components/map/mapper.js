@@ -7,7 +7,7 @@ function Mapper() {
   return (
     <>
       <MapLayout>
-        <SearchBox />
+        {/* <SearchBox /> */}
         <GoogleMapBox />
         <DeliveryPrice />
       </MapLayout>

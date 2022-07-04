@@ -20,7 +20,7 @@ const FinalizarPedido = () => {
   const [entregaDelivery, setEntregaDelivery] = React.useState(true);
   const [efectivo, setEfectivo] = React.useState(false);
   const [metodoDePago, setMetodoDePago] = React.useState(null);
-  const [metodoDeDelivery, setMetodoDeDelivery] = React.useState(null);
+  const [metodoDeDelivery, setMetodoDeDelivery] = React.useState("1");
   const [comprobantePago, setComprobantePago] = React.useState(null);
 
   const pcontext = React.useContext(PedidosContext);
@@ -346,7 +346,7 @@ const FinalizarPedido = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.metEntrega}
                       // value="1"
-                      // defaultChecked
+                      defaultChecked
                       type="radio"
                       className="form-radio"
                       name="metEntrega"
@@ -620,18 +620,40 @@ const FinalizarPedido = () => {
                   </p>
                 )}
               </div> */}
-              <div className="flex justify-between mt-4 mx-1">
-                <p className="text-gray-800  text-lg">Total:</p>
-                <p className="text-gray-800  text-xl font-semibold">
-                  S/ {totalPedidos.toFixed(2)}
-                </p>
-              </div>
-              {entregaDelivery && (
-                <div className="flex justify-between mx-1">
-                  <p className="text-gray-800 text-lg">Delivery:</p>
-                  <p className="text-gray-800 text-xl font-semibold">
-                    +S/ {deliveryPrice && Number(deliveryPrice).toFixed(2)}
+
+              {entregaDelivery ? (
+                <div className="flex justify-between mt-4 mx-1">
+                  <p className="text-gray-800  text-lg">Pedido:</p>
+                  <p className="text-gray-800  text-lg font-semibold">
+                    S/ {totalPedidos.toFixed(2)}
                   </p>
+                </div>
+              ) : (
+                <div className="flex justify-between mt-4 mx-1">
+                  <p className="text-gray-800  text-xl">Total:</p>
+                  <p className="text-gray-800  text-xl font-semibold">
+                    S/ {totalPedidos.toFixed(2)}
+                  </p>
+                </div>
+              )}
+
+              {entregaDelivery && (
+                <div>
+                  <div className="flex justify-between mx-1 -mt-2">
+                    <p className="text-gray-800 text-lg">Delivery:</p>
+                    <p className="text-gray-800 text-lg font-semibold">
+                      +S/ {deliveryPrice && Number(deliveryPrice).toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="flex justify-between mx-1">
+                    <p className="text-oishiAzul3 text-xl font-bold">Total:</p>
+                    <p className="text-oishiAzul3 text-xl font-bold">
+                      {deliveryPrice &&
+                        (Number(deliveryPrice) + Number(totalPedidos)).toFixed(
+                          2
+                        )}
+                    </p>
+                  </div>
                 </div>
               )}
 
