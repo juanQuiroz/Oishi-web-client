@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     try {
       const response = await axios.post(
-        "https://api.micuentaweb.pe/api-payment/V4/Charge/CreatePayment",
+        "https://api.micuentaweb.pe/api-payment/V4/Charge/validatePayment",
         body,
         {
           headers: {
@@ -32,25 +32,3 @@ export default async function handler(req, res) {
     }
   }
 }
-
-// const createPayment = async body => {
-//   try {
-//     const res = await axios.post(
-//       "https://api.micuentaweb.pe/api-payment/V4/Charge/CreatePayment",
-//       body,
-//       {
-//         headers: {
-//           "Access-Control-Allow-Origin": "*",
-//           "Content-Type": "application/json",
-//           Authorization:
-//             "Basic NTcxODA2ODU6dGVzdHBhc3N3b3JkX0R1aXRURTBJaHhZMjhTemtjUXkyWVBodXdjVXUzNzdVeUdDWXl0YzE5YlROZA==",
-//         },
-//       },
-//     );
-
-//     console.log(crearCompra);
-//     res.status(201).json(res);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
