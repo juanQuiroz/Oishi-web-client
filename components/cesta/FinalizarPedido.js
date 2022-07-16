@@ -7,16 +7,11 @@ import axios from "axios";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import MapComponent from "../map/MapComponent";
-import Swal from "sweetalert2";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { privateEncrypt } from "crypto";
 import RealizarPago from "./RealizarPago";
 
 const FinalizarPedido = () => {
   const [dataPedido, setDataPedido] = React.useState(null);
 
-  const router = useRouter();
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
 
   // por defecto el metodo de entrega es mediante delivery
