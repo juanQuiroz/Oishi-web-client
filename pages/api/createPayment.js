@@ -8,8 +8,6 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const body = req.body;
 
-    console.log("LLEGO HASTA API/CREATEPAYMENT");
-
     try {
       const response = await axios.post(
         "https://api.micuentaweb.pe/api-payment/V4/Charge/CreatePayment",
@@ -27,7 +25,8 @@ export default async function handler(req, res) {
 
       console.log("ApiNextJS - TRY -> ", response);
 
-      res.status(200).send(response.data);
+      // res.status(200).send(response.data);
+      res.send(response.data);
     } catch (e) {
       console.log("ApiNextJS - CATCH ->", e);
       res.status(500).json(e);
