@@ -3,7 +3,7 @@ import Head from "next/head";
 import axios from "axios";
 import Spinner from "../ui/Spinner";
 import Swal from "sweetalert2";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import PedidosContext from "../../context/pedidos/pedidosContex";
 
 const RealizarPago = ({ dataPedido, entregaDelivery }) => {
@@ -54,7 +54,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
         }
       });
       vaciarCesta();
-      router.push("/cartaOishi");
+      // router.push("/cartaOishi");
     } catch (e) {
       console.log(e);
     }
