@@ -5,6 +5,8 @@ import "../public/styles.css";
 import PedidosState from "../context/pedidos/pedidosState";
 
 import "swiper/css/bundle";
+import "../styles/classic-reset.css";
+import "../styles/spinner.css";
 
 function MyApp({ Component, pageProps }) {
   return (

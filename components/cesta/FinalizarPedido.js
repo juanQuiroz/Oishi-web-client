@@ -284,14 +284,17 @@ const FinalizarPedido = () => {
       //   console.log(e);
       // }
 
-      // resetForm();
+      resetForm();
     },
   });
 
   return (
     <>
       {dataPedido ? (
-        <RealizarPago dataPedido={dataPedido} />
+        <RealizarPago
+          dataPedido={dataPedido}
+          entregaDelivery={entregaDelivery}
+        />
       ) : (
         <>
           {horarioLaboral == false ? (

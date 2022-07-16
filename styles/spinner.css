@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* From uiverse.io by @Z-C-Code */
 @keyframes square-animation {
     0% {
@@ -105,7 +101,7 @@
     height: 28px;
     margin: 2px;
     border-radius: 0px;
-    background: white;
+    background: rgb(255, 255, 255);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

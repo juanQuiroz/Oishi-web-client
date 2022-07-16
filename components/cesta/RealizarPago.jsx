@@ -1,12 +1,64 @@
 import React from "react";
 import Head from "next/head";
 import axios from "axios";
+import Spinner from "../ui/Spinner";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
+import PedidosContext from "../../context/pedidos/pedidosContex";
 
-const RealizarPago = ({ dataPedido }) => {
-  console.log(
-    "🚀 ~ file: RealizarPago.jsx ~ line 6 ~ RealizarPago ~ dataPedido",
-    dataPedido
-  );
+const RealizarPago = ({ dataPedido, entregaDelivery }) => {
+  const pcontext = React.useContext(PedidosContext);
+  const { vaciarCesta } = pcontext;
+
+  const router = useRouter();
+  const createOrderBackend = async () => {
+    // PARA WEBSOCKET - API PHP  para crear el pedido en el sistema Oishi pasando primero por el websocket
+    try {
+      const res = await axios.post(
+        "http://weboishibackend.com/crearpedido",
+        // "http://localhost:4000/crearpedido",
+        dataPedido,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      // SWALHERE
+      Swal.fire({
+        title: "Pedido realizado",
+        text: "Gracias por pedir en Oishi",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+        allowOutsideClick: () => !Swal.isLoading(),
+      }).then(() => {
+        if (entregaDelivery) {
+          Swal.fire({
+            confirmButtonText: "Aceptar",
+            imageUrl:
+              "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/delivery_xuwobo.jpg",
+            imageWidth: 450,
+            imageHeight: 426,
+            imageAlt: "Oishi message",
+          });
+        } else {
+          Swal.fire({
+            confirmButtonText: "Aceptar",
+            imageUrl:
+              "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/recojo_hhids9.jpg",
+            imageWidth: 450,
+            imageHeight: 426,
+            imageAlt: "Oishi message",
+          });
+        }
+      });
+      vaciarCesta();
+      router.push("/cartaOishi");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const [message, setMessage] = React.useState({ message: null });
   React.useEffect(() => {
@@ -19,8 +71,26 @@ const RealizarPago = ({ dataPedido }) => {
 
       axios
         .post("http://localhost:3000/api/createPayment", {
-          amount: 5000,
+          amount:
+            dataPedido.total_price * 100 + dataPedido.delivery_price * 100,
           currency: "PEN",
+          orderId: Date.now(),
+          customer: {
+            billingDetails: {
+              phoneNumber: dataPedido.phone,
+              firstName: dataPedido.customer_name,
+              city:
+                dataPedido.local_id == 1
+                  ? "Cañete"
+                  : dataPedido.local_id == 2
+                  ? "Ica"
+                  : "Chincha",
+            },
+            shoppingCart: {
+              insuranceAmount: dataPedido.total_price * 100,
+              shippingAmount: dataPedido.delivery_price * 100,
+            },
+          },
         })
         .then((resp) => {
           formToken = resp.data.answer.formToken;
@@ -42,8 +112,10 @@ const RealizarPago = ({ dataPedido }) => {
             axios
               .post("http://localhost:3000/api/validatePayment", paymentData)
               .then((response) => {
-                if (response.status === 200)
-                  setMessage({ message: "Payment successful!" });
+                if (response.status === 200) {
+                  createOrderBackend();
+                  setMessage({ message: "Pago exitoso" });
+                }
               });
             return false; // Return false to prevent the redirection
           })
@@ -56,26 +128,38 @@ const RealizarPago = ({ dataPedido }) => {
         ) /* show the payment form */
         .catch((error) =>
           setMessage({
-            message: error + " (see console for more details)",
+            message: error + " Error de pago",
           })
         );
     });
   }, []);
 
   return (
-    <div>
-      <Head>
-        <title>Realizar pago</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link
-          rel="stylesheet"
-          href="https://static.micuentaweb.pe/static/js/krypton-client/V4.0/ext/classic-reset.css"
-        />
-        <script src="https://static.micuentaweb.pe/static/js/krypton-client/V4.0/ext/classic.js"></script>
-      </Head>
-      <div id="myPaymentForm"></div>
-      <div>{message.message}</div>
-    </div>
+    <>
+      <div className=" bg-oishiCeleste mx-2 rounded-xl p-6">
+        <h1 className="mb-4 text-2xl font-extrabold font-Andika">
+          Realizar Pago
+        </h1>
+        <Head>
+          <title>Realizar pago</title>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+          {/* <link
+            rel="stylesheet"
+            href="https://static.micuentaweb.pe/static/js/krypton-client/V4.0/ext/classic-reset.css"
+          /> */}
+          <script src="https://static.micuentaweb.pe/static/js/krypton-client/V4.0/ext/classic.js"></script>
+        </Head>
+        <div className="flex justify-center" id="myPaymentForm">
+          <Spinner />
+        </div>
+      </div>
+      <div className=" text-xl mt-6 text-center text-oishiAzul3 font-Andika">
+        {message.message}
+      </div>
+    </>
   );
 };
 

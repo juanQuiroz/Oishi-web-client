@@ -15,6 +15,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
+import Spinner from "../components/ui/Spinner";
 
 export default function Home() {
   const [isOpen, setIsOpen] = React.useState(true);
@@ -38,7 +39,7 @@ export default function Home() {
   return (
     <Layout>
       <ModalIndex isOpen={isOpen} setIsOpen={setIsOpen} />
-    
+
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -54,7 +55,7 @@ export default function Home() {
         className="mySwiper"
       >
         {imgURL &&
-          imgURL.map(slide => {
+          imgURL.map((slide) => {
             return (
               <SwiperSlide key={slide.id}>
                 <img src={slide.url} alt="" />
