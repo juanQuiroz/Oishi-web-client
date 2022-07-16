@@ -110,7 +110,10 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
         .then(({ KR }) =>
           KR.onSubmit((paymentData) => {
             axios
-              .post("http://localhost:3000/api/validatePayment", paymentData)
+              .post(
+                "https://oishi-web-client.vercel.app/api/validatePayment",
+                paymentData
+              )
               .then((response) => {
                 if (response.status === 200) {
                   createOrderBackend();
