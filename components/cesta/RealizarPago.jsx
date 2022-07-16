@@ -70,7 +70,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
       const KRGlue = glue.default;
 
       axios
-        .post("https://test-izipay-delete.vercel.app/api/createPayment", {
+        .post("https://oishi-web-client.vercel.app/api/createPayment", {
           amount:
             dataPedido.total_price * 100 + dataPedido.delivery_price * 100,
           currency: "PEN",
