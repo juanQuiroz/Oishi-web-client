@@ -70,7 +70,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
       const KRGlue = glue.default;
 
       axios
-        .post("https://oishi-web-client.vercel.app/api/createPayment", {
+        .post("https://oishi-web-client-test.vercel.app/api/createPayment", {
           amount:
             dataPedido.total_price * 100 + dataPedido.delivery_price * 100,
           currency: "PEN",
@@ -111,7 +111,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
           KR.onSubmit((paymentData) => {
             axios
               .post(
-                "https://oishi-web-client.vercel.app/api/validatePayment",
+                "https://oishi-web-client-test.vercel.app/api/validatePayment",
                 paymentData
               )
               .then((response) => {
