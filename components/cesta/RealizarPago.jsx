@@ -10,7 +10,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
   const pcontext = React.useContext(PedidosContext);
   const { vaciarCesta } = pcontext;
 
-  const router = useRouter();
+  // const router = useRouter();
   const createOrderBackend = async () => {
     // PARA WEBSOCKET - API PHP  para crear el pedido en el sistema Oishi pasando primero por el websocket
     try {
