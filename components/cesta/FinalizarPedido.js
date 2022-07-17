@@ -292,7 +292,7 @@ const FinalizarPedido = () => {
         />
       ) : (
         <>
-          {horarioLaboral == true ? (
+          {horarioLaboral == false ? (
             <div className="sm:mx-12">
               <Subtitulo>Continuar con el pedido</Subtitulo>
               <form onSubmit={formik.handleSubmit} className="font-Andika">
