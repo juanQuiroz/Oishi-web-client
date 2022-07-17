@@ -70,7 +70,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
       const KRGlue = glue.default;
 
       axios
-        .post("http://localhost:4000/createPayment", {
+        .post("http://weboishibackend.com/izipaybackend/createPayment", {
           amount:
             dataPedido.total_price * 100 + dataPedido.delivery_price * 100,
           currency: "PEN",
@@ -110,7 +110,10 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
         .then(({ KR }) =>
           KR.onSubmit((paymentData) => {
             axios
-              .post("http://localhost:4000/validatePayment", paymentData)
+              .post(
+                "http://weboishibackend.com/izipaybackend/validatePayment",
+                paymentData
+              )
               .then((response) => {
                 if (response.status === 200) {
                   createOrderBackend();
