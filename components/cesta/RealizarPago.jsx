@@ -15,7 +15,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
     // PARA WEBSOCKET - API PHP  para crear el pedido en el sistema Oishi pasando primero por el websocket
     try {
       const res = await axios.post(
-        "http://weboishibackend.com/crearpedido",
+        "https://weboishibackend.com/crearpedido",
         // "http://localhost:4000/crearpedido",
         dataPedido,
         {
@@ -70,7 +70,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
       const KRGlue = glue.default;
 
       axios
-        .post("http://weboishibackend.com/izipaybackend/createPayment", {
+        .post("https://weboishibackend.com/izipaybackend/createPayment", {
           amount:
             dataPedido.total_price * 100 + dataPedido.delivery_price * 100,
           currency: "PEN",
@@ -111,7 +111,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
           KR.onSubmit((paymentData) => {
             axios
               .post(
-                "http://weboishibackend.com/izipaybackend/validatePayment",
+                "https://weboishibackend.com/izipaybackend/validatePayment",
                 paymentData
               )
               .then((response) => {
