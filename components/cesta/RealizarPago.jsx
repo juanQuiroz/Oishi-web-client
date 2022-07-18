@@ -20,7 +20,6 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
         dataPedido,
         {
           headers: {
-            Origin: "*",
             "Content-Type": "application/json",
             Accept: "application/json",
           },
