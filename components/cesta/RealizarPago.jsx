@@ -10,7 +10,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
   const pcontext = React.useContext(PedidosContext);
   const { vaciarCesta } = pcontext;
 
-  // const router = useRouter();
+  const router = useRouter();
   const createOrderBackend = async () => {
     // PARA WEBSOCKET - API PHP  para crear el pedido en el sistema Oishi pasando primero por el websocket
     try {
@@ -25,11 +25,6 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: RealizarPago.jsx ~ line 28 ~ createOrderBackend ~ res",
-        res
-      );
-
       // SWALHERE
       Swal.fire({
         title: "Pedido realizado",
@@ -59,7 +54,7 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
         }
       });
       vaciarCesta();
-      // router.push("/cartaOishi");
+      router.push("/cartaOishi");
     } catch (e) {
       console.log(e);
     }
