@@ -14,17 +14,22 @@ const RealizarPago = ({ dataPedido, entregaDelivery }) => {
   const createOrderBackend = async () => {
     // PARA WEBSOCKET - API PHP  para crear el pedido en el sistema Oishi pasando primero por el websocket
     try {
-      // const res = await axios.post(
-      //   "https://weboishibackend.com/crearpedido",
-      //   // "http://localhost:4000/crearpedido",
-      //   dataPedido,
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Accept: "application/json",
-      //     },
-      //   }
-      // );
+      const res = await axios.post(
+        "https://weboishibackend.com/crearpedido",
+        // "http://localhost:4000/crearpedido",
+        dataPedido,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: RealizarPago.jsx ~ line 28 ~ createOrderBackend ~ res",
+        res
+      );
+
       // SWALHERE
       Swal.fire({
         title: "Pedido realizado",
