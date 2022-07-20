@@ -34,6 +34,7 @@ const FinalizarPedido = () => {
     vaciarCesta,
     salsasConfig,
     deliveryPrice,
+    deliveryCoordinates,
   } = pcontext;
 
   dayjs.extend(isBetween);
@@ -151,7 +152,8 @@ const FinalizarPedido = () => {
         dni_ruc: values.dni_ruc,
         customer_name: values.customer_name,
         delivery_method_id: metodoDeDelivery,
-        delivery_address: values.delivery_address,
+        delivery_address: deliveryCoordinates,
+        // delivery_address: values.delivery_address,
         delivery_price: deliveryPrice,
         reference: values.reference,
         payment_method_id: metodoDePago,
@@ -169,82 +171,78 @@ const FinalizarPedido = () => {
       });
 
       // PARA WEBSOCKET - API PHP
+      if (efectivo) {
+        try {
+          const res = await axios.post(
+            "http://localhost:4000/crearpedido",
+            {
+              local_id: localSeleccionado,
+              to_payment_proof: values.paraComprobanteDePago,
+              total_price: values.total_price,
+              dni_ruc: values.dni_ruc,
+              customer_name: values.customer_name,
+              delivery_method_id: metodoDeDelivery,
+              delivery_address: values.delivery_address,
+              delivery_price: deliveryPrice,
+              reference: values.reference,
+              payment_method_id: metodoDePago,
+              cash: values.cash,
+              dedication: values.dedication,
+              payment_proof_id: comprobantePago,
+              phone: values.phone,
+              assigned_person: values.assigned_person,
+              content: {
+                products_presentations: pedidoPresentaciones,
+                offers: pedidofertasSeleccionada,
+                combos_presentations: pedidocombosSeleccionados,
+                sauces: pedidoSalsasSeleccionadas,
+              },
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+            }
+          );
+          // SWALHERE
+          Swal.fire({
+            title: "Pedido realizado",
+            text: "Gracias por pedir en Oishi",
+            icon: "success",
+            confirmButtonText: "Aceptar",
 
-      // try {
-      //   const res = await axios.post(
-      //     "http://localhost:4000/crearpedido",
-      //     {
-      //       local_id: localSeleccionado,
-      //       to_payment_proof: values.paraComprobanteDePago,
-      //       total_price: values.total_price,
-      //       dni_ruc: values.dni_ruc,
-      //       customer_name: values.customer_name,
-      //       delivery_method_id: metodoDeDelivery,
-      //       delivery_address: values.delivery_address,
-      //       delivery_price: deliveryPrice,
-      //       reference: values.reference,
-      //       payment_method_id: metodoDePago,
-      //       cash: values.cash,
-      //       dedication: values.dedication,
-      //       payment_proof_id: comprobantePago,
-      //       phone: values.phone,
-      //       assigned_person: values.assigned_person,
-      //       content: {
-      //         products_presentations: pedidoPresentaciones,
-      //         offers: pedidofertasSeleccionada,
-      //         combos_presentations: pedidocombosSeleccionados,
-      //         sauces: pedidoSalsasSeleccionadas,
-      //       },
-      //     },
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Accept: "application/json",
-      //       },
-      //     }
-      //   );
-      //   console.log(
-      //     "🚀 ~ file: FinalizarPedido.js ~ line 200 ~ onSubmit: ~ res",
-      //     res
-      //   );
+            allowOutsideClick: () => !Swal.isLoading(),
+          }).then(() => {
+            if (entregaDelivery) {
+              Swal.fire({
+                confirmButtonText: "Aceptar",
+                imageUrl:
+                  "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/delivery_xuwobo.jpg",
+                imageWidth: 450,
+                imageHeight: 426,
+                imageAlt: "Oishi message",
+              });
+            } else {
+              Swal.fire({
+                confirmButtonText: "Aceptar",
+                imageUrl:
+                  "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/recojo_hhids9.jpg",
+                imageWidth: 450,
+                imageHeight: 426,
+                imageAlt: "Oishi message",
+              });
+            }
+          });
 
-      //   // ! descomentar luego ...
+          vaciarCesta();
+          router.push("/carta");
+        } catch (e) {
+          console.log(e);
+        }
+      }
 
-      //   // SWALHERE
-      //   Swal.fire({
-      //     title: "Pedido realizado",
-      //     text: "Gracias por pedir en Oishi",
-      //     icon: "success",
-      //     confirmButtonText: "Aceptar",
-
-      //     allowOutsideClick: () => !Swal.isLoading(),
-      //   }).then(() => {
-      //     if (entregaDelivery) {
-      //       Swal.fire({
-      //         confirmButtonText: "Aceptar",
-      //         imageUrl:
-      //           "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/delivery_xuwobo.jpg",
-      //         imageWidth: 450,
-      //         imageHeight: 426,
-      //         imageAlt: "Oishi message",
-      //       });
-      //     } else {
-      //       Swal.fire({
-      //         confirmButtonText: "Aceptar",
-      //         imageUrl:
-      //           "https://res.cloudinary.com/alldevsoftware/image/upload/v1640842766/oishilanding/recojo_hhids9.jpg",
-      //         imageWidth: 450,
-      //         imageHeight: 426,
-      //         imageAlt: "Oishi message",
-      //       });
-      //     }
-      //   });
-
-      //   // vaciarCesta();
-      //   // router.push("/carta");
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      //
 
       // try {
       //   const res = await axios.post(
@@ -285,7 +283,7 @@ const FinalizarPedido = () => {
 
   return (
     <>
-      {dataPedido ? (
+      {dataPedido && !efectivo ? (
         <RealizarPago
           dataPedido={dataPedido}
           entregaDelivery={entregaDelivery}
@@ -629,7 +627,7 @@ const FinalizarPedido = () => {
                         type="submit"
                         className="font-semibold text-white bg-green-500 px-3 py-2 rounded-full shadow-green min-h-10 hover:bg-green-600"
                       >
-                        Hacer Pedido
+                        Pasar a pagar
                       </button>
                     </div>
                   </div>

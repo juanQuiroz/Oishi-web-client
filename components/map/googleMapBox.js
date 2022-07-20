@@ -27,13 +27,13 @@ function GoogleMapBox() {
           gestureHandling: "cooperative",
         }}
       >
-        <Polygons />
+        // ! ACTIVAR / DESACTIVAR polygons
+        {/* <Polygons /> */}
         <Marker
           position={delivery.userMarker}
           draggable={true}
           onDragEnd={(e) => dispatch(updateUserMarker(e.latLng))}
         />
-
         <Marker
           position={{ lat: -13.07823, lng: -76.38772 }}
           draggable={false}

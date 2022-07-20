@@ -19,6 +19,7 @@ import {
   AGREGAR_CLIENTE_TOKEN,
   AGREGAR_COMBO_TOPPING,
   AÑADIR_PRECIO_DELIVERY,
+  AÑADIR_COORDENADAS_DELIVERY,
 } from "../../types";
 
 const PedidosState = ({ children }) => {
@@ -37,6 +38,7 @@ const PedidosState = ({ children }) => {
     customerToken: null,
     salsasConfig: [],
     deliveryPrice: null,
+    deliveryCoordinates: null,
   };
 
   const [state, dispatch] = useReducer(pedidosReducer, initialState);
@@ -158,8 +160,14 @@ const PedidosState = ({ children }) => {
 
   const setDeliveryPrice = (price) => {
     dispatch({
-      type: "AÑADIR_PRECIO_DELIVERY",
+      type: AÑADIR_PRECIO_DELIVERY,
       payload: price,
+    });
+  };
+  const setDeliveryCoordinates = (coordinates) => {
+    dispatch({
+      type: AÑADIR_COORDENADAS_DELIVERY,
+      payload: coordinates,
     });
   };
 
@@ -177,6 +185,7 @@ const PedidosState = ({ children }) => {
         customerToken: state.customerToken,
         salsasConfig: state.salsasConfig,
         deliveryPrice: state.deliveryPrice,
+        deliveryCoordinates: state.deliveryCoordinates,
         addCustomerToken,
         setConfirmarpedido,
         addDataProducto,
@@ -194,6 +203,7 @@ const PedidosState = ({ children }) => {
         addCustomer,
         addSalsasConfig,
         setDeliveryPrice,
+        setDeliveryCoordinates,
       }}
     >
       {children}

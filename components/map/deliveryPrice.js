@@ -9,7 +9,7 @@ function DeliveryPrice() {
   const zones = deliveryZones.getList();
 
   const pedidosContext = useContext(PedidosContext);
-  const { setDeliveryPrice } = pedidosContext;
+  const { setDeliveryPrice, setDeliveryCoordinates } = pedidosContext;
 
   generateGooglePolygonForZones(zones);
 
@@ -20,22 +20,32 @@ function DeliveryPrice() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     setDeliveryPrice(currentPrice);
+
+    setDeliveryCoordinates(
+      JSON.stringify(delivery.userMarker)
+        .replace('{"lat":', "")
+        .replace('"lng":', "")
+        .replace("}", "")
+    );
   }, [delivery.userMarker]);
 
   return (
     <>
-      {/* <p className="text-lg mt-1 text-oishiAzul3">
-        {delivery.price !== null
-          ? "Costo Delivery:" + " S/ " + Number(delivery.price).toFixed(2)
-          : "Lo sentimos, no hay delivery para esta zona."}
-      </p> */}
-
       {delivery.price !== null ? (
         <p className=" mt-1 text-md text-oishiAzul3">
           Costo Delivery:{" "}
           <span className="font-semibold">
             S/ {Number(delivery.price).toFixed(2)}
           </span>
+          {/* <p>
+            {delivery.userMarker.lat !== -13.07823
+              ? "Location: " +
+                JSON.stringify(delivery.userMarker)
+                  .replace('{"lat":', "")
+                  .replace('"lng":', "")
+                  .replace("}", "")
+              : ""}
+          </p> */}
         </p>
       ) : (
         <p className=" my-2 text-md text-red-600">

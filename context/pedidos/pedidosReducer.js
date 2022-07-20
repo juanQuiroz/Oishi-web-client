@@ -16,10 +16,17 @@ import {
   AGREGAR_COMBO_TOPPING,
   AGREGAR_SALSAS_CONFIG,
   AÑADIR_PRECIO_DELIVERY,
+  AÑADIR_COORDENADAS_DELIVERY,
 } from "../../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case AÑADIR_COORDENADAS_DELIVERY:
+      return {
+        ...state,
+        deliveryCoordinates: action.payload,
+      };
+
     case AÑADIR_PRECIO_DELIVERY:
       return {
         ...state,
