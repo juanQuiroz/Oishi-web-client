@@ -8,8 +8,12 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import MapComponent from "../map/MapComponent";
 import RealizarPago from "./RealizarPago";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 const FinalizarPedido = () => {
+  const router = useRouter();
+
   const [dataPedido, setDataPedido] = React.useState(null);
 
   const [horarioLaboral, setHorarioLaboral] = React.useState(false);
@@ -174,7 +178,7 @@ const FinalizarPedido = () => {
       if (efectivo) {
         try {
           const res = await axios.post(
-            "http://localhost:4000/crearpedido",
+            "https://weboishibackend.com/crearpedido",
             {
               local_id: localSeleccionado,
               to_payment_proof: values.paraComprobanteDePago,
@@ -204,6 +208,10 @@ const FinalizarPedido = () => {
                 Accept: "application/json",
               },
             }
+          );
+          console.log(
+            "🚀 ~ file: FinalizarPedido.js ~ line 208 ~ onSubmit: ~ res",
+            res
           );
           // SWALHERE
           Swal.fire({
@@ -236,54 +244,18 @@ const FinalizarPedido = () => {
           });
 
           vaciarCesta();
-          router.push("/carta");
+          resetForm();
+          router.push("/cartaOishi");
         } catch (e) {
           console.log(e);
         }
       }
-
-      //
-
-      // try {
-      //   const res = await axios.post(
-      //     "http://localhost:4000/weboishi/nuevopedido",
-      //     {
-      //       local_id: localSeleccionado,
-      //       dni_ruc: values.dni_ruc,
-      //       nombre_razon_social: values.nombre_razon_social,
-      //       // dedicatoria: values.dedicatoria,
-      //       metodo_entrega_id: values.metEntrega,
-      //       direccion_entrega: values.direccion_entrega,
-      //       referencia: values.referencia,
-      //       metodo_pago_id: values.metodoPago,
-      //       cantidad_efectivo: values.cantidad_efectivo,
-      //       comprobante_pago_id: values.tipoComprobante,
-      //       telefono: values.telefono,
-      //       persona_asignada: values.recoge_pedido,
-      //       presentaciones_productos: pedidoPresentaciones,
-      //       presentaciones_combos: pedidocombosSeleccionados,
-      //       ofertas: pedidofertasSeleccionada,
-      //       paraComprobantePago: values.paraComprobanteDePago,
-      //     },
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Accept: "application/json",
-      //       },
-      //     },
-      //   );
-      //   console.log("Push Res: ", res);
-      // } catch (e) {
-      //   console.log(e);
-      // }
-
-      resetForm();
     },
   });
 
   return (
     <>
-      {dataPedido && !efectivo ? (
+      {dataPedido && efectivo === false ? (
         <RealizarPago
           dataPedido={dataPedido}
           entregaDelivery={entregaDelivery}
