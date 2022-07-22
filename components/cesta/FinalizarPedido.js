@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Subtitulo from "../ui/Subtitulo";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -64,6 +64,7 @@ const FinalizarPedido = () => {
 
   const formik = useFormik({
     initialValues: {
+      isCash: true,
       dedication: "",
       total_price: totalPedidos,
       customer_name: "",
@@ -80,6 +81,8 @@ const FinalizarPedido = () => {
       // dedicatoria: "", // De momento cremas y salsas
     },
     validationSchema: Yup.object({
+      isCash: Yup.boolean(),
+
       customer_name: Yup.string().required("Nombre obligatorio"),
       dni_ruc: Yup.number()
         .integer("Ingrese solo numeros")
@@ -103,11 +106,16 @@ const FinalizarPedido = () => {
       // metodoPago: Yup.string().required("Metodo de pago obligatorio"),
       cash: Yup.number()
         .typeError("Ingrese solo numeros")
-        .when("efectivo", {
-          is: true,
+        .when("metodoPago", {
+          is: "2",
           then: Yup.number()
             .typeError("Ingrese solo numeros")
-            .required("Cantidad de efectivo obligatorio"),
+            .required("Cantidad de efectivo obligatorio")
+            .positive("Monto positivo")
+            .min(
+              Number(deliveryPrice) + Number(totalPedidos),
+              "Necesitas mas dinero"
+            ),
         }),
       // dedicatoria: Yup.string().required("Campo obligatorio"),
     }),
@@ -209,10 +217,7 @@ const FinalizarPedido = () => {
               },
             }
           );
-          console.log(
-            "🚀 ~ file: FinalizarPedido.js ~ line 208 ~ onSubmit: ~ res",
-            res
-          );
+
           // SWALHERE
           Swal.fire({
             title: "Pedido realizado",
@@ -491,32 +496,35 @@ const FinalizarPedido = () => {
                     </div>
                     <div className="bg-blueGray-200 p-2 rounded-lg mb-2">
                       <p className="text-black text-md">Método de pago</p>
+                      <p className="text-red-500 text-cl ">
+                        metodoPago: {formik.values.metodoPago}
+                      </p>
                       <div className="mt-2">
                         <label className="inline-flex items-center">
                           <input
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.metodoPago}
+                            // value={formik.values.metodoPago}
                             type="radio"
                             className="form-radio"
                             name="metodoPago"
-                            // value="1"
+                            value="1"
                             onClick={() => {
                               setEfectivo(false);
                               setMetodoDePago(1);
                             }}
                           />
-                          <span className="ml-2">POS</span>
+                          <span className="ml-2">Pago en linea</span>
                         </label>
                         <label className="inline-flex items-center ml-6">
                           <input
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.metodoPago}
+                            // value={formik.values.metodoPago}
                             type="radio"
                             className="form-radio"
                             name="metodoPago"
-                            // value="2"
+                            value="2"
                             onClick={() => {
                               setEfectivo(true);
                               setMetodoDePago(2);
@@ -525,6 +533,7 @@ const FinalizarPedido = () => {
                           <span className="ml-2">Efectivo</span>
                         </label>
                       </div>
+
                       {efectivo ? (
                         <div className="bg-blueGray-300 p-2 rounded-lg shadow mt-1">
                           <p className="text-black text-sm ">paga con:</p>
@@ -534,6 +543,8 @@ const FinalizarPedido = () => {
                             value={formik.values.cash}
                             className="w-full bg-blueGray-50 rounded-lg px-1"
                             type="number"
+                            min="0"
+                            onkeyUp="if(this.value<0){this.value= this.value * -1}"
                             placeholder="S/ Monto con el que paga"
                             name="cash"
                           />{" "}
@@ -542,6 +553,13 @@ const FinalizarPedido = () => {
                               *{formik.errors.cash}
                             </p>
                           ) : null}
+                          {/* {formik.values.cash &&
+                            formik.values.cash <
+                              Number(deliveryPrice) + Number(totalPedidos) && (
+                              <p className="mt-0 mb-4 text-red-500">
+                                Monto insuficiente
+                              </p>
+                            )} */}
                         </div>
                       ) : null}
                     </div>
